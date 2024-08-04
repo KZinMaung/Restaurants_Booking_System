@@ -1,3 +1,6 @@
+using Data.Model;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,16 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+//Db
+string connectionString = builder.Configuration["ConnectionStrings:BookingSystem:SqlDb"];
+var contextOptions = new DbContextOptionsBuilder<BookingSystemDbContext>()
+             .UseSqlServer(connectionString)
+             .Options;
+
+builder.Services.AddScoped(s => new BookingSystemDbContext(contextOptions));
+
 
 var app = builder.Build();
 
