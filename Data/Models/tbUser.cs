@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Data.Models
 {
     [Table("tbUser")]
-    public class tbUser
+    public class tbUser 
     {
         [Key]
         public int Id { get; set; }

@@ -21,7 +21,6 @@ namespace Data.Model
             
         }
         
-
         public virtual DbSet<tbBooking> tbBooking { get; set; }
         public virtual DbSet<tbMenu> tbMenu { get; set; }
         public virtual DbSet<tbRatingAndReview> tbRatingAndReview { get; set; }
