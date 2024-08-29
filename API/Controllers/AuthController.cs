@@ -1,12 +1,12 @@
 ﻿using API.Services.Auth;
-using Data.Dtos;
+using Data.Dtos.Auth;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    
+
     [ApiController]
     public class AuthController : ControllerBase
     {

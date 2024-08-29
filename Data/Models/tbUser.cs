@@ -30,6 +30,11 @@ namespace Data.Models
         [Required]
         [StringLength(250)]
         public string Role { get; set; } = Roles.User;
+
+        public string? Photo { get; set; }
+
+        [NotMapped]
+        public string? PhotoString {  get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public DateTime? Accesstime { get; set; }

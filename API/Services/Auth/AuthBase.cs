@@ -1,4 +1,4 @@
-﻿using Data.Dtos;
+﻿using Data.Dtos.Auth;
 using Data.Model;
 using Data.Models;
 using Infra.UnitOfWork;

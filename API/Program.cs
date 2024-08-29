@@ -1,5 +1,7 @@
 using API.Services.Auth;
+using API.Services.User;
 using Data.Model;
+using Infra.BlobStorage;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -52,6 +54,14 @@ var contextOptions = new DbContextOptionsBuilder<BookingSystemDbContext>()
 builder.Services.AddScoped(s => new BookingSystemDbContext(contextOptions));
 builder.Services.AddScoped<IAuth>(s => new AuthBase(
            s.GetService<BookingSystemDbContext>(),
+           configuration
+           ));
+
+builder.Services.AddSingleton<IAzureBlobStorage, AzureBlobStorage>();
+
+builder.Services.AddScoped<IUser>(s => new UserBase(
+           s.GetService<BookingSystemDbContext>(),
+           s.GetService<IAzureBlobStorage>(),
            configuration
            ));
 
