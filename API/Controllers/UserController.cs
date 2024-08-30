@@ -53,7 +53,12 @@ namespace API.Controllers
             return Ok(result);
         }
 
-       
+        [HttpPost("api/user/book_restaurant")]
+        public async Task<IActionResult> BookRestaurant([FromBody] tbBooking request)
+        {
+            var result = await this._iuser.BookRestaurant(request);
+            return Ok(result);
+        }
 
     }
 }

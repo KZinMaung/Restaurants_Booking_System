@@ -11,4 +11,15 @@ namespace Data.Constants
         public const string User = "user";
         public const string Owner = "owner";
     }
+
+    public static class BookingStatus
+    {
+        public const string Booked = "booked";
+    }
+
+    public static class ResponseStatus
+    {
+        public const string Success = "success";
+        public const string Fail = "fail";
+    }
 }

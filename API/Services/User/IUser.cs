@@ -9,6 +9,7 @@ namespace API.Services.User
         Task<tbUser> GetById(int id);
         Task<tbUser> EditProfile(EditProfileRequest request);
         Task<bool> ChangePassword(ChangePasswordRequest request);
+        Task<string> BookRestaurant(tbBooking booking);
 
     }
 }

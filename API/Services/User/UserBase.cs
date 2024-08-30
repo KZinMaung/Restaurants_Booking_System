@@ -5,6 +5,7 @@ using Data.Models;
 using Data.Model;
 using Infra.BlobStorage;
 using Data.Dtos.User;
+using Data.Constants;
 
 namespace API.Services.User
 {
@@ -85,5 +86,36 @@ namespace API.Services.User
             return BCrypt.Net.BCrypt.HashPassword(password);
         }
 
+
+        //Remains : to check and control duplication
+        public async Task<string> BookRestaurant(tbBooking booking)
+        {
+            
+            booking.Accesstime = MyExtension.GetLocalTime();
+            booking.CreatedAt = MyExtension.GetLocalTime();
+            booking.Status = BookingStatus.Booked;
+            tbBooking result = await _uow.bookingRepo.InsertReturnAsync(booking);
+
+
+            foreach(var item in booking.TableIds)
+            {
+                tbBookingTable bookingTable = new tbBookingTable();
+                bookingTable.BookingId = result.Id;
+                bookingTable.TableId = item;
+                bookingTable.Accesstime = MyExtension.GetLocalTime();
+                bookingTable.CreatedAt = MyExtension.GetLocalTime();
+                tbBookingTable entity=await _uow.bookingTableRepo.InsertReturnAsync(bookingTable);
+                if(entity == null)
+                {
+                    //rollback => delete booking record 
+                    return ResponseStatus.Fail; 
+                   
+                }
+
+            }
+
+            return result != null ? ResponseStatus.Success : ResponseStatus.Fail;
+
+        }
     }
 }

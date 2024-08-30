@@ -16,6 +16,8 @@ namespace Infra.UnitOfWork
     {
         private BookingSystemDbContext _ctx;
         private IRepository<tbUser> _userRepo;
+        private IRepository<tbBooking> _bookingRepo;
+        private IRepository<tbBookingTable> _bookingTableRepo;
         public UnitOfWork(BookingSystemDbContext ctx)
         {
             _ctx = ctx;
@@ -47,6 +49,30 @@ namespace Infra.UnitOfWork
                     _userRepo = new Repository<tbUser>(_ctx);
                 }
                 return _userRepo;
+            }
+        }
+
+        public IRepository<tbBooking> bookingRepo
+        {
+            get
+            {
+                if (_bookingRepo == null)
+                {
+                    _bookingRepo = new Repository<tbBooking>(_ctx);
+                }
+                return _bookingRepo;
+            }
+        }
+
+        public IRepository<tbBookingTable> bookingTableRepo
+        {
+            get
+            {
+                if (_bookingTableRepo == null)
+                {
+                    _bookingTableRepo = new Repository<tbBookingTable>(_ctx);
+                }
+                return _bookingTableRepo;
             }
         }
     }
