@@ -4,46 +4,108 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Web</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Web.styles.css" asp-append-version="true" />
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap">
+
+
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="./assets/css/theme.min.css">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="../assets/vendor/hs-mega-menu/dist/hs-mega-menu.min.css">
+
+    <link href="~/css/custom.css" rel="stylesheet" />
+
+
+    <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Web</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+    <!-- ========== HEADER ========== -->
+    <header id="header" class="navbar navbar-expand-lg navbar-end navbar-light bg-white">
+        <div class="container">
+            <nav class="js-mega-menu navbar-nav-wrap">
+                <!-- Default Logo -->
+                <a class="navbar-brand" href="../index.html" aria-label="Front">
+                    <img class="avatar-img" src="./img/TableTalk Logo.svg" style="width:50px; height: 50px;" alt="Logo">
+                </a>
+                <!-- End Default Logo -->
+                <!-- Toggler -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-default">
+                        <i class="bi-list"></i>
+                    </span>
+                    <span class="navbar-toggler-toggled">
+                        <i class="bi-x"></i>
+                    </span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <!-- End Toggler -->
+                <!-- Collapse -->
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <!-- Landings -->
+                        <li class=" nav-item">
+                            <a id="home" class="nav-link active" href="#" role="button">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <!-- End Landings -->
+                        <!-- Company -->
+                        <li class=" nav-item">
+                            <a id="mybookings" class="nav-link" href="#">My Bookings</a>
                         </li>
+                        <!-- End Company -->
+                        <!-- Button -->
+                        <li class="nav-item">
+                            <a class="btn-transition" href="#" target="_blank">
+                                <span class="avatar avatar-sm avatar-circle">
+                                    <img class="avatar-img" src="../assets/img/160x160/img6.jpg" alt="Image Description">
+                                </span>
+                            </a>
+                        </li>
+                        <!-- End Button -->
                     </ul>
                 </div>
-            </div>
-        </nav>
+                <!-- End Collapse -->
+            </nav>
+        </div>
     </header>
+    <!-- ========== END HEADER ========== -->
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+    <!-- ========== FOOTER ========== -->
+    <footer class="container text-center content-space-1">
+        <!-- Logo -->
+        <a class="d-inline-flex align-items-center mb-2" href="index.html" aria-label="Front">
+            <img class="brand" src="../assets/svg/logos/logo.svg" alt="Logo">
+        </a>
+        <!-- End Logo -->
+
+        <p class="small text-muted mb-0">2021 © Htmlstream. All rights reserved.</p>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- ========== END FOOTER ========== -->
+    <!-- JS Global Compulsory -->
+    <script src="./assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JS Implementing Plugins -->
+    <script src="../assets/vendor/hs-mega-menu/dist/hs-mega-menu.min.js"></script>
+
+
+    <!-- JS Plugins Init. -->
+    <script>
+        (function () {
+            // INITIALIZATION OF MEGA MENU
+            // =======================================================
+            new HSMegaMenu('.js-mega-menu', {
+                desktop: {
+                    position: 'left'
+                }
+            })
+        })()
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

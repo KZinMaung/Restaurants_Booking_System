@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Cryptography.X509Certificates;
 using Web.Models;
 
 namespace Web.Controllers
@@ -12,6 +13,7 @@ namespace Web.Controllers
         {
             _logger = logger;
         }
+
 
         public IActionResult Index()
         {
@@ -27,6 +29,15 @@ namespace Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+    }
+
+    public class DetailsController : Controller
+    {
+        private readonly ILogger<DetailsController> _logger;
+        public DetailsController(ILogger<DetailsController> logger)
+        {
+            _logger = logger;
         }
     }
 }

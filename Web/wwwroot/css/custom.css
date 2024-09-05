@@ -1,0 +1,25 @@
+﻿
+
+.active{
+    font-weight: bold;
+}
+
+.background-img{
+    background-image: url(../img/search_background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: .5rem;
+}
+
+
+.cover-img{
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: auto;
+}
+
+
+.pointer{
+    cursor: pointer;
+}
