@@ -28,7 +28,7 @@ namespace Data.Model
         public virtual DbSet<tbRestaurantSchedule> tbRestaurantAndSchedule { get; set; }
         public virtual DbSet<tbTable> tbTable { get; set; }
         public virtual DbSet<tbUser> tbUser { get; set; }
-
+        public virtual DbSet<tbBookingTable> tbBookingTable { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
         

@@ -24,25 +24,28 @@ namespace Data.Models
         public DateTime BookingDate { get; set; }
 
         [Required]
-        public int ScheduleId { get; set; }
+        public int RestaurantScheduleId { get; set; }
 
-        [Required]
-        public string TableIds { get; set; } 
 
         [Required]
         public int NumberOfPeople { get; set; }
 
-        public string Status { get; set; } 
+        public string? Status { get; set; } 
+
+        public string UserName { get; set; }
+
+        public string UserEmail { get; set; }
+
+        public string UserPhone { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now; 
 
         public DateTime? Accesstime { get; set; } 
 
-        public bool IsDeleted { get; set; } = false; 
+        public bool IsDeleted { get; set; } = false;
 
-        // Navigation properties
-        public virtual tbRestaurant Restaurant { get; set; }
-
-        public virtual tbUser User { get; set; } 
+        [NotMapped]
+        public List<int> TableIds { get; set; } = new List<int>();
+        
     }
 }

@@ -1,6 +1,4 @@
-﻿
-
-using Data.Dtos;
+﻿using Data.Dtos.Auth;
 
 namespace API.Services.Auth
 {
