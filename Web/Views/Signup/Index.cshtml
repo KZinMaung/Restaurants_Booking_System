@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Signup Page";
+}
+
+<div class="row justify-content-center">
+    <div class="col-12 col-md-5 custom-container border">
+        <div class="w-100">
+            <img class="w-100 img-fluid" src="~/img/logo image.png" />
+        </div>
+        
+        <h2 class="my-5">Welcome to TableTalk!S</h2>
+        <form>
+            <!-- Input Group -->
+            <div class="mb-3">
+                <label for="inputGroupMergeFullName" class="form-label">Full name</label>
+
+                <div class="input-group input-group-merge">
+                    <div class="input-group-prepend input-group-text" id="name">
+                        <i class="bi bi-person"></i>
+                    </div>
+                    <input type="text" class="form-control" id="name" placeholder="Mark Williams" required>
+                </div>
+            </div>
+            <!-- End Input Group -->
+            <!-- Input Group -->
+            <div class="mb-3">
+                <label for="inputGroupMergeEmail" class="form-label">Email</label>
+
+                <div class="input-group input-group-merge">
+                    <div class="input-group-prepend input-group-text" id="email">
+                        <i class="bi-envelope-open"></i>
+                    </div>
+                    <input type="text" class="form-control" id="email" placeholder="mark@example.com" required>
+                </div>
+            </div>
+            <!-- End Input Group -->
+            <!-- Input Group -->
+            <div class="mb-3">
+                <label for="inputGroupMergeEmail" class="form-label">Phone</label>
+
+                <div class="input-group input-group-merge">
+                    <div class="input-group-prepend input-group-text" id="phone">
+                        <i class="bi-phone"></i>
+                    </div>
+                    <input type="text" class="form-control" id="phone" placeholder="09***" required>
+                </div>
+            </div>
+            <!-- End Input Group -->
+            <!-- Input Group -->
+            <div class="mb-3">
+                <label for="inputGroupMergeEmail" class="form-label">Password</label>
+
+                <div class="input-group input-group-merge">
+                    <div class="input-group-prepend input-group-text" id="password">
+                        <i class="bi-lock"></i>
+                    </div>
+                    <input type="password" class="form-control" id="password" placeholder="***" required>
+                </div>
+            </div>
+            <!-- End Input Group -->
+            <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-primary btn-lg">Sign up</button>
+            </div>
+
+            <div class="text-center">
+                <p>Already has an account? <a class="link" href="../page-signup-simple.html">Login here</a></p>
+            </div>
+
+            <div class="d-grid mb-3">
+                <button type="button" class="btn btn-outline-secondary">Create as an owner</button>
+            </div>
+            <div class="d-grid mb-3">
+                <button type="button" class="btn btn-outline-secondary">Already owner</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -93,6 +93,8 @@
     <script src="../assets/vendor/hs-mega-menu/dist/hs-mega-menu.min.js"></script>
 
 
+    <script src="./assets/vendor/hs-file-attach/dist/hs-file-attach.min.js"></script>
+
     <!-- JS Plugins Init. -->
     <script>
         (function () {
@@ -104,6 +106,14 @@
                 }
             })
         })()
+    </script>
+
+    <script>
+        (function () {
+            // INITIALIZATION OF FILE ATTACH
+            // =======================================================
+            new HSFileAttach('.js-file-attach')
+        });
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)

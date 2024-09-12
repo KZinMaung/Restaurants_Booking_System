@@ -23,3 +23,8 @@
 .pointer{
     cursor: pointer;
 }
+
+.custom-container{
+    padding: 1rem;
+    border-radius: 1rem;
+}

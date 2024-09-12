@@ -1,0 +1,185 @@
+﻿@{
+    ViewData["Title"] = "Restaurant Register Page";
+}
+
+<div class="row justify-content-center">
+    <div class="col-12 col-md-5 custom-container border">
+        <div class="w-100">
+            <img class="w-100 img-fluid" src="~/img/logo image.png" />
+        </div>
+
+        <h2 class="my-5">Welcome to TableTalk!</h2>
+        <form>
+            <div id="step1" style="display: block;">
+            
+                    <!-- input group -->
+                    <div class="mb-3">
+                        <label for="inputgroupmergefullname" class="form-label">Restaurant Name</label>
+
+                        <div class="input-group input-group-merge">
+                            <div class="input-group-prepend input-group-text" id="name">
+                                <i class="bi bi-person"></i>
+                            </div>
+                            <input type="text" class="form-control" id="name" placeholder="Name" required>
+                        </div>
+                    </div>
+                    <!-- end input group -->
+                    <!-- input group -->
+                    <div class="mb-3">
+                        <label for="inputgroupmergeemail" class="form-label">Email</label>
+
+                        <div class="input-group input-group-merge">
+                            <div class="input-group-prepend input-group-text" id="email">
+                                <i class="bi-envelope-open"></i>
+                            </div>
+                            <input type="text" class="form-control" id="email" placeholder="mark@example.com" required>
+                        </div>
+                    </div>
+                    <!-- end input group -->
+                    <!-- input group -->
+                    <div class="mb-3">
+                        <label for="inputgroupmergeemail" class="form-label">Phone</label>
+
+                        <div class="input-group input-group-merge">
+                            <div class="input-group-prepend input-group-text" id="phone">
+                                <i class="bi-phone"></i>
+                            </div>
+                            <input type="text" class="form-control" id="phone" placeholder="09***" required>
+                        </div>
+                    </div>
+                    <!-- end input group -->
+                    <!-- input group -->
+                    <div class="mb-3">
+                        <label for="inputgroupmergeemail" class="form-label">Password</label>
+
+                        <div class="input-group input-group-merge">
+                            <div class="input-group-prepend input-group-text" id="password">
+                                <i class="bi-lock"></i>
+                            </div>
+                            <input type="password" class="form-control" id="password" placeholder="***" required>
+                        </div>
+                    </div>
+                    <!-- end input group -->
+                    <div class="d-grid mb-3">
+                        <button type="button" class="btn btn-primary btn-lg" onclick="showStep(2)">Next</button>
+                    </div>
+
+           
+            </div>
+
+            <div id="step2" style="display: none;">
+                <div id="step1" style="display: block;">
+                    <div class="mb-3">
+                        <label class="form-label" for="exampleFormControlInput1">Cover Photo</label>
+                        <input type="file" id="exampleFormControlInput1" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="exampleFormControlInput1">Profile Photo</label>
+                        <input type="file" id="exampleFormControlInput1" class="form-control" required>
+                    </div>
+                    <!-- input group -->
+                    <div class="mb-3">
+                        <label for="inputgroupmergefullname" class="form-label">restaurant name</label>
+
+                        <div class="input-group input-group-merge">
+                            <div class="input-group-prepend input-group-text" id="name">
+                                <i class="bi bi-person"></i>
+                            </div>
+                            <input type="text" class="form-control" id="name" placeholder="name" required>
+                        </div>
+                    </div>
+                    <!-- end input group -->
+                    <!-- input group -->
+                    <div class="mb-3">
+                        <label for="inputgroupmergeemail" class="form-label">Address</label>
+
+                        <div class="input-group input-group-merge">
+                            <div class="input-group-prepend input-group-text" id="address">
+                                <i class="bi-envelope-open"></i>
+                            </div>
+                            <input type="text" class="form-control" id="email" placeholder="address" required>
+                        </div>
+                    </div>
+                    <!-- end input group -->
+                    <!-- input group -->
+                    <div class="mb-3">
+                        <label for="inputgroupmergeemail" class="form-label">Time</label>
+                        <div class="d-flex">
+                            <div class="input-group input-group-merge me-2">
+                                <div class="input-group-prepend input-group-text" id="phone">
+                                    <i class="bi-phone"></i>
+                                </div>
+                                <input type="text" class="form-control" id="phone" placeholder="09***" required>
+                            </div>
+                            <div class="input-group input-group-merge">
+                                <div class="input-group-prepend input-group-text" id="phone">
+                                    <i class="bi-phone"></i>
+                                </div>
+                                <input type="text" class="form-control" id="phone" placeholder="09***" required>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <!-- end input group -->
+                    <!-- input group -->
+                    <div class="mb-3">
+                        <label for="inputgroupmergeemail" class="form-label">Number of seats</label>
+
+                        <div class="input-group input-group-merge">
+                            <div class="input-group-prepend input-group-text" id="seats">
+                                <i class="bi-lock"></i>
+                            </div>
+                            <input type="number" class="form-control" id="seats" placeholder="00" required>
+                        </div>
+                    </div>
+                    <!-- end input group -->
+                    <!-- input group -->
+                    <div class="mb-3">
+                        <label for="inputgroupmergeemail" class="form-label">Quote(Optional)</label>
+
+                        <div class="input-group input-group-merge">
+                            <div class="input-group-prepend input-group-text" id="quote">
+                                <i class="bi-lock"></i>
+                            </div>
+                            <input type="text" class="form-control" id="quote" placeholder="Restaurant's Quote'" required>
+                        </div>
+                    </div>
+                    <!-- end input group -->
+                    <div class="mb-3">
+                        <label class="form-label" for="about">About</label>
+                        <textarea id="about" class="form-control" placeholder="Write about the restaurant" rows="4"></textarea>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <button type="button" class="btn btn-outlined btn-lg" onclick="showStep(1)">Back</button>
+                        <div class="ms-auto">
+                            <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                        </div>
+                        
+                    </div>
+
+                </div>
+
+            </div> 
+         </form>
+    </div>
+</div>
+
+
+
+
+@section scripts {
+
+
+    <script type="text/javascript">
+        function showStep(step) {
+            // Hide both steps initially
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'none';
+
+            // Show the selected step based on the step number
+            document.getElementById('step' + step).style.display = 'block';
+        }
+    </script>
+
+}
