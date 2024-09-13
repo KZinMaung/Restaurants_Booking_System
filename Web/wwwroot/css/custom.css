@@ -28,3 +28,7 @@
     padding: 1rem;
     border-radius: 1rem;
 }
+
+tr td,th{
+    line-height: 40px !important;
+}
