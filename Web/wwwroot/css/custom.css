@@ -32,3 +32,18 @@
 tr td,th{
     line-height: 40px !important;
 }
+
+.restaurant-photo {
+    width: 200px;
+    height: auto;
+    border-radius: 1rem;
+}
+
+    .restaurant-photo img {
+        width: 100%;
+        height: auto;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        border-radius: .5rem;
+    }

@@ -50,12 +50,12 @@
                         <!-- End Landings -->
                         <!-- Company -->
                         <li class=" nav-item">
-                            <a id="mybookings" class="nav-link" href="#">My Bookings</a>
+                            <a id="mybookings" class="nav-link" href="/MyBookings">My Bookings</a>
                         </li>
                         <!-- End Company -->
                         <!-- Button -->
-                        <li class="nav-item">
-                            <a class="btn-transition" href="#" target="_blank">
+                        <li class="nav-item" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight">
+                            <a class="btn-transition" href="#">
                                 <span class="avatar avatar-sm avatar-circle">
                                     <img class="avatar-img" src="../assets/img/160x160/img6.jpg" alt="Image Description">
                                 </span>
@@ -68,8 +68,72 @@
             </nav>
         </div>
     </header>
+
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <h5 id="offcanvasRightLabel">Profile</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <form>
+                <!-- Input Group -->
+                <div class="mb-3">
+                    <label for="inputGroupMergeFullName" class="form-label">Full name</label>
+
+                    <div class="input-group input-group-merge">
+                        <div class="input-group-prepend input-group-text" id="name">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <input type="text" class="form-control" id="name" placeholder="Mark Williams" required>
+                    </div>
+                </div>
+                <!-- End Input Group -->
+                <!-- Input Group -->
+                <div class="mb-3">
+                    <label for="inputGroupMergeEmail" class="form-label">Email</label>
+
+                    <div class="input-group input-group-merge">
+                        <div class="input-group-prepend input-group-text" id="email">
+                            <i class="bi-envelope-open"></i>
+                        </div>
+                        <input type="text" class="form-control" id="email" placeholder="mark@example.com" required>
+                    </div>
+                </div>
+                <!-- End Input Group -->
+                <!-- Input Group -->
+                <div class="mb-3">
+                    <label for="inputGroupMergeEmail" class="form-label">Phone</label>
+
+                    <div class="input-group input-group-merge">
+                        <div class="input-group-prepend input-group-text" id="phone">
+                            <i class="bi-phone"></i>
+                        </div>
+                        <input type="text" class="form-control" id="phone" placeholder="09***" required>
+                    </div>
+                </div>
+                <!-- End Input Group -->
+                <!-- Input Group -->
+                <div class="mb-3">
+                    <label for="inputGroupMergeEmail" class="form-label">Password</label>
+
+                    <div class="input-group input-group-merge">
+                        <div class="input-group-prepend input-group-text" id="password">
+                            <i class="bi-lock"></i>
+                        </div>
+                        <input type="password" class="form-control" id="password" placeholder="***" required>
+                    </div>
+                </div>
+                <!-- End Input Group -->
+                <div class="d-grid mb-3">
+                    <button type="submit" class="btn btn-primary btn-lg">Save</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
     <!-- ========== END HEADER ========== -->
-    <div class="container">
+    <div class="container" style="min-height: 75vh;">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
