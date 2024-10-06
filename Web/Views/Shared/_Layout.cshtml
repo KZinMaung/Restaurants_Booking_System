@@ -69,13 +69,13 @@
         </div>
     </header>
 
-
+    <!-- Profile Offcanvas -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
-            <h5 id="offcanvasRightLabel">Profile</h5>
+            <h3 id="offcanvasRightLabel mb-0">Profile</h3>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body">
+        <div class="offcanvas-body d-flex flex-column justify-content-between">
             <form>
                 <!-- Input Group -->
                 <div class="mb-3">
@@ -126,12 +126,20 @@
                 </div>
                 <!-- End Input Group -->
                 <div class="d-grid mb-3">
-                    <button type="submit" class="btn btn-primary btn-lg">Save</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
 
             </form>
+            <div class="d-flex border">
+                <button type="button" class="btn btn-outline-danger btn-sm w-100">Logout</button>
+            </div>
         </div>
     </div>
+
+    <!-- Profile Offcanvas -->
+
+
+
     <!-- ========== END HEADER ========== -->
     <div class="container" style="min-height: 75vh;">
         <main role="main" class="pb-3">

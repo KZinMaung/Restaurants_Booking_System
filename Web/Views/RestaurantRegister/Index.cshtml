@@ -9,7 +9,7 @@
         </div>
 
         <h2 class="my-5">Welcome to TableTalk!</h2>
-        <form>
+        <form action="">
             <div id="step1" style="display: block;">
             
                     <!-- input group -->
@@ -64,7 +64,9 @@
                         <button type="button" class="btn btn-primary btn-lg" onclick="showStep(2)">Next</button>
                     </div>
 
-           
+                    <div class="text-start">
+                        <span>Are you already have an account?<a class="btn btn-link btn-sm" href="/Signup">Login</a></span>
+                    </div>
             </div>
 
             <div id="step2" style="display: none;">
@@ -78,18 +80,7 @@
                         <label class="form-label" for="exampleFormControlInput1">Profile Photo</label>
                         <input type="file" id="exampleFormControlInput1" class="form-control" required>
                     </div>
-                    <!-- input group -->
-                    <div class="mb-3">
-                        <label for="inputgroupmergefullname" class="form-label">restaurant name</label>
-
-                        <div class="input-group input-group-merge">
-                            <div class="input-group-prepend input-group-text" id="name">
-                                <i class="bi bi-person"></i>
-                            </div>
-                            <input type="text" class="form-control" id="name" placeholder="name" required>
-                        </div>
-                    </div>
-                    <!-- end input group -->
+                   
                     <!-- input group -->
                     <div class="mb-3">
                         <label for="inputgroupmergeemail" class="form-label">Address</label>
@@ -98,7 +89,7 @@
                             <div class="input-group-prepend input-group-text" id="address">
                                 <i class="bi-envelope-open"></i>
                             </div>
-                            <input type="text" class="form-control" id="email" placeholder="address" required>
+                            <input type="text" class="form-control" id="email" placeholder="Address" required>
                         </div>
                     </div>
                     <!-- end input group -->
@@ -108,18 +99,30 @@
                         <div class="d-flex">
                             <div class="input-group input-group-merge me-2">
                                 <div class="input-group-prepend input-group-text" id="phone">
-                                    <i class="bi-phone"></i>
+                                    <i class="bi-clock"></i>
                                 </div>
-                                <input type="text" class="form-control" id="phone" placeholder="09***" required>
+                                <input type="time" class="form-control" id="openTime" placeholder="Open at" required>
                             </div>
                             <div class="input-group input-group-merge">
                                 <div class="input-group-prepend input-group-text" id="phone">
-                                    <i class="bi-phone"></i>
+                                    <i class="bi-clock"></i>
                                 </div>
-                                <input type="text" class="form-control" id="phone" placeholder="09***" required>
+                                <input type="time" class="form-control" id="closeTime" placeholder="Close at" required>
                             </div>
                         </div>
                         
+                    </div>
+                    <!-- end input group -->
+                    <!-- input group -->
+                    <div class="mb-3">
+                        <label for="inputgroupmergefullname" class="form-label">Total Tables</label>
+
+                        <div class="input-group input-group-merge">
+                            <div class="input-group-prepend input-group-text" id="tables">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m6.5 18.725l1-2.475q.225-.575.725-.913T9.35 15H11v-4.025Q7.175 10.85 4.587 9.85T2 7.5q0-1.45 2.925-2.475T12 4q4.175 0 7.088 1.025T22 7.5q0 1.35-2.588 2.35T13 10.975V15h1.65q.6 0 1.113.338t.737.912l1 2.475q.2.45-.088.863t-.787.412q-.275 0-.5-.15t-.35-.425L14.8 17H9.2l-.975 2.425q-.125.275-.35.425t-.5.15q-.5 0-.787-.413t-.088-.862M12 9q2.425 0 4.575-.425t3.15-1.075q-1-.65-3.15-1.075T12 6t-4.575.425T4.275 7.5q1 .65 3.15 1.075T12 9m0-1.5" /></svg>
+                            </div>
+                            <input type="number" class="form-control" id="tables" placeholder="Table Count" required>
+                        </div>
                     </div>
                     <!-- end input group -->
                     <!-- input group -->
@@ -128,9 +131,9 @@
 
                         <div class="input-group input-group-merge">
                             <div class="input-group-prepend input-group-text" id="seats">
-                                <i class="bi-lock"></i>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.425 0-.712-.288T4 20v-3q0-.825.588-1.412T6 15h12q.825 0 1.413.588T20 17v3q0 .425-.288.713T19 21t-.712-.288T18 20v-3H6v3q0 .425-.288.713T5 21m-.5-7q-.625 0-1.062-.437T3 12.5t.438-1.062T4.5 11t1.063.438T6 12.5t-.437 1.063T4.5 14M7 14V5q0-.825.588-1.412T9 3h6q.825 0 1.413.588T17 5v9zm12.5 0q-.625 0-1.062-.437T18 12.5t.438-1.062T19.5 11t1.063.438T21 12.5t-.437 1.063T19.5 14M9 12h6V5H9zm0 0h6z" /></svg>
                             </div>
-                            <input type="number" class="form-control" id="seats" placeholder="00" required>
+                            <input type="number" class="form-control" id="seats" placeholder="Number of person per table" required>
                         </div>
                     </div>
                     <!-- end input group -->
@@ -157,7 +160,9 @@
                         </div>
                         
                     </div>
-
+                    <div class="text-start">
+                        <span>Are you already have an account? <a class="btn btn-link btn-sm" href="/Signup">Login</a></span>
+                    </div>
                 </div>
 
             </div> 
