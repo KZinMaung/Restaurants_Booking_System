@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Login Page";
+}
+
+<div class="row justify-content-center">
+    <div class="col-12 col-md-5 custom-container border">
+        <div class="w-100">
+            <img class="w-100 img-fluid" src="~/img/logo image.png" />
+        </div>
+
+        <h2 class="my-5">Welcome to TableTalk!</h2>
+        <form>
+            <!-- Input Group -->
+            <div class="mb-3">
+                <label for="inputGroupMergeEmail" class="form-label">Email</label>
+
+                <div class="input-group input-group-merge">
+                    <div class="input-group-prepend input-group-text" id="email">
+                        <i class="bi-envelope-open"></i>
+                    </div>
+                    <input type="text" class="form-control" id="email" placeholder="mark@example.com" required>
+                </div>
+            </div>
+            <!-- End Input Group -->
+            <!-- Input Group -->
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+
+                <div class="input-group input-group-merge">
+                    <div class="input-group-prepend input-group-text" id="password">
+                        <i class="bi-lock"></i>
+                    </div>
+                    <input type="password" class="form-control" id="password" placeholder="***" required>
+                </div>
+            </div>
+            <!-- End Input Group -->
+            <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-primary btn-lg">Login</button>
+            </div>
+        </form>
+
+        <div class="text-center">
+            <p>Don't have an account? <a class="link" href="">Signup here</a></p>
+        </div>
+
+    </div>
+</div>

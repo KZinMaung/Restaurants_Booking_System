@@ -1,0 +1,49 @@
+﻿
+
+.active{
+    font-weight: bold;
+}
+
+.background-img{
+    background-image: url(../img/search_background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: .5rem;
+}
+
+
+.cover-img{
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: auto;
+}
+
+
+.pointer{
+    cursor: pointer;
+}
+
+.custom-container{
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+tr td,th{
+    line-height: 40px !important;
+}
+
+.restaurant-photo {
+    width: 200px;
+    height: auto;
+    border-radius: 1rem;
+}
+
+    .restaurant-photo img {
+        width: 100%;
+        height: auto;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        border-radius: .5rem;
+    }

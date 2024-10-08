@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Web</title>
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap">
+
+
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="~/assets/css/theme.min.css">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="~/assets/vendor/hs-mega-menu/dist/hs-mega-menu.min.css">
+
+    <link href="~/css/custom.css" rel="stylesheet" />
+
+
+    <link rel="stylesheet" href="~/assets/vendor/bootstrap-icons/font/bootstrap-icons.css">
+</head>
+<body>
+    <!-- ========== HEADER ========== -->
+    <header id="header" class="navbar navbar-expand-lg navbar-end navbar-light bg-white">
+        <div class="container">
+            <nav class="js-mega-menu navbar-nav-wrap">
+                <!-- Default Logo -->
+                <a class="navbar-brand" href="/home" aria-label="Front">
+                    <img class="avatar-img" src="~/img/TableTalk Logo.svg" style="width:50px; height: 50px;" alt="Logo">
+                </a>
+                <!-- End Default Logo -->
+                <!-- Toggler -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-default">
+                        <i class="bi-list"></i>
+                    </span>
+                    <span class="navbar-toggler-toggled">
+                        <i class="bi-x"></i>
+                    </span>
+                </button>
+                <!-- End Toggler -->
+                <!-- Collapse -->
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <!-- Landings -->
+                        @* <li class=" nav-item">
+                        <a id="home" class="nav-link active" href="#" role="button">Home</a>
+                        </li> *@
+                        <!-- End Landings -->
+                        <!-- Company -->
+                        @* <li class=" nav-item">
+                        <a id="mybookings" class="nav-link" href="/MyBookings">My Bookings</a>
+                        </li> *@
+                        <!-- End Company -->
+                        <!-- Button -->
+                        @* <li class="nav-item" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight">
+                        <a class="btn-transition" href="#">
+                        <span class="avatar avatar-sm avatar-circle">
+                        <img class="avatar-img" src="../assets/img/160x160/img6.jpg" alt="Image Description">
+                        </span>
+                        </a>
+                        </li> *@
+                        <li class="nav-item">
+                            <button type="button" class="btn btn-primary btn-sm">Sign Up</button>
+                        </li>
+                        <!-- Dropdown -->
+                        <!-- End Dropdown -->
+                        <!-- End Button -->
+                    </ul>
+                </div>
+                <!-- End Collapse -->
+            </nav>
+        </div>
+    </header>
+
+    <!-- Profile Offcanvas -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <h3 id="offcanvasRightLabel mb-0">Profile</h3>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column justify-content-between">
+            <form>
+                <!-- Input Group -->
+                <div class="mb-3">
+                    <label for="inputGroupMergeFullName" class="form-label">Full name</label>
+
+                    <div class="input-group input-group-merge">
+                        <div class="input-group-prepend input-group-text" id="name">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <input type="text" class="form-control" id="name" placeholder="Mark Williams" required>
+                    </div>
+                </div>
+                <!-- End Input Group -->
+                <!-- Input Group -->
+                <div class="mb-3">
+                    <label for="inputGroupMergeEmail" class="form-label">Email</label>
+
+                    <div class="input-group input-group-merge">
+                        <div class="input-group-prepend input-group-text" id="email">
+                            <i class="bi-envelope-open"></i>
+                        </div>
+                        <input type="text" class="form-control" id="email" placeholder="mark@example.com" required>
+                    </div>
+                </div>
+                <!-- End Input Group -->
+                <!-- Input Group -->
+                <div class="mb-3">
+                    <label for="inputGroupMergeEmail" class="form-label">Phone</label>
+
+                    <div class="input-group input-group-merge">
+                        <div class="input-group-prepend input-group-text" id="phone">
+                            <i class="bi-phone"></i>
+                        </div>
+                        <input type="text" class="form-control" id="phone" placeholder="09***" required>
+                    </div>
+                </div>
+                <!-- End Input Group -->
+                <!-- Input Group -->
+                <div class="mb-3">
+                    <label for="inputGroupMergeEmail" class="form-label">Password</label>
+
+                    <div class="input-group input-group-merge">
+                        <div class="input-group-prepend input-group-text" id="password">
+                            <i class="bi-lock"></i>
+                        </div>
+                        <input type="password" class="form-control" id="password" placeholder="***" required>
+                    </div>
+                </div>
+                <!-- End Input Group -->
+                <div class="d-grid mb-3">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+
+            </form>
+            <div class="d-flex border">
+                <button type="button" class="btn btn-outline-danger btn-sm w-100">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Offcanvas -->
+    <!-- ========== END HEADER ========== -->
+    <div class="container" style="min-height: 75vh;">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="container text-center content-space-1">
+        <!-- Logo -->
+        <a class="d-inline-flex align-items-center mb-2" href="index.html" aria-label="Front">
+            <img class="brand" src="~/img/Logo Horizontal.svg" alt="logo" />
+        </a>
+        <!-- End Logo -->
+
+        <p class="small text-muted mb-0">2021 © Htmlstream. All rights reserved.</p>
+    </footer>
+    <!-- ========== END FOOTER ========== -->
+
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <!-- JS Global Compulsory -->
+    <script src="~/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JS Implementing Plugins -->
+    <script src="~/assets/vendor/hs-mega-menu/dist/hs-mega-menu.min.js"></script>
+
+
+    <script src="~/assets/vendor/hs-file-attach/dist/hs-file-attach.min.js"></script>
+
+    <!-- JS Plugins Init. -->
+    <script>
+        (function () {
+            // INITIALIZATION OF MEGA MENU
+            // =======================================================
+            new HSMegaMenu('.js-mega-menu', {
+                desktop: {
+                    position: 'left'
+                }
+            })
+        })()
+    </script>
+
+    <script>
+        (function () {
+            // INITIALIZATION OF FILE ATTACH
+            // =======================================================
+            new HSFileAttach('.js-file-attach')
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
