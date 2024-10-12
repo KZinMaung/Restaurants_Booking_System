@@ -172,7 +172,6 @@
     <!-- JS Implementing Plugins -->
     <script src="~/assets/vendor/hs-mega-menu/dist/hs-mega-menu.min.js"></script>
 
-
     <script src="~/assets/vendor/hs-file-attach/dist/hs-file-attach.min.js"></script>
 
     <!-- JS Plugins Init. -->
@@ -193,6 +192,14 @@
             // INITIALIZATION OF FILE ATTACH
             // =======================================================
             new HSFileAttach('.js-file-attach')
+        });
+    </script>
+
+    <script>
+        (function () {
+            // INITIALIZATION OF DROPZONE
+            // =======================================================
+            HSCore.components.HSDropzone.init('.js-dropzone')
         });
     </script>
 
