@@ -2,57 +2,57 @@
     ViewData["Title"] = "Restaurant Bookings";
 }
 
-<div>
+<div class="mt-5">
     <h3>Booking List</h3>
-    <div style="height: 70vh;">
+    <div class="mt-3" style="height: 70vh;">
         <!-- Table -->
-        <table class="table">
-            <thead class="thead-light">
+        <table id="example" class="display" style="width:100%">
+            <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Time</th>
-                    <th scope="col">Seat</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Action</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Time</th>
+                    <th>Date</th>
+                    <th>Table</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>24 May 2024</td>
-                    <td>3:00 PM</td>
-                    <td>4</td>
-                    <td>testmail@gmail.com</td>
+                    <td>Tiger Nixon</td>
                     <td>0987654321</td>
-                    <td>
-                        <button type="button" class="btn btn-ghost-primary btn-sm">Finished</button>
-                    </td>
+                    <td>12:00 PM - 1:00 PM</td>
+                    <td>22 Oct 2024</td>
+                    <td>2</td>
+                    <td><button type="button" class="btn btn-xs btn-primary">Finish</button></td>
                 </tr>
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>24 May 2024</td>
-                    <td>3:00 PM</td>
-                    <td>4</td>
-                    <td>testmail@gmail.com</td>
+                    <td>Tiger Nixon</td>
                     <td>0987654321</td>
-                    <td><button type="button" class="btn btn-sm btn-outlined">Arrive</button></td>
+                    <td>12:00 PM - 1:00 PM</td>
+                    <td>22 Oct 2024</td>
+                    <td>2</td>
+                    <td><button type="button" class="btn btn-xs btn-primary">Finish</button></td>
                 </tr>
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>24 May 2024</td>
-                    <td>3:00 PM</td>
-                    <td>4</td>
-                    <td>testmail@gmail.com</td>
+                    <td>Tiger Nixon</td>
                     <td>0987654321</td>
-                    <td><button type="button" class="btn btn-sm btn-outlined">Arrive</button></td>
+                    <td>12:00 PM - 1:00 PM</td>
+                    <td>22 Oct 2024</td>
+                    <td>2</td>
+                    <td><button type="button" class="btn btn-xs btn-primary">Finish</button></td>
                 </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Time</th>
+                    <th>Date</th>
+                    <th>Table</th>
+                    <th>Action</th>
+                </tr>
+            </tfoot>
         </table>
         <!-- End Table -->
     </div>

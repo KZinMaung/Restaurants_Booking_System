@@ -17,8 +17,11 @@
 
     <link href="~/css/custom.css" rel="stylesheet" />
 
-
     <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/font/bootstrap-icons.css">
+
+    <!-- Data Tables Plugins -->
+     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
 </head>
 <body>
     <!-- ========== HEADER ========== -->
@@ -170,10 +173,29 @@
     <!-- JS Implementing Plugins -->
     <script src="../assets/vendor/hs-mega-menu/dist/hs-mega-menu.min.js"></script>
 
-
+    <script src="./assets/vendor/hs-file-attach/dist/hs-file-attach.js"></script>
     <script src="./assets/vendor/hs-file-attach/dist/hs-file-attach.min.js"></script>
 
+    <!-- DataTables Implementing Plugins -->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
     <!-- JS Plugins Init. -->
+
+    <script>
+          $(document).ready(function (){
+              // INITIALIZATION OF FILE ATTACH
+            // =======================================================
+            new HSFileAttach('.js-file-attach')
+          })
+    </script>
+
+     <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+
     <script>
         (function () {
             // INITIALIZATION OF MEGA MENU
@@ -186,14 +208,9 @@
         })()
     </script>
 
-    <script>
-        (function () {
-            // INITIALIZATION OF FILE ATTACH
-            // =======================================================
-            new HSFileAttach('.js-file-attach')
-        });
-    </script>
 
+    
+    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

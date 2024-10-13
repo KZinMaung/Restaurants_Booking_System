@@ -78,44 +78,6 @@
        
     </div>
 
-    <!-- start modal List -->
-    <!-- Modal -->
-    <div class="modal fade" id="addnewmenumodal" tabindex="-1" role="dialog" aria-labelledby="addNewModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div>
-                            <div class="mb-3">
-                                <label class="form-label" for="menuphoto">Menu Photo</label>
-                                <input type="file" id="menuphoto" class="form-control" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="name">Name</label>
-                                <input type="text" id="name" class="form-control" placeholder="Menu Name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="name">Price</label>
-                                <input type="text" id="name" class="form-control" placeholder="Price" required>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-white" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Upload</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Modal -->
-    <!-- End Modal List -->
-
-
     <div class="tab-pane fade" id="nav-two-eg1" role="tabpanel" aria-labelledby="nav-two-eg1-tab">
         <h4>Address</h4>
         <p>Second tab content...</p>
@@ -251,3 +213,68 @@
     </div>
 </div>
 <!-- End Tab Content -->
+<!-- start modal List -->
+<!-- Modal -->
+<div class="modal fade" id="addnewmenumodal" tabindex="-1" role="dialog" aria-labelledby="addNewModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div>
+                        <div class="mb-3">
+                            <!-- Media -->
+                            <label class="form-label" for="exampleFormControlInput1">Menu Photo</label>
+                            <div class="d-flex align-items-center mb-3">
+                                <!-- Avatar -->
+                                <label class="avatar avatar-xl avatar-circle" for="menuPhoto">
+                                    <img id="menuImg" class="avatar-img w-100" src="../assets/img/160x160/img1.jpg" alt="Image Description">
+                                </label>
+
+                                <div class="d-flex gap-3 ms-4">
+                                    <div class="form-attachment-btn btn btn-sm btn-primary">
+                                        Upload photo
+                                        <input type="file" class="js-file-attach form-attachment-btn-label" id="menuPhoto"
+                                               data-hs-file-attach-options='{
+                  "textTarget": "#menuImg",
+                  "mode": "image",
+                  "targetAttr": "src",
+                  "resetTarget": ".js-file-attach-reset-img",
+                  "resetImg": "../assets/img/160x160/img1.jpg",
+                  "allowTypes": [".png", ".jpeg", ".jpg"]
+               }'>
+                                    </div>
+                                    <!-- End Avatar -->
+
+                                    <button type="button" class="js-file-attach-reset-img btn btn-white btn-sm">Delete</button>
+                                </div>
+                            </div>
+                            <!-- End Media -->
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="name">Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Menu Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="name">Price</label>
+                            <input type="text" id="name" class="form-control" placeholder="Price" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="name">Descripton</label>
+                            <input type="text" id="name" class="form-control" placeholder="eg. chicken, spicy, sour" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Add Menu</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+<!-- End Modal List -->
