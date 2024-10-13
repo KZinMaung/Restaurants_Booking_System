@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Dtos.Auth
+namespace Data.Dtos.User
 {
-    public class LoginRequestDto
+    public class LoginRequest
     {
         [Required]
         public string? Email { get; set; }

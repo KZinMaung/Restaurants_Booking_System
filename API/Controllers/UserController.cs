@@ -1,10 +1,7 @@
 ﻿using API.Services.User;
 using Data.Dtos.User;
 using Data.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace API.Controllers
 {
@@ -16,6 +13,13 @@ namespace API.Controllers
         public UserController(IUser iuser)
         {
             this._iuser = iuser;
+        }
+
+        [HttpPost("api/user/login")]
+        public async Task<IActionResult> Login(LoginRequest loginRequest)
+        {
+            var result = await this._iuser.Login(loginRequest);
+            return Ok(result);
         }
 
         [HttpPost("api/user/change_password")]
@@ -37,28 +41,30 @@ namespace API.Controllers
         }
 
 
-        
-        [HttpGet("api/user/view_profile")]
-        public async Task<IActionResult> ViewProfile(int id)
 
+        [HttpPost("api/users")]
+        public async Task<IActionResult> CreateUser(tbUser user)
         {
-            var result = await this._iuser.GetById(id);
+            var result = await this._iuser.CreateUser(user);
             return Ok(result);
         }
 
-        [HttpPost("api/user/edit_profile")]
-        public async Task<IActionResult> EditProfile([FromBody] EditProfileRequest request)
+        [HttpGet("api/users/{id}")]
+        public async Task<IActionResult> GetUserById(int id)
+
         {
-            var result = await this._iuser.EditProfile(request);
+            var result = await this._iuser.GetUserById(id);
             return Ok(result);
         }
 
-        [HttpPost("api/user/book_restaurant")]
-        public async Task<IActionResult> BookRestaurant([FromBody] tbBooking request)
+        [HttpPut("api/users/{id}")]
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserRequest request)
         {
-            var result = await this._iuser.BookRestaurant(request);
+            var result = await this._iuser.UpdateUser(request);
             return Ok(result);
         }
+
+       
 
     }
 }

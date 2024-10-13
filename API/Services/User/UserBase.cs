@@ -6,6 +6,10 @@ using Data.Model;
 using Infra.BlobStorage;
 using Data.Dtos.User;
 using Data.Constants;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace API.Services.User
 {
@@ -24,13 +28,13 @@ namespace API.Services.User
             this._azureBlobStorage = azureBlobStorage;
         }
 
-        public async Task<tbUser> GetById(int id)
+        public async Task<tbUser> GetUserById(int id)
         {
             return await _uow.userRepo.GetAll()
                 .FirstOrDefaultAsync(a => a.Id == id && a.IsDeleted != true) ?? new tbUser();
         }
 
-        public async Task<tbUser> EditProfile(EditProfileRequest request)
+        public async Task<tbUser> UpdateUser(UpdateUserRequest request)
         {
             tbUser result = new tbUser();
             if (request.PhotoString != null)
@@ -40,7 +44,7 @@ namespace API.Services.User
             }
             if (request.Id > 0)
             {
-                tbUser user = await GetById(request.Id);
+                tbUser user = await GetUserById(request.Id);
                 user.Name = request.Name;
                 user.Email = request.Email;
                 user.Phone = request.Phone;
@@ -87,34 +91,80 @@ namespace API.Services.User
         }
 
 
-        //Remains : to check and control duplication
-        public async Task<string> BookRestaurant(tbBooking booking)
+
+
+
+        //login and register
+        public async Task<object> Login(LoginRequest loginRequest)
         {
-            
-            booking.Accesstime = MyExtension.GetLocalTime();
-            booking.CreatedAt = MyExtension.GetLocalTime();
-            booking.Status = BookingStatus.Booked;
-            tbBooking result = await _uow.bookingRepo.InsertReturnAsync(booking);
 
-
-            foreach(var item in booking.TableIds)
+            var user = await _uow.userRepo.GetAll().Where(a => a.Email == loginRequest.Email && a.IsDeleted != true).FirstOrDefaultAsync() ?? new tbUser();
+            if (user.Id != 0 && VerifyPassword(loginRequest.Password, user.Password))
             {
-                tbBookingTable bookingTable = new tbBookingTable();
-                bookingTable.BookingId = result.Id;
-                bookingTable.TableId = item;
-                bookingTable.Accesstime = MyExtension.GetLocalTime();
-                bookingTable.CreatedAt = MyExtension.GetLocalTime();
-                tbBookingTable entity=await _uow.bookingTableRepo.InsertReturnAsync(bookingTable);
-                if(entity == null)
+                var token = GenerateJwtToken(loginRequest.Email);
+                return new
                 {
-                    //rollback => delete booking record 
-                    return ResponseStatus.Fail; 
-                   
-                }
-
+                    Token = token
+                };
+            }
+            else
+            {
+                throw new ArgumentException($"Unable to authenticate user {loginRequest.Email}");
             }
 
-            return result != null ? ResponseStatus.Success : ResponseStatus.Fail;
+        }
+
+
+        private string GenerateJwtToken(string email)
+        {
+            var jwtSettings = _configuration.GetSection("Jwt");
+            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings["Secret"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var claims = new[]
+            {
+            new Claim(ClaimTypes.Email, email)
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: jwtSettings["Issuer"],
+                audience: jwtSettings["Audience"],
+                claims: claims,
+                expires: DateTime.UtcNow.AddHours(1),
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+
+
+        public async Task<Object> CreateUser(tbUser user)
+        {
+
+            tbUser userByEmail = await _uow.userRepo.GetAll().Where(a => a.Email == user.Email && a.IsDeleted != true).FirstOrDefaultAsync() ?? new tbUser();
+            tbUser userByName = await _uow.userRepo.GetAll().Where(a => a.Name == user.Name && a.IsDeleted != true).FirstOrDefaultAsync() ?? new tbUser();
+            if (userByEmail.Id != 0 || userByName.Id != 0)
+            {
+                throw new ArgumentException($"User with email {user.Email} or username {user.Name} already exists.");
+
+            }
+            else
+            {
+                tbUser entity = new tbUser
+                {
+                    Name = user.Name,
+                    Email = user.Email,
+                    Phone = user.Phone,
+                    Password = HashPassword(user.Password),
+                    CreatedAt = DateTime.Now,
+                    Accesstime = DateTime.Now,
+                    IsDeleted = false
+                };
+                var result = await _uow.userRepo.InsertReturnAsync(entity);
+                return result;
+
+
+            }
 
         }
     }

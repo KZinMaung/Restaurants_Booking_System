@@ -34,5 +34,6 @@ namespace Core.Interfaces
         IQueryable<T> Skip(int count);
         IQueryable<T> OrderBy(Expression<Func<T, string>> filter);
         void Dispose(bool disposing);
+        global::Data.Models.tbUser GetUserById(int userID);
     }
 }

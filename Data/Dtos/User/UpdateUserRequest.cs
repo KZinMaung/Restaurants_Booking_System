@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data.Dtos.User
 {
-    public class EditProfileRequest
+    public class UpdateUserRequest
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
