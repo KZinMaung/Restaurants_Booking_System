@@ -11,32 +11,53 @@ namespace Data.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(250)]
         public string Name { get; set; }
 
-        public string Location { get; set; }
-
-        public string Division { get; set; }
-
-        public string Township { get; set; }
-
-        public string Phone { get; set; }
-
+        [Required]
         public string Email { get; set; }
 
-        public string Description { get; set; }
+        [Required]
+        public string Phone { get; set; }
 
-        public string CoverPhoto { get; set; }
+        [Required]
+        public string Password { get; set; }
+        [Required]
+        public string Location { get; set; }
+        [Required]
+        public string Division { get; set; }
+        [Required]
+        public string Township { get; set; }
 
-        public string ProfilePhoto { get; set; }
 
-        public DateTime? OpenTime { get; set; }
+        public string? Quote { get; set; }
 
-        public DateTime? CloseTime { get; set; }
 
+        public string? Description { get; set; }
+
+        public string? CoverPhoto { get; set; }
+
+        [NotMapped]
+        public string? CoverPhotoString { get; set; }
+
+        public string? ProfilePhoto { get; set; }
+
+        [NotMapped]
+        public string? ProfilePhotoString { get; set; }
+
+        [Required]
+        public DateTime OpenTime { get; set; }
+
+        [Required]
+        public DateTime CloseTime { get; set; }
+
+        [Required]
         public int? Duration { get; set; }
 
-        public int? UserId { get; set; }
+        [Required]
+        public int? NoOfTable { get; set; }
+
+        [Required]
+        public int? PeoplePerTable { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
@@ -44,6 +65,5 @@ namespace Data.Models
 
         public bool IsDeleted { get; set; } = false;
 
-        public virtual tbUser User { get; set; } // Assuming you have a User entity
     }
 }

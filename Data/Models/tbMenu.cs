@@ -21,11 +21,15 @@ namespace Data.Models
         [Required]
         public float Price { get; set; }
 
-        public string Photo { get; set; } 
-
         [Required]
-        [StringLength(250)]
-        public string Category { get; set; }
+        public string Photo { get; set; }
+
+        [NotMapped]
+        public string? PhotoString { get; set; }
+
+        public string? Category { get; set; }
+
+        public string? Description { get; set; }
 
         [Required]
         public int RestaurantId { get; set; }
@@ -35,7 +39,6 @@ namespace Data.Models
 
         public bool IsDeleted { get; set; } = false; 
 
-        // Navigation property
-        public virtual tbRestaurant Restaurant { get; set; }
+    
     }
 }

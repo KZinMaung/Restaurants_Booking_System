@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Data.Constants;
+using Data.Models;
+using Infra.Helpers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BookingSystem.Controllers
 {
@@ -11,7 +14,7 @@ namespace BookingSystem.Controllers
 
         public IActionResult Register()
         {
-            return View();
+            return View(new tbCustomer());
         }
 
         public IActionResult Reserve()
@@ -40,7 +43,21 @@ namespace BookingSystem.Controllers
             return View();
         }
 
+        public async Task<string> CreateCustomer(tbCustomer customer)
+        {
+            tbCustomer result = await CustomerApiRH.CreateCustomer(customer);
+            if(result.Id != 0)
+            {
+                return ResponseStatus.Success;
+            }
+            else
+            {
+                return ResponseStatus.Fail;
+            }
 
+           
+
+        }
 
     }
 }

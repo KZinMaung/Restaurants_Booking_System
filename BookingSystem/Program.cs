@@ -1,7 +1,36 @@
+using BookingSystem.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation()
+   .AddJsonOptions(options =>
+   {
+       options.JsonSerializerOptions.PropertyNamingPolicy = null;
+   });
+
+
+builder.Services.AddSession(options =>
+{
+    //options.Cookie.Name = "ephr";  
+    options.IdleTimeout = TimeSpan.FromMinutes(10);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+//builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options => {
+    options.IdleTimeout = TimeSpan.FromMinutes(360);//You can set Time   
+});
+
+builder.Services.AddAuthorization();
+
+builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+           .AddCookie(o => o.LoginPath = new PathString("/authentication"));
+
 
 var app = builder.Build();
 
@@ -15,9 +44,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

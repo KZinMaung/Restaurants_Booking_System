@@ -44,31 +44,49 @@
                         <i class="bi-x"></i>
                     </span>
                 </button>
+              
                 <!-- End Toggler -->
                 <!-- Collapse -->
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
-                        <!-- Landings -->
-                        @* <li class=" nav-item">
-                        <a id="home" class="nav-link active" href="#" role="button">Home</a>
-                        </li> *@
-                        <!-- End Landings -->
-                        <!-- Company -->
-                        @* <li class=" nav-item">
-                        <a id="mybookings" class="nav-link" href="/MyBookings">My Bookings</a>
-                        </li> *@
-                        <!-- End Company -->
-                        <!-- Button -->
-                        @* <li class="nav-item" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight">
-                        <a class="btn-transition" href="#">
-                        <span class="avatar avatar-sm avatar-circle">
-                        <img class="avatar-img" src="../assets/img/160x160/img6.jpg" alt="Image Description">
-                        </span>
-                        </a>
-                        </li> *@
-                        <li class="nav-item">
-                            <button type="button" class="btn btn-primary btn-sm">Sign Up</button>
-                        </li>
+                        @{
+                            var result = User.Identity.IsAuthenticated.ToString();
+                            if (result == "True")
+                            {
+                                var name = User.Claims.ToArray()[Data.Constants.AuthDataIndex.Name].Value;
+                                var email = User.Claims.ToArray()[Data.Constants.AuthDataIndex.Email].Value;
+                                
+                                <!-- Landings -->
+                                <li class=" nav-item">
+                                    <a id="home" class="nav-link active" href="#" role="button">Home</a>
+                                </li>
+                                <!-- End Landings -->
+                                <!-- Company -->
+                                <li class=" nav-item">
+                                    <a id="mybookings" class="nav-link" href="/MyBookings">My Bookings</a>
+                                </li>
+                                <!-- End Company -->
+                                <!-- Button -->
+                                <li class="nav-item" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight">
+                                    <a class="btn-transition" href="#">
+                                        <span class="avatar avatar-sm avatar-circle">
+                                            <img class="avatar-img" src="../assets/img/160x160/img6.jpg" alt="Image Description">
+                                        </span>
+                                    </a>
+                                </li>
+
+
+
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <button type="button" class="btn btn-primary btn-sm" id="btn-signup">Sign Up</button>
+                                </li>
+                            }
+
+                        }
+                      
                         <!-- Dropdown -->
                         <!-- End Dropdown -->
                         <!-- End Button -->
@@ -181,11 +199,11 @@
     <script src="./assets/vendor/hs-file-attach/dist/hs-file-attach.min.js"></script>
 
     <!-- DataTables Implementing Plugins -->
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+     @*<script src="https:code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https:cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> *@
 
 
-
+    
     <!-- JS Plugins Init. -->
     <script>
         (function () {
@@ -212,6 +230,13 @@
             $('#example').DataTable();
         });
     </script>
+    
+    <script>
+        document.getElementById('btn-signup').addEventListener('click', function() {
+            location.href = '../Customer/Register';
+        });
+</script>
+    
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

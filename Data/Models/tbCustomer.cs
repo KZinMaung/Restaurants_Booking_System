@@ -5,8 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Models
 {
-    [Table("tbUser")]
-    public class tbUser 
+    [Table("tbCustomer")]
+    public class tbCustomer 
     {
         [Key]
         public int Id { get; set; }
@@ -27,9 +27,6 @@ namespace Data.Models
         [StringLength(250)]
         public string Password { get; set; }
 
-        [Required]
-        [StringLength(250)]
-        public string Role { get; set; } = Roles.User;
 
         public string? Photo { get; set; }
 

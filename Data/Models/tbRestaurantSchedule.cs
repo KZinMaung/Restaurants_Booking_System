@@ -26,6 +26,6 @@ namespace Data.Models
 
         public bool IsDeleted { get; set; } = false;
 
-        public virtual tbRestaurant Restaurant { get; set; }
+        
     }
 }

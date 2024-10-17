@@ -1,7 +1,7 @@
 ﻿using Core.Interfaces;
 using Data.Model;
 using Data.Models;
-using Infra.Repository;
+using Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -14,11 +14,15 @@ namespace Infra.UnitOfWork
 {
     public class UnitOfWork
     {
-        private BookingSystemDbContext _ctx;
-        private IRepository<tbUser> _userRepo;
+        private BookingSystemDbCotnext _ctx;
+        private IRepository<tbCustomer> _customerRepo;
         private IRepository<tbBooking> _bookingRepo;
-        private IRepository<tbBookingTable> _bookingTableRepo;
-        public UnitOfWork(BookingSystemDbContext ctx)
+        private IRepository<tbMenu> _menuRepo;
+        private IRepository<tbRatingAndReview> _ratingNReviewRepo;
+        private IRepository<tbRestaurant> _restaurantRepo;
+        private IRepository<tbRestaurantSchedule> _restaurantScheduleRepo;
+
+        public UnitOfWork(BookingSystemDbCotnext ctx)
         {
             _ctx = ctx;
         }
@@ -29,10 +33,10 @@ namespace Infra.UnitOfWork
               .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
               .AddJsonFile("appsettings.json")
               .Build();
-            var contextOptions = new DbContextOptionsBuilder<BookingSystemDbContext>()
+            var contextOptions = new DbContextOptionsBuilder<BookingSystemDbCotnext>()
               .UseSqlServer(configuration.GetConnectionString("ConnectionStrings"))
               .Options;
-            _ctx = new BookingSystemDbContext(contextOptions);
+            _ctx = new BookingSystemDbCotnext(contextOptions);
 
         }
         ~UnitOfWork()
@@ -40,15 +44,15 @@ namespace Infra.UnitOfWork
             _ctx.Dispose();
         }
 
-        public IRepository<tbUser> userRepo
+        public IRepository<tbCustomer> customerRepo
         {
             get
             {
-                if(_userRepo == null)
+                if(_customerRepo == null)
                 {
-                    _userRepo = new Repository<tbUser>(_ctx);
+                    _customerRepo = new Repository<tbCustomer>(_ctx);
                 }
-                return _userRepo;
+                return _customerRepo;
             }
         }
 
@@ -64,15 +68,53 @@ namespace Infra.UnitOfWork
             }
         }
 
-        public IRepository<tbBookingTable> bookingTableRepo
+        public IRepository<tbMenu> menuRepo
         {
             get
             {
-                if (_bookingTableRepo == null)
+                if (_menuRepo == null)
                 {
-                    _bookingTableRepo = new Repository<tbBookingTable>(_ctx);
+                    _menuRepo = new Repository<tbMenu>(_ctx);
                 }
-                return _bookingTableRepo;
+                return _menuRepo;
+            }
+        }
+
+
+        public IRepository<tbRatingAndReview> ratingNReviewRepo
+        {
+            get
+            {
+                if (_ratingNReviewRepo == null)
+                {
+                    _ratingNReviewRepo = new Repository<tbRatingAndReview>(_ctx);
+                }
+                return _ratingNReviewRepo;
+            }
+        }
+
+
+        public IRepository<tbRestaurant> restaurantRepo
+        {
+            get
+            {
+                if (_restaurantRepo == null)
+                {
+                    _restaurantRepo = new Repository<tbRestaurant>(_ctx);
+                }
+                return _restaurantRepo;
+            }
+        }
+
+        public IRepository<tbRestaurantSchedule> restaurantScheduleRepo
+        {
+            get
+            {
+                if (_restaurantScheduleRepo == null)
+                {
+                    _restaurantScheduleRepo = new Repository<tbRestaurantSchedule>(_ctx);
+                }
+                return _restaurantScheduleRepo;
             }
         }
     }

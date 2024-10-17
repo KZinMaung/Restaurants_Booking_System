@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Dtos.User
+namespace Data.Dtos
 {
     public class ChangePasswordRequest
     {
-        public int UserID { get; set; }
+        public int UserId { get; set; }
+        public string UserType { get; set; } = string.Empty;
         public string CurrentPassword { get; set; } = string.Empty;
         public string NewPassword { get; set; } = string.Empty;
+      
     }
 }
 

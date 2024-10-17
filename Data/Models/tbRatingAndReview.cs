@@ -15,7 +15,7 @@ namespace Data.Models
         public int Id { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public int CustomerId { get; set; }
 
         [Required]
         public int RestaurantId { get; set; }
@@ -23,7 +23,7 @@ namespace Data.Models
         [Required]
         public int Rating { get; set; }
 
-        public string Review { get; set; }
+        public string? Review { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now; 
 
@@ -31,8 +31,6 @@ namespace Data.Models
 
         public bool IsDeleted { get; set; } = false; 
 
-        // Navigation properties
-        public virtual tbRestaurant Restaurant { get; set; }
-        public virtual tbUser User { get; set; } // Assuming you have a User entity
+        
     }
 }

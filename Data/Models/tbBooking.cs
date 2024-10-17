@@ -15,7 +15,7 @@ namespace Data.Models
         public int Id { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public int CustomerId { get; set; }
 
         [Required]
         public int RestaurantId { get; set; }
@@ -26,17 +26,19 @@ namespace Data.Models
         [Required]
         public int RestaurantScheduleId { get; set; }
 
+        [Required]
+        public int NoOfTable { get; set; }
+
+        public string? Status { get; set; }
 
         [Required]
-        public int NumberOfPeople { get; set; }
+        public string CustomerName { get; set; }
 
-        public string? Status { get; set; } 
+        [Required]
+        public string CustomerEmail { get; set; }
 
-        public string UserName { get; set; }
-
-        public string UserEmail { get; set; }
-
-        public string UserPhone { get; set; }
+        [Required]
+        public string CustomerPhone { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now; 
 
@@ -44,8 +46,5 @@ namespace Data.Models
 
         public bool IsDeleted { get; set; } = false;
 
-        [NotMapped]
-        public List<int> TableIds { get; set; } = new List<int>();
-        
     }
 }

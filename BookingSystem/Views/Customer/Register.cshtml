@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Data.Models.tbCustomer
+
+@{
     ViewData["Title"] = "Signup Page";
     Layout = "_PlainLayout";
 }
@@ -10,7 +12,7 @@
         </div>
 
         <h2 class="my-5">Welcome to TableTalk!</h2>
-        <form>
+        <form id="customer_reg_form" method="post">
             <!-- Input Group -->
             <div class="mb-3">
                 <label for="inputGroupMergeFullName" class="form-label">Full name</label>
@@ -19,7 +21,7 @@
                     <div class="input-group-prepend input-group-text" id="name">
                         <i class="bi bi-person"></i>
                     </div>
-                    <input type="text" class="form-control" id="name" placeholder="Mark Williams" required>
+                    <input type="text" class="form-control" name="Name" value="@Model.Name" placeholder="Mark Williams" required>
                 </div>
             </div>
             <!-- End Input Group -->
@@ -31,7 +33,7 @@
                     <div class="input-group-prepend input-group-text" id="email">
                         <i class="bi-envelope-open"></i>
                     </div>
-                    <input type="text" class="form-control" id="email" placeholder="mark@example.com" required>
+                    <input type="text" class="form-control" name="Email" value="@Model.Email" placeholder="mark@example.com" required>
                 </div>
             </div>
             <!-- End Input Group -->
@@ -43,7 +45,7 @@
                     <div class="input-group-prepend input-group-text" id="phone">
                         <i class="bi-phone"></i>
                     </div>
-                    <input type="text" class="form-control" id="phone" placeholder="09***" required>
+                    <input type="text" class="form-control" name="Phone" value="@Model.Phone" placeholder="09***" required>
                 </div>
             </div>
             <!-- End Input Group -->
@@ -55,7 +57,7 @@
                     <div class="input-group-prepend input-group-text" id="password">
                         <i class="bi-lock"></i>
                     </div>
-                    <input type="password" class="form-control" id="password" placeholder="***" required>
+                    <input type="password" class="form-control" name="Password" value="@Model.Password" placeholder="***" required>
                 </div>
             </div>
             <!-- End Input Group -->
@@ -73,3 +75,37 @@
 
     </div>
 </div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        $('#customer_reg_form').submit(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("CreateCustomer", "Customer")',
+                type: "Post",
+                data: $(this).serialize(),
+                beforeSend: function () {
+                    $('.btn').prop("disabled", true);
+                },
+                success: function (status) {
+                    if (status == "success") {
+                        alert("Successfully registered!!");
+                        window.location.href = "../Authentication";
+                    }
+                    else {
+                        alert("Registeration Failed!!")
+                    }
+                },
+                complete: function () {
+                    $('.btn').prop("disabled", false);
+
+                }
+            });
+        });
+
+
+    </script>
+}

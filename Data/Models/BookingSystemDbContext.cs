@@ -9,14 +9,14 @@ using System.Reflection.Emit;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
-using YourNamespace;
-using static System.Collections.Specialized.BitVector32;
+
+
 
 namespace Data.Model
 {
-    public class BookingSystemDbContext : DbContext
+    public class BookingSystemDbCotnext : DbContext
     {
-        public BookingSystemDbContext(DbContextOptions<BookingSystemDbContext> options) : base(options)
+        public BookingSystemDbCotnext(DbContextOptions<BookingSystemDbCotnext> options) : base(options)
         {
             
         }
@@ -26,9 +26,7 @@ namespace Data.Model
         public virtual DbSet<tbRatingAndReview> tbRatingAndReview { get; set; }
         public virtual DbSet<tbRestaurant> tbRestaurant { get; set; }
         public virtual DbSet<tbRestaurantSchedule> tbRestaurantAndSchedule { get; set; }
-        public virtual DbSet<tbTable> tbTable { get; set; }
-        public virtual DbSet<tbUser> tbUser { get; set; }
-        public virtual DbSet<tbBookingTable> tbBookingTable { get; set; }
+        public virtual DbSet<tbCustomer> tbCustomer { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
         

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Data.Constants
 {
-    public static class Roles
+    public static class UserType
     {
-        public const string User = "customer";
-        public const string Owner = "owner";
+        public const string Customer = "customer";
+        public const string Restaurant = "restaurant";
     }
 
     public static class BookingStatus
@@ -21,5 +21,13 @@ namespace Data.Constants
     {
         public const string Success = "success";
         public const string Fail = "fail";
+    }
+
+    public struct AuthDataIndex
+    {
+        public const int Id = 0;
+        public const int Name = 1;
+        public const int Email = 2;
+        public const int Phone = 3;
     }
 }

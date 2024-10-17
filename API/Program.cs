@@ -1,5 +1,5 @@
 using API.Services.Auth;
-using API.Services.User;
+using API.Services.Customer;
 using Data.Model;
 using Infra.BlobStorage;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -11,7 +11,25 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 // Add services to the container.
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      builder =>
+                      {
+                          builder.WithOrigins("https://localhost:7156"
+                            )
+                          .AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                      });
+});
+builder.Services.AddControllersWithViews()
+                         .AddJsonOptions(options =>
+                         {
+                             options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                         });
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -34,9 +52,9 @@ builder.Services.AddAuthentication(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateLifetime = false,
         ValidateIssuerSigningKey = true,
         ValidIssuer = issuer,
         ValidAudience = audience,
@@ -47,20 +65,21 @@ builder.Services.AddAuthentication(options =>
 
 //Db
 string connectionString = configuration["ConnectionStrings"];
-var contextOptions = new DbContextOptionsBuilder<BookingSystemDbContext>()
+var contextOptions = new DbContextOptionsBuilder<BookingSystemDbCotnext>()
              .UseSqlServer(connectionString)
              .Options;
 
-builder.Services.AddScoped(s => new BookingSystemDbContext(contextOptions));
+builder.Services.AddScoped(s => new BookingSystemDbCotnext(contextOptions));
 builder.Services.AddScoped<IAuth>(s => new AuthBase(
-           s.GetService<BookingSystemDbContext>(),
+           s.GetService<BookingSystemDbCotnext>(),
+            s.GetService<IAzureBlobStorage>(),
            configuration
            ));
 
 builder.Services.AddSingleton<IAzureBlobStorage, AzureBlobStorage>();
 
-builder.Services.AddScoped<IUser>(s => new UserBase(
-           s.GetService<BookingSystemDbContext>(),
+builder.Services.AddScoped<ICustomer>(s => new CustomerBase(
+           s.GetService<BookingSystemDbCotnext>(),
            s.GetService<IAzureBlobStorage>(),
            configuration
            ));
