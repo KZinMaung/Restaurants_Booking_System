@@ -34,10 +34,38 @@
                         <i class="bi-lock"></i>
                     </div>
                     <input type="password" class="form-control" id="txt-password" placeholder="***" required>
-                    <i class="bi-eye-slash form-suffix-icon" id="togglePassword"></i>
+                    <div class="input-group-postpend input-group-text">
+                        <i class="bi-eye-slash form-suffix-icon" id="togglePassword"></i>
+                    </div>
                 </div>
             </div>
             <!-- End Input Group -->
+            <div class="row mb-5">
+                <label for="type" class="form-label">Type</label>
+                <div class="col-sm mb-2 mb-sm-0">
+                    <!-- Form Radio -->
+                    <label class="form-control" for="owner">
+                        <span class="form-check">
+                            <input type="radio" class="form-check-input" name="userType" id="owner" checked>
+                            <span class="form-check-label">I am a owner.</span>
+                        </span>
+                    </label>
+                    <!-- End Form Radio -->
+                </div>
+
+                <div class="col-sm mb-2 mb-sm-0">
+                    <!-- Form Radio -->
+                    <label class="form-control" for="customer">
+                        <span class="form-check">
+                            <input type="radio" class="form-check-input" name="userType" id="customer">
+                            <span class="form-check-label">I am customer.</span>
+                        </span>
+                    </label>
+                    <!-- End Form Radio -->
+                </div>
+
+            </div>
+            <!-- End Row -->
             <div class="d-grid mb-3">
                 <button type="submit" class="btn btn-primary btn-lg">Login</button>
             </div>

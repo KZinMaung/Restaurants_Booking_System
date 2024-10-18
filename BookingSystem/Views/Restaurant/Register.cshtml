@@ -15,19 +15,19 @@
 
                 <!-- input group -->
                 <div class="mb-3">
-                    <label for="inputgroupmergefullname" class="form-label">Restaurant Name</label>
+                    <label for="name" class="form-label">Restaurant Name</label>
 
                     <div class="input-group input-group-merge">
                         <div class="input-group-prepend input-group-text" id="name">
                             <i class="bi bi-person"></i>
                         </div>
-                        <input type="text" class="form-control" id="name" placeholder="Name" required>
+                        <input type="text" class="form-control" id="name" placeholder="Restaurant Name" required>
                     </div>
                 </div>
                 <!-- end input group -->
                 <!-- input group -->
                 <div class="mb-3">
-                    <label for="inputgroupmergeemail" class="form-label">Email</label>
+                    <label for="email" class="form-label">Email</label>
 
                     <div class="input-group input-group-merge">
                         <div class="input-group-prepend input-group-text" id="email">
@@ -39,7 +39,7 @@
                 <!-- end input group -->
                 <!-- input group -->
                 <div class="mb-3">
-                    <label for="inputgroupmergeemail" class="form-label">Phone</label>
+                    <label for="phone" class="form-label">Phone</label>
 
                     <div class="input-group input-group-merge">
                         <div class="input-group-prepend input-group-text" id="phone">
@@ -51,13 +51,14 @@
                 <!-- end input group -->
                 <!-- input group -->
                 <div class="mb-3">
-                    <label for="inputgroupmergeemail" class="form-label">Password</label>
+                    <label for="password" class="form-label">Password</label>
 
                     <div class="input-group input-group-merge">
-                        <div class="input-group-prepend input-group-text" id="password">
+                        <div class="input-group-prepend input-group-text">
                             <i class="bi-lock"></i>
                         </div>
                         <input type="password" class="form-control" id="password" placeholder="***" required>
+                        
                     </div>
                 </div>
                 <!-- end input group -->
@@ -80,31 +81,84 @@
                         <label class="form-label" for="exampleFormControlInput1">Profile Photo</label>
                         <input type="file" id="exampleFormControlInput1" class="form-control" required>
                     </div>
+                    <!-- Media -->
+                    <label class="form-label" for="coverPhoto">Cover Photo</label>
+                    <div class="d-flex align-items-center mb-3">
+                        <!-- Avatar -->
+                        <label class="avatar avatar-xl avatar-circle" for="coverPhoto">
+                            <img id="coverImg" class="avatar-img w-100" src="~/assets/img/160x160/img1.jpg" alt="Image Description">
+                        </label>
 
+                        <div class="d-flex gap-3 ms-4">
+                            <div class="form-attachment-btn btn btn-sm btn-primary">
+                                Upload photo
+                                <input type="file" class="js-file-attach form-attachment-btn-label" id="coverPhoto"
+                                       data-hs-file-attach-options='{
+                  "textTarget": "#coverImg",
+                  "mode": "image",
+                  "targetAttr": "src",
+                  "resetTarget": ".js-file-attach-reset-cover-img",
+                  "resetImg": "../assets/img/160x160/img1.jpg",
+                  "allowTypes": [".png", ".jpeg", ".jpg"]
+               }'>
+                            </div>
+                            <!-- End Avatar -->
+
+                            <button type="button" class="js-file-attach-reset-cover-img btn btn-white btn-sm">Delete</button>
+                        </div>
+                    </div>
+                    <!-- End Media -->
+                    <!-- Media -->
+                    <label class="form-label" for="profilePhoto">Restaurant Profile Photo</label>
+                    <div class="d-flex align-items-center mb-3">
+                        <!-- Avatar -->
+                        <label class="avatar avatar-xl avatar-circle" for="profilePhoto">
+                            <img id="profileImg" class="avatar-img w-100" src="~/assets/img/160x160/img1.jpg" alt="Image Description">
+                        </label>
+
+                        <div class="d-flex gap-3 ms-4">
+                            <div class="form-attachment-btn btn btn-sm btn-primary">
+                                Upload photo
+                                <input type="file" class="js-file-attach form-attachment-btn-label" id="profilePhoto"
+                                       data-hs-file-attach-options='{
+                  "textTarget": "#profileImg",
+                  "mode": "image",
+                  "targetAttr": "src",
+                  "resetTarget": ".js-file-attach-reset-profile-img",
+                  "resetImg": "../assets/img/160x160/img1.jpg",
+                  "allowTypes": [".png", ".jpeg", ".jpg"]
+               }'>
+                            </div>
+                            <!-- End Avatar -->
+
+                            <button type="button" class="js-file-attach-reset-profile-img btn btn-white btn-sm">Delete</button>
+                        </div>
+                    </div>
+                    <!-- End Media -->
                     <!-- input group -->
                     <div class="mb-3">
-                        <label for="inputgroupmergeemail" class="form-label">Address</label>
+                        <label for="address" class="form-label">Address</label>
 
                         <div class="input-group input-group-merge">
                             <div class="input-group-prepend input-group-text" id="address">
                                 <i class="bi-envelope-open"></i>
                             </div>
-                            <input type="text" class="form-control" id="email" placeholder="Address" required>
+                            <input type="text" class="form-control" id="address" placeholder="Address" required>
                         </div>
                     </div>
                     <!-- end input group -->
                     <!-- input group -->
                     <div class="mb-3">
-                        <label for="inputgroupmergeemail" class="form-label">Time</label>
+                        <label for="timeGp" class="form-label">Time</label>
                         <div class="d-flex">
                             <div class="input-group input-group-merge me-2">
-                                <div class="input-group-prepend input-group-text" id="phone">
+                                <div class="input-group-prepend input-group-text" id="">
                                     <i class="bi-clock"></i>
                                 </div>
                                 <input type="time" class="form-control" id="openTime" placeholder="Open at" required>
                             </div>
                             <div class="input-group input-group-merge">
-                                <div class="input-group-prepend input-group-text" id="phone">
+                                <div class="input-group-prepend input-group-text" id="">
                                     <i class="bi-clock"></i>
                                 </div>
                                 <input type="time" class="form-control" id="closeTime" placeholder="Close at" required>
@@ -115,19 +169,19 @@
                     <!-- end input group -->
                     <!-- input group -->
                     <div class="mb-3">
-                        <label for="inputgroupmergeemail" class="form-label">Quote(Optional)</label>
+                        <label for="duration" class="form-label">Duration</label>
 
                         <div class="input-group input-group-merge">
-                            <div class="input-group-prepend input-group-text" id="quote">
-                                <i class="bi-lock"></i>
+                            <div class="input-group-prepend input-group-text" id="duration">
+                                <i class="bi-clock"></i>
                             </div>
-                            <input type="text" class="form-control" id="quote" placeholder="Restaurant's Quote'" required>
+                            <input type="text" class="form-control" id="duration" placeholder="Duration per Section" required>
                         </div>
                     </div>
                     <!-- end input group -->
                     <!-- input group -->
                     <div class="mb-3">
-                        <label for="inputgroupmergefullname" class="form-label">Total Tables</label>
+                        <label for="tables" class="form-label">Total Tables</label>
 
                         <div class="input-group input-group-merge">
                             <div class="input-group-prepend input-group-text" id="tables">
@@ -139,7 +193,7 @@
                     <!-- end input group -->
                     <!-- input group -->
                     <div class="mb-3">
-                        <label for="inputgroupmergeemail" class="form-label">Number of seats</label>
+                        <label for="seats" class="form-label">Number of seats</label>
 
                         <div class="input-group input-group-merge">
                             <div class="input-group-prepend input-group-text" id="seats">
@@ -151,13 +205,11 @@
                     <!-- end input group -->
                     <!-- input group -->
                     <div class="mb-3">
-                        <label for="inputgroupmergeemail" class="form-label">Quote(Optional)</label>
+                        <label for="quote" class="form-label">Quote(Optional)</label>
 
                         <div class="input-group input-group-merge">
-                            <div class="input-group-prepend input-group-text" id="quote">
-                                <i class="bi-lock"></i>
-                            </div>
-                            <input type="text" class="form-control" id="quote" placeholder="Restaurant's Quote'" required>
+
+                            <input type="text" class="form-control" id="quote" placeholder="Restaurant's Quote" required>
                         </div>
                     </div>
                     <!-- end input group -->
