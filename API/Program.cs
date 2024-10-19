@@ -1,5 +1,6 @@
 using API.Services.Auth;
 using API.Services.Customer;
+using API.Services.Restaurant;
 using Data.Model;
 using Infra.BlobStorage;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -84,6 +85,16 @@ builder.Services.AddScoped<ICustomer>(s => new CustomerBase(
            configuration
            ));
 
+
+builder.Services.AddScoped<IRestaurant>(s =>
+{
+    var dbContext = s.GetService<BookingSystemDbCotnext>();
+    var azureBlobStorage = s.GetService<IAzureBlobStorage>();
+    var webHostEnvironment = s.GetService<IWebHostEnvironment>();
+
+    return new RestaurantBase(dbContext, azureBlobStorage, configuration, webHostEnvironment);
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -94,7 +105,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseStaticFiles();
 app.UseAuthorization();
 
 app.MapControllers();

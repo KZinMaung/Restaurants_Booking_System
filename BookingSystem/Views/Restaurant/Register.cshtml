@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Data.Constants
+@model Data.Models.tbRestaurant
+@{
     ViewData["Title"] = "Restaurant Register Page";
     Layout = "_PlainLayout";
 }
@@ -10,7 +12,7 @@
         </div>
 
         <h2 class="my-5">Welcome to TableTalk!</h2>
-        <form action="">
+        <form id="restaurant-reg-form" method="post" enctype="multipart/form-data">
             <div id="step1" style="display: block;">
 
                 <!-- input group -->
@@ -21,7 +23,7 @@
                         <div class="input-group-prepend input-group-text" id="name">
                             <i class="bi bi-person"></i>
                         </div>
-                        <input type="text" class="form-control" id="name" placeholder="Name" required>
+                        <input type="text" class="form-control" name="Name" value="@Model.Name" placeholder="Name" required>
                     </div>
                 </div>
                 <!-- end input group -->
@@ -33,7 +35,7 @@
                         <div class="input-group-prepend input-group-text" id="email">
                             <i class="bi-envelope-open"></i>
                         </div>
-                        <input type="text" class="form-control" id="email" placeholder="mark@example.com" required>
+                        <input type="text" class="form-control" name="Email" value="@Model.Email" placeholder="mark@example.com" required>
                     </div>
                 </div>
                 <!-- end input group -->
@@ -45,7 +47,7 @@
                         <div class="input-group-prepend input-group-text" id="phone">
                             <i class="bi-phone"></i>
                         </div>
-                        <input type="text" class="form-control" id="phone" placeholder="09***" required>
+                        <input type="text" class="form-control" name="PHone" value="@Model.Phone" placeholder="09***" required>
                     </div>
                 </div>
                 <!-- end input group -->
@@ -57,7 +59,7 @@
                         <div class="input-group-prepend input-group-text" id="password">
                             <i class="bi-lock"></i>
                         </div>
-                        <input type="password" class="form-control" id="password" placeholder="***" required>
+                        <input type="password" class="form-control" name="Password" value="@Model.Password" placeholder="***" required>
                     </div>
                 </div>
                 <!-- end input group -->
@@ -74,11 +76,13 @@
                 <div id="step1" style="display: block;">
                     <div class="mb-3">
                         <label class="form-label" for="exampleFormControlInput1">Cover Photo</label>
-                        <input type="file" id="exampleFormControlInput1" class="form-control" required>
+                        <img src="@Model.CoverPhotoUrl" id="imagePreviewArticle" />
+                        <input type="hidden" name="CoverPhotoString" id="photo_article" />
+                        <input type="file" id="filearticle" name="CoverPhotoFile"  class="form-control" onchange="ShowImagePreviewArticle(this, document.getElementById('imagePreviewArticle'))">
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="exampleFormControlInput1">Profile Photo</label>
-                        <input type="file" id="exampleFormControlInput1" class="form-control" required>
+                        <input type="file" name="ProfilePhotoFile" class="form-control" >
                     </div>
 
                     <!-- input group -->
@@ -89,7 +93,7 @@
                             <div class="input-group-prepend input-group-text" id="address">
                                 <i class="bi-envelope-open"></i>
                             </div>
-                            <input type="text" class="form-control" id="email" placeholder="Address" required>
+                            <input type="text" class="form-control" name="Location" value="@Model.Location" placeholder="Address" required>
                         </div>
                     </div>
                     <!-- end input group -->
@@ -101,13 +105,13 @@
                                 <div class="input-group-prepend input-group-text" id="phone">
                                     <i class="bi-clock"></i>
                                 </div>
-                                <input type="time" class="form-control" id="openTime" placeholder="Open at" required>
+                                <input type="time" class="form-control" name="OpenTime" value="@Model.OpenTime.ToString("HH:mm")" placeholder="Open at" required>
                             </div>
                             <div class="input-group input-group-merge">
                                 <div class="input-group-prepend input-group-text" id="phone">
                                     <i class="bi-clock"></i>
                                 </div>
-                                <input type="time" class="form-control" id="closeTime" placeholder="Close at" required>
+                                <input type="time" class="form-control" name="CloseTime" value="@Model.CloseTime.ToString("HH:mm")" placeholder="Close at" required>
                             </div>
                         </div>
 
@@ -115,16 +119,17 @@
                     <!-- end input group -->
                     <!-- input group -->
                     <div class="mb-3">
-                        <label for="inputgroupmergeemail" class="form-label">Quote(Optional)</label>
+                        <label for="inputgroupmergefullname" class="form-label">Duration</label>
 
                         <div class="input-group input-group-merge">
-                            <div class="input-group-prepend input-group-text" id="quote">
-                                <i class="bi-lock"></i>
+                            <div class="input-group-prepend input-group-text" >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m6.5 18.725l1-2.475q.225-.575.725-.913T9.35 15H11v-4.025Q7.175 10.85 4.587 9.85T2 7.5q0-1.45 2.925-2.475T12 4q4.175 0 7.088 1.025T22 7.5q0 1.35-2.588 2.35T13 10.975V15h1.65q.6 0 1.113.338t.737.912l1 2.475q.2.45-.088.863t-.787.412q-.275 0-.5-.15t-.35-.425L14.8 17H9.2l-.975 2.425q-.125.275-.35.425t-.5.15q-.5 0-.787-.413t-.088-.862M12 9q2.425 0 4.575-.425t3.15-1.075q-1-.65-3.15-1.075T12 6t-4.575.425T4.275 7.5q1 .65 3.15 1.075T12 9m0-1.5" /></svg>
                             </div>
-                            <input type="text" class="form-control" id="quote" placeholder="Restaurant's Quote'" required>
+                            <input type="number" class="form-control" name="Duration" value="@Model.Duration" placeholder="Duration per section" required>
                         </div>
                     </div>
                     <!-- end input group -->
+
                     <!-- input group -->
                     <div class="mb-3">
                         <label for="inputgroupmergefullname" class="form-label">Total Tables</label>
@@ -133,7 +138,7 @@
                             <div class="input-group-prepend input-group-text" id="tables">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m6.5 18.725l1-2.475q.225-.575.725-.913T9.35 15H11v-4.025Q7.175 10.85 4.587 9.85T2 7.5q0-1.45 2.925-2.475T12 4q4.175 0 7.088 1.025T22 7.5q0 1.35-2.588 2.35T13 10.975V15h1.65q.6 0 1.113.338t.737.912l1 2.475q.2.45-.088.863t-.787.412q-.275 0-.5-.15t-.35-.425L14.8 17H9.2l-.975 2.425q-.125.275-.35.425t-.5.15q-.5 0-.787-.413t-.088-.862M12 9q2.425 0 4.575-.425t3.15-1.075q-1-.65-3.15-1.075T12 6t-4.575.425T4.275 7.5q1 .65 3.15 1.075T12 9m0-1.5" /></svg>
                             </div>
-                            <input type="number" class="form-control" id="tables" placeholder="Table Count" required>
+                            <input type="number" class="form-control" name="NoOfTable" value="@Model.NoOfTable" placeholder="Table Count" required>
                         </div>
                     </div>
                     <!-- end input group -->
@@ -145,7 +150,7 @@
                             <div class="input-group-prepend input-group-text" id="seats">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.425 0-.712-.288T4 20v-3q0-.825.588-1.412T6 15h12q.825 0 1.413.588T20 17v3q0 .425-.288.713T19 21t-.712-.288T18 20v-3H6v3q0 .425-.288.713T5 21m-.5-7q-.625 0-1.062-.437T3 12.5t.438-1.062T4.5 11t1.063.438T6 12.5t-.437 1.063T4.5 14M7 14V5q0-.825.588-1.412T9 3h6q.825 0 1.413.588T17 5v9zm12.5 0q-.625 0-1.062-.437T18 12.5t.438-1.062T19.5 11t1.063.438T21 12.5t-.437 1.063T19.5 14M9 12h6V5H9zm0 0h6z" /></svg>
                             </div>
-                            <input type="number" class="form-control" id="seats" placeholder="Number of person per table" required>
+                            <input type="number" class="form-control" name="PeoplePerTable" value="@Model.PeoplePerTable" placeholder="Number of person per table" required>
                         </div>
                     </div>
                     <!-- end input group -->
@@ -157,13 +162,13 @@
                             <div class="input-group-prepend input-group-text" id="quote">
                                 <i class="bi-lock"></i>
                             </div>
-                            <input type="text" class="form-control" id="quote" placeholder="Restaurant's Quote'" required>
+                            <input type="text" class="form-control" name="Quote" value="@Model.Quote" placeholder="Restaurant's Quote" >
                         </div>
                     </div>
                     <!-- end input group -->
                     <div class="mb-3">
                         <label class="form-label" for="about">About</label>
-                        <textarea id="about" class="form-control" placeholder="Write about the restaurant" rows="4"></textarea>
+                        <textarea name="Description" value="@Model.Description" class="form-control" placeholder="Write about the restaurant" rows="4"></textarea>
                     </div>
                     <div class="d-flex mb-3">
                         <button type="button" class="btn btn-outlined btn-lg" onclick="showStep(1)">Back</button>
@@ -173,7 +178,7 @@
 
                     </div>
                     <div class="text-center">
-                        <span>Are you already have an account? <a class="btn btn-link btn-sm" href="/Signup">Login</a></span>
+                        <span>Are you already have an account? <a class="btn btn-link btn-sm" href="../Authentication">Login</a></span>
                     </div>
                 </div>
 
@@ -189,6 +194,8 @@
 
 
     <script type="text/javascript">
+        var filesize = 2000000;
+
         function showStep(step) {
             // Hide both steps initially
             document.getElementById('step1').style.display = 'none';
@@ -197,6 +204,87 @@
             // Show the selected step based on the step number
             document.getElementById('step' + step).style.display = 'block';
         }
+
+        $('#restaurant-reg-form').submit(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("UpSert", "Restaurant")',
+                type: "Post",
+                data: $(this).serialize(),
+                beforeSend: function () {
+                    $('.btn').prop("disabled", true);
+                },
+                success: function (data) {
+                    console.log("data:", data)
+                    if (data.Status ==  "@ResponseStatus.Success") {
+                        alert("Successfully registered!!");
+                        window.location.href = "../Authentication";
+                    }
+                    else {
+                        alert("Registeration Failed!!")
+                    }
+                },
+                complete: function () {
+                    $('.btn').prop("disabled", false);
+
+                }
+            });
+        });
+
+        function dataURItoBlob(dataURI) {
+            var binary = atob(dataURI.split(',')[1]);
+            var array = [];
+            for (var i = 0; i < binary.length; i++) {
+                array.push(binary.charCodeAt(i));
+            }
+            return new Blob([new Uint8Array(array)], { type: 'image/png' });
+        }
+
+
+          function ShowImagePreviewArticle(imageUploader, previewImage) {
+            var filesToUpload = document.getElementById('filearticle').files;
+            var file = filesToUpload[0];
+
+            if (filesize != undefined) {
+                if (filesize <= file.size) {
+                    isFileSizeValid = false;
+                    swal({
+                        title: "File size can't be greater than 2 MB.",
+                        text: "",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-primary",
+                        type: "error"
+                    }).catch(swal.noop);
+                    return false;
+                } else {
+                    isFileSizeValid = true;
+                }
+
+            }
+
+            var img = document.createElement("img");
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $(previewImage).attr('src', e.target.result);
+                var mime_type = "image/jpeg";
+                if (typeof output_format !== "undefined" && output_format == "png") {
+                    mime_type = "image/png";
+                }
+                reader.onloadend = function () {
+                    img.src = e.target.result;
+                    var base64data = reader.result;
+                    console.log("base64",base64data);
+                   
+                    $('#photo_article').val(base64data.split(",")[1]);
+                   
+                }
+            }
+            reader.readAsDataURL(file);
+        }
+
+
     </script>
 
 }

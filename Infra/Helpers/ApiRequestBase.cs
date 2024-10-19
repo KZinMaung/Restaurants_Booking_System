@@ -1,4 +1,5 @@
 ﻿
+using Azure;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -33,8 +34,13 @@ namespace Infra.Helpers
                     client.DefaultRequestHeaders.Accept.Clear();
                     using (var content = new StringContent(JsonConvert.SerializeObject(entity), UTF8Encoding.UTF8, "application/json"))
                     {
+                        
+                        Console.WriteLine(content);
+
                         using (var response = await client.PostAsync(url, content))
                         {
+                            var responseContent = await response.Content.ReadAsStringAsync();
+                            Console.WriteLine(responseContent);
                             if (response.IsSuccessStatusCode)
                             {
                                 var objsJsonString = await response.Content.ReadAsStringAsync();
@@ -43,6 +49,7 @@ namespace Infra.Helpers
                             }
                             else
                             {
+
                                 return default(U);
                             }
                         }
