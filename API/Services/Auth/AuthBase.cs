@@ -110,6 +110,7 @@ namespace API.Services.Auth
                 claims.Name = restaurant.Name;
                 claims.Email = restaurant.Email;
                 claims.Phone = restaurant.Phone;
+                claims.ProfilePhotoUrl = restaurant.ProfilePhotoUrl;
                 var token = GenerateJwtToken(claims);
                
 
@@ -137,7 +138,8 @@ namespace API.Services.Auth
             new Claim(ClaimTypes.NameIdentifier, claimData.Id.ToString()),
             new Claim(ClaimTypes.Name, claimData.Name),
             new Claim(ClaimTypes.Email, claimData.Email),
-            new Claim(ClaimTypes.MobilePhone, claimData.Phone)
+            new Claim(ClaimTypes.MobilePhone, claimData.Phone),
+            new Claim(ClaimTypes.Uri, claimData.ProfilePhotoUrl)
 
             };
 

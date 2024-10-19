@@ -1,10 +1,12 @@
-﻿<div id="div_about">
+﻿@model Data.Models.tbRestaurant
+
+<div id="div_about">
     <h4>Address</h4>
-    <p>Second tab content...</p>
+    <p>@Model.Location</p>
     <h4>Phone</h4>
-    <p>Second tab content...</p>
+    <p>@Model.Phone</p>
     <h4>Opening Time</h4>
-    <p>Second tab content...</p>
+    <p>@Model.OpenTime</p>
     <h4>About</h4>
-    <p>Second tab content...</p>
+    <p>@Model.CloseTime</p>
 </div>

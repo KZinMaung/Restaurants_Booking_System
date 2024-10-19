@@ -118,7 +118,7 @@ namespace Infra.Helpers
                 }
                 else
                 {
-                    using (var client = new HttpClient())
+                    using (var client = new HttpClient(handler))
                     {
                         //client.DefaultRequestHeaders.Add("Authorization", string.Format("Bearer {0}", accessToken));
                         client.BaseAddress = new Uri(url);
@@ -191,7 +191,7 @@ namespace Infra.Helpers
                 }
                 else
                 {
-                    using (var client = new HttpClient())
+                    using (var client = new HttpClient(handler))
                     {
                         //client.DefaultRequestHeaders.Add("Authorization", string.Format("Bearer {0}", accessToken));
                         client.BaseAddress = new Uri(url);

@@ -8,6 +8,7 @@ using Infra.BlobStorage;
 using Infra.Helpers;
 using Infra.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Services.Restaurant
 {
@@ -58,6 +59,13 @@ namespace API.Services.Restaurant
             response.Status = entity != null ? ResponseStatus.Success : ResponseStatus.Fail;
             return response;
 
+        }
+
+
+        public async Task<tbRestaurant> GetById(int id)
+        {
+            return await _uow.restaurantRepo.GetAll()
+                .FirstOrDefaultAsync(a => a.Id == id && a.IsDeleted != true) ?? new tbRestaurant();
         }
     }
 }

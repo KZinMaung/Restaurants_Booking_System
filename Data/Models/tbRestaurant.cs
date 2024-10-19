@@ -53,7 +53,7 @@ namespace Data.Models
                 }
                 else
                 {
-                    return $"https://localhost:7156/Storage/1aaf6bd2-d237-4718-820e-59c671b215ef.jpg";
+                    return $"https://localhost:7156/assets/img/160x160/img6.jpg";
 
                 }
             }
@@ -67,18 +67,32 @@ namespace Data.Models
         //[NotMapped]
         //public IFormFile? ProfilePhotoFile { get; set; }
 
+        public string ProfilePhotoUrl
+        {
+            get
+            {
+                if (this.CoverPhoto != null)
+                {
 
-        [NotMapped]
-        public string? ProfilePhotoUrl { get; set; }
+                    return $"https://localhost:7156/Storage/{ProfilePhoto}";
+                }
+                else
+                {
+                    return $"https://localhost:7156/assets/img/160x160/img6.jpg";
+
+                }
+            }
+        }
+
 
         [NotMapped]
         public string? ProfilePhotoString { get; set; }
 
         [Required]
-        public DateTime OpenTime { get; set; }
+        public TimeSpan OpenTime { get; set; }
 
         [Required]
-        public DateTime CloseTime { get; set; }
+        public TimeSpan CloseTime { get; set; }
 
         [Required]
         public int Duration { get; set; }
