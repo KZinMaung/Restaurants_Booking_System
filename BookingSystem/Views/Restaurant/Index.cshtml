@@ -39,6 +39,7 @@
 <!-- End Tab Content -->
 @section scripts{
     <script type="text/javascript">
+        var resId = @Model.Id;
         function LoadMenu() {
             $.ajax({
                 cache: false,
@@ -60,9 +61,7 @@
             $.ajax({
                 cache: false,
                 url: '@Url.Action("LoadAbout", "Restaurant")',
-                data: {
-                   
-                },
+                data: { id : resId },
                 beforeSend: function () {
                     $('#div_tab_content').empty().append('<div class="loading text-center"><div class= "spinner-border" role = "status"></div><div class= "text-muted" > loading...</div></div>');
 
@@ -91,6 +90,6 @@
             });
         }
 
-
     </script>
+    
 }

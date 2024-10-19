@@ -26,9 +26,10 @@ namespace BookingSystem.Controllers
             return PartialView("_Menu");
         }
 
-        public IActionResult LoadAbout()
+        public  async Task<IActionResult> LoadAbout(int id)
         {
-            return PartialView("_About");
+            tbRestaurant res = await RestaurantApiRH.GetById(id);
+            return PartialView("_About", res);
         }
 
         public IActionResult LoadReviews()
