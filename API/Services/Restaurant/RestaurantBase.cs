@@ -16,17 +16,15 @@ namespace API.Services.Restaurant
         private readonly IConfiguration _configuration;
         private IAzureBlobStorage _azureBlobStorage;
         UnitOfWork _uow;
-        private readonly PhotoUploadHelper _photoUploadHelper;
+       
 
-
-        public RestaurantBase(BookingSystemDbCotnext context, IAzureBlobStorage azureBlobStorage, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
+        public RestaurantBase(BookingSystemDbCotnext context, IAzureBlobStorage azureBlobStorage, IConfiguration configuration)
         {
             this._context = context;
             this._uow = new UnitOfWork(_context);
             this._configuration = configuration;
             this._azureBlobStorage = azureBlobStorage;
-            string uploadsFolder = Path.Combine(webHostEnvironment.ContentRootPath, "uploads");
-            _photoUploadHelper = new PhotoUploadHelper(uploadsFolder);
+            
         }
 
         public async Task<ResponseData> UpSert(tbRestaurant restaurant)

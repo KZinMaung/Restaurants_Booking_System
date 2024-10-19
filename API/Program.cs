@@ -92,7 +92,7 @@ builder.Services.AddScoped<IRestaurant>(s =>
     var azureBlobStorage = s.GetService<IAzureBlobStorage>();
     var webHostEnvironment = s.GetService<IWebHostEnvironment>();
 
-    return new RestaurantBase(dbContext, azureBlobStorage, configuration, webHostEnvironment);
+    return new RestaurantBase(dbContext, azureBlobStorage, configuration);
 });
 
 var app = builder.Build();

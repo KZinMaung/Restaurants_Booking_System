@@ -47,7 +47,7 @@
                         <div class="input-group-prepend input-group-text" id="phone">
                             <i class="bi-phone"></i>
                         </div>
-                        <input type="text" class="form-control" name="PHone" value="@Model.Phone" placeholder="09***" required>
+                        <input type="text" class="form-control" name="Phone" value="@Model.Phone" placeholder="09***" required>
                     </div>
                 </div>
                 <!-- end input group -->
@@ -59,7 +59,7 @@
                         <div class="input-group-prepend input-group-text">
                             <i class="bi-lock"></i>
                         </div>
-                        <input type="password" class="form-control" id="password" placeholder="***" required>
+                        <input type="password" class="form-control" name="Password" value="@Model.Password" id="password" placeholder="***" required>
                     </div>
                 </div>
                 <!-- end input group -->
@@ -76,68 +76,18 @@
                 <div id="step1" style="display: block;">
                     <div class="mb-3">
                         <label class="form-label" for="exampleFormControlInput1">Cover Photo</label>
-                        <img src="@Model.CoverPhotoUrl" id="imagePreviewArticle" />
-                        <input type="hidden" name="CoverPhotoString" id="photo_article" />
-                        <input type="file" id="filearticle" name="CoverPhotoFile"  class="form-control" onchange="ShowImagePreviewArticle(this, document.getElementById('imagePreviewArticle'))">
+                        <img src="@Model.CoverPhotoUrl" id="cover-preview" width="50" height="50"/>
+                        <input type="hidden" name="CoverPhotoString" id="cover_photo_article" />
+                        <input type="file" class="form-control" id="cover-file-data" onchange="ShowCoverPreview(this, document.getElementById('cover-preview'))">
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="exampleFormControlInput1">Profile Photo</label>
-                        <input type="file" name="ProfilePhotoFile" class="form-control" >
+                        <img src="@Model.ProfilePhotoUrl" id="profile-preview" width="50" height="50" />
+                        <input type="hidden" name="ProfilePhotoString" id="profile_photo_article" />
+                        <input type="file" id="profile-file-data"  class="form-control" onchange="ShowProfilePreview(this, document.getElementById('profile-preview'))">
+
                     </div>
-                    <!-- Media -->
-                    <label class="form-label" for="coverPhoto">Cover Photo</label>
-                    <div class="d-flex align-items-center mb-3">
-                        <!-- Avatar -->
-                        <label class="avatar avatar-xl avatar-circle" for="coverPhoto">
-                            <img id="coverImg" class="avatar-img w-100" src="~/assets/img/160x160/img1.jpg" alt="Image Description">
-                        </label>
-
-                        <div class="d-flex gap-3 ms-4">
-                            <div class="form-attachment-btn btn btn-sm btn-primary">
-                                Upload photo
-                                <input type="file" class="js-file-attach form-attachment-btn-label" id="coverPhoto"
-                                       data-hs-file-attach-options='{
-                  "textTarget": "#coverImg",
-                  "mode": "image",
-                  "targetAttr": "src",
-                  "resetTarget": ".js-file-attach-reset-cover-img",
-                  "resetImg": "../assets/img/160x160/img1.jpg",
-                  "allowTypes": [".png", ".jpeg", ".jpg"]
-               }'>
-                            </div>
-                            <!-- End Avatar -->
-
-                            <button type="button" class="js-file-attach-reset-cover-img btn btn-white btn-sm">Delete</button>
-                        </div>
-                    </div>
-                    <!-- End Media -->
-                    <!-- Media -->
-                    <label class="form-label" for="profilePhoto">Restaurant Profile Photo</label>
-                    <div class="d-flex align-items-center mb-3">
-                        <!-- Avatar -->
-                        <label class="avatar avatar-xl avatar-circle" for="profilePhoto">
-                            <img id="profileImg" class="avatar-img w-100" src="~/assets/img/160x160/img1.jpg" alt="Image Description">
-                        </label>
-
-                        <div class="d-flex gap-3 ms-4">
-                            <div class="form-attachment-btn btn btn-sm btn-primary">
-                                Upload photo
-                                <input type="file" class="js-file-attach form-attachment-btn-label" id="profilePhoto"
-                                       data-hs-file-attach-options='{
-                  "textTarget": "#profileImg",
-                  "mode": "image",
-                  "targetAttr": "src",
-                  "resetTarget": ".js-file-attach-reset-profile-img",
-                  "resetImg": "../assets/img/160x160/img1.jpg",
-                  "allowTypes": [".png", ".jpeg", ".jpg"]
-               }'>
-                            </div>
-                            <!-- End Avatar -->
-
-                            <button type="button" class="js-file-attach-reset-profile-img btn btn-white btn-sm">Delete</button>
-                        </div>
-                    </div>
-                    <!-- End Media -->
+                    
                     <!-- input group -->
                     <div class="mb-3">
                         <label for="address" class="form-label">Address</label>
@@ -146,7 +96,7 @@
                             <div class="input-group-prepend input-group-text" id="address">
                                 <i class="bi-envelope-open"></i>
                             </div>
-                            <input type="text" class="form-control" id="email" placeholder="Address" required>
+                            <input type="text" class="form-control" name="Location" value="@Model.Location" placeholder="Address" required>
                         </div>
                     </div>
                     <!-- end input group -->
@@ -170,18 +120,7 @@
 
                     </div>
                     <!-- end input group -->
-                    <!-- input group -->
-                    <div class="mb-3">
-                        <label for="inputgroupmergeemail" class="form-label">Quote(Optional)</label>
-
-                        <div class="input-group input-group-merge">
-                            <div class="input-group-prepend input-group-text" id="quote">
-                                <i class="bi-lock"></i>
-                            </div>
-                            <input type="text" class="form-control" id="quote" placeholder="Restaurant's Quote'" required>
-                        </div>
-                    </div>
-                    <!-- end input group -->
+                   
 
                     <!-- input group -->
                     <div class="mb-3">
@@ -212,10 +151,10 @@
                         <label for="quote" class="form-label">Quote(Optional)</label>
 
                         <div class="input-group input-group-merge">
-                            <div class="input-group-prepend input-group-text" id="quote">
+                            <div class="input-group-prepend input-group-text" >
                                 <i class="bi-lock"></i>
                             </div>
-                            <input type="text" class="form-control" id="quote" placeholder="Restaurant's Quote'" required>
+                            <input type="text" class="form-control" id="quote" placeholder="Restaurant's Quote'" name="Quote" value="@Model.Quote">
                         </div>
                     </div>
                     <!-- end input group -->
@@ -271,7 +210,7 @@
                 },
                 success: function (data) {
                     console.log("data:", data)
-                    if (data.Status ==  "@ResponseStatus.Success") {
+                    if (data?.Status ==  "@ResponseStatus.Success") {
                         alert("Successfully registered!!");
                         window.location.href = "../Authentication";
                     }
@@ -296,47 +235,205 @@
         }
 
 
-          function ShowImagePreviewArticle(imageUploader, previewImage) {
-            var filesToUpload = document.getElementById('filearticle').files;
-            var file = filesToUpload[0];
+        //   function ShowImagePreviewArticle(imageUploader, previewImage) {
+        //     var filesToUpload = document.getElementById('filearticle').files;
+        //     var file = filesToUpload[0];
 
-            if (filesize != undefined) {
-                if (filesize <= file.size) {
-                    isFileSizeValid = false;
-                    swal({
-                        title: "File size can't be greater than 2 MB.",
-                        text: "",
-                        buttonsStyling: false,
-                        confirmButtonClass: "btn btn-primary",
-                        type: "error"
-                    }).catch(swal.noop);
-                    return false;
-                } else {
-                    isFileSizeValid = true;
-                }
+        //     if (filesize != undefined) {
+        //         if (filesize <= file.size) {
+        //             isFileSizeValid = false;
+        //             swal({
+        //                 title: "File size can't be greater than 2 MB.",
+        //                 text: "",
+        //                 buttonsStyling: false,
+        //                 confirmButtonClass: "btn btn-primary",
+        //                 type: "error"
+        //             }).catch(swal.noop);
+        //             return false;
+        //         } else {
+        //             isFileSizeValid = true;
+        //         }
 
-            }
+        //     }
 
-            var img = document.createElement("img");
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $(previewImage).attr('src', e.target.result);
-                var mime_type = "image/jpeg";
-                if (typeof output_format !== "undefined" && output_format == "png") {
-                    mime_type = "image/png";
-                }
-                reader.onloadend = function () {
-                    img.src = e.target.result;
-                    var base64data = reader.result;
-                    console.log("base64",base64data);
+        //     var img = document.createElement("img");
+        //     var reader = new FileReader();
+        //     reader.onload = function (e) {
+        //         $(previewImage).attr('src', e.target.result);
+        //         var mime_type = "image/jpeg";
+        //         if (typeof output_format !== "undefined" && output_format == "png") {
+        //             mime_type = "image/png";
+        //         }
+        //         reader.onloadend = function () {
+        //             img.src = e.target.result;
+        //             var base64data = reader.result;
+        //             console.log("base64",base64data);
                    
-                    $('#photo_article').val(base64data.split(",")[1]);
+        //             $('#cover_photo_article').val(base64data.split(",")[1]);
                    
+        //         }
+        //     }
+        //     reader.redAsDataURL(file);
+        // }
+
+
+        // function ShowProfilePreview(imageUploader, previewImage) {
+        //     var filesToUpload = document.getElementById('profile_article').files;
+        //     var file = filesToUpload[0];
+
+        //     if (filesize != undefined) {
+        //         if (filesize <= file.size) {
+        //             isFileSizeValid = false;
+        //             swal({
+        //                 title: "File size can't be greater than 2 MB.",
+        //                 text: "",
+        //                 buttonsStyling: false,
+        //                 confirmButtonClass: "btn btn-primary",
+        //                 type: "error"
+        //             }).catch(swal.noop);
+        //             return false;
+        //         } else {
+        //             isFileSizeValid = true;
+        //         }
+
+        //     }
+
+        //     var img = document.createElement("img");
+        //     var reader = new FileReader();
+        //     reader.onload = function (e) {
+        //         $(previewImage).attr('src', e.target.result);
+        //         var mime_type = "image/jpeg";
+        //         if (typeof output_format !== "undefined" && output_format == "png") {
+        //             mime_type = "image/png";
+        //         }
+        //         reader.onloadend = function () {
+        //             img.src = e.target.result;
+        //             var base64data = reader.result;
+        //             console.log("base64",base64data);
+                   
+        //             $('#profile_photo_article').val(base64data.split(",")[1]);
+                   
+        //         }
+        //     }
+        //     reader.redAsDataURL(file);
+        // }
+
+         function maxwidthheight(width, height) {
+            var MAX_WIDTH = 1200;  // to remove maximum width height
+            var MAX_HEIGHT = 1200;
+            var width = width;
+            var height = height;
+
+            if (width > height) {
+                if (width > MAX_WIDTH) {
+                    height *= MAX_WIDTH / width;
+                    width = MAX_WIDTH;
+                }
+            } else {
+                if (height > MAX_HEIGHT) {
+                    width *= MAX_HEIGHT / height;
+                    height = MAX_HEIGHT;
                 }
             }
-            reader.readAsDataURL(file);
+            var a = { width: width, height: height };
+            return a
         }
 
+
+        function ShowProfilePreview(imageUploader, previewImage) {
+            if (imageUploader.files && imageUploader.files[0]) {
+                var files = $("#profile-file-data").get(0).files;
+                var file = files[0];
+
+                var img = document.createElement("img");
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $(previewImage).attr('src', e.target.result);
+                    img.src = e.target.result;
+                    var mime_type = "image/jpeg";
+                    if (typeof output_format !== "undefined" && output_format == "png") {
+                        mime_type = "image/png";
+                    }
+                    var canvas = document.createElement("canvas");
+                    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+                        alert('Photo is uploading...');
+                    }
+                    //set max height width
+                    var gg = maxwidthheight(img.width, img.height);
+                    width = gg.width;
+                    height = gg.height;
+                    canvas.width = width;
+                    canvas.height = height;
+                    var ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    var dataurl = canvas.toDataURL(mime_type, 60 / 100);
+                    //document.getElementById('image').src = dataurl;
+                    var blob = dataURItoBlob(dataurl);
+                    console.log("blob" + dataurl);
+
+                    reader.onloadend = function () {
+                        console.log("reader result " + reader.result);
+                        var base64data = reader.result;
+                         console.log(base64data);
+                        $('#profile_photo_article').val(base64data.split(",")[1]);
+                    }
+
+                }
+                reader.readAsDataURL(file);
+            }
+
+
+
+        }
+
+
+
+        function ShowCoverPreview(imageUploader, previewImage) {
+            if (imageUploader.files && imageUploader.files[0]) {
+                var files = $("#cover-file-data").get(0).files;
+                var file = files[0];
+
+                var img = document.createElement("img");
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $(previewImage).attr('src', e.target.result);
+                    img.src = e.target.result;
+                    var mime_type = "image/jpeg";
+                    if (typeof output_format !== "undefined" && output_format == "png") {
+                        mime_type = "image/png";
+                    }
+                    var canvas = document.createElement("canvas");
+                    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+                        alert('Photo is uploading...');
+                    }
+                    //set max height width
+                    var gg = maxwidthheight(img.width, img.height);
+                    width = gg.width;
+                    height = gg.height;
+                    canvas.width = width;
+                    canvas.height = height;
+                    var ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    var dataurl = canvas.toDataURL(mime_type, 60 / 100);
+                    //document.getElementById('image').src = dataurl;
+                    var blob = dataURItoBlob(dataurl);
+                    console.log("blob" + dataurl);
+
+                    reader.onloadend = function () {
+                        console.log("reader result " + reader.result);
+                        var base64data = reader.result;
+                        // console.log(base64data);
+                         $('#cover_photo_article').val(base64data.split(",")[1]);
+                        
+                    }
+
+                }
+                reader.readAsDataURL(file);
+            }
+
+
+
+        }
 
     </script>
 

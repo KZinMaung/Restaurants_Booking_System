@@ -67,35 +67,41 @@ namespace BookingSystem.Controllers
                     return string.Empty;
             }
         }
+        public static string UploadPhoto(string photoString)
+        {
+            var ext = GetFileExtension(photoString);
+            string imageName = Guid.NewGuid() + "." + ext;
 
+
+            //set the image path
+            string path =
+          Path.GetFullPath(Path.Combine(Environment.CurrentDirectory,
+          $"wwwroot\\Storage"));
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            string imgPath = Path.Combine(Directory.GetCurrentDirectory(),
+          $"wwwroot\\Storage", imageName);
+
+            byte[] imageBytes = Convert.FromBase64String(photoString);
+            System.IO.File.WriteAllBytes(imgPath, imageBytes);
+
+            return imageName;
+
+        }
         public async Task<IActionResult> UpSert(tbRestaurant res)
         {
             if (res.CoverPhotoString != null)
             {
-                var ext = GetFileExtension(res.CoverPhotoString);
+                res.CoverPhoto = UploadPhoto(res.CoverPhotoString);
+            }
 
-                string imageName = Guid.NewGuid() + "." + ext;
-                res.CoverPhoto = imageName;
-
-                //set the image path
-
-                string path =
-              Path.GetFullPath(Path.Combine(Environment.CurrentDirectory,
-              $"wwwroot\\Storage"));
-
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-
-                string imgPath = Path.Combine(Directory.GetCurrentDirectory(),
-              $"wwwroot\\Storage", imageName);
-
-                byte[] imageBytes = Convert.FromBase64String(res.CoverPhotoString);
-
-                System.IO.File.WriteAllBytes(imgPath, imageBytes);
-
-
+            if (res.ProfilePhotoString != null)
+            {
+                res.ProfilePhoto = UploadPhoto(res.ProfilePhotoString);
             }
 
             ResponseData result = await RestaurantApiRH.UpSert(res);

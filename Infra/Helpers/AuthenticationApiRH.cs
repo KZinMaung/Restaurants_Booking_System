@@ -17,5 +17,6 @@ namespace Infra.Helpers
             AuthenticaticationData data = await ApiRequestBase<LoginRequest,AuthenticaticationData>.PostDiffRequest(url.route(Request.BookingSystem),loginRequest);
             return data;
         }
+
     }
 }
