@@ -1,4 +1,5 @@
-﻿using Core.Extension;
+﻿using API.Services.Customer;
+using Core.Extension;
 using Data.Constants;
 using Data.Dtos;
 using Data.Model;
@@ -27,6 +28,12 @@ namespace API.Services.Restaurant
             
         }
 
+        private string HashPassword(string password)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password);
+        }
+
+
         public async Task<ResponseData> UpSert(tbRestaurant restaurant)
         {
             tbRestaurant entity;
@@ -41,7 +48,7 @@ namespace API.Services.Restaurant
             //insert
             else
             {
-                
+                restaurant.Password = HashPassword(restaurant.Password);
                 restaurant.Accesstime = MyExtension.GetLocalTime();
                 restaurant.CreatedAt = MyExtension.GetLocalTime();
                 entity = await _uow.restaurantRepo.InsertReturnAsync(restaurant);

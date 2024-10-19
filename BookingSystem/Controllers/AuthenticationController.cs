@@ -45,7 +45,7 @@ namespace BookingSystem.Controllers
             try
             {
                 AuthenticaticationData data = await AuthenticationApiRH.Login(loginRequest);
-                if(data.Token != null)
+                if(data?.Token != null)
                 {
                     status = ResponseStatus.Success;
                     //authenticate here

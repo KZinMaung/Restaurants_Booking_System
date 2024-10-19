@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Login Page";
     Layout = "_PlainLayout";
-    var userType = UserType.Customer;
+   
 }
 
 <div class="row justify-content-center">
@@ -41,24 +41,24 @@
             </div>
             <!-- End Input Group -->
             <div class="row mb-5">
+               
                 <label for="type" class="form-label">Type</label>
-                <div class="col-sm mb-2 mb-sm-0">
-                    <!-- Form Radio -->
-                    <label class="form-control" for="owner">
-                        <span class="form-check">
-                            <input type="radio" class="form-check-input" name="userType" id="owner" checked>
-                            <span class="form-check-label">I am a owner.</span>
-                        </span>
-                    </label>
-                    <!-- End Form Radio -->
-                </div>
-
                 <div class="col-sm mb-2 mb-sm-0">
                     <!-- Form Radio -->
                     <label class="form-control" for="customer">
                         <span class="form-check">
-                            <input type="radio" class="form-check-input" name="userType" id="customer">
+                            <input type="radio" class="form-check-input" name="UserType" value="@UserType.Customer" checked>
                             <span class="form-check-label">I am customer.</span>
+                        </span>
+                    </label>
+                    <!-- End Form Radio -->
+                </div>
+                <div class="col-sm mb-2 mb-sm-0">
+                    <!-- Form Radio -->
+                    <label class="form-control" for="owner">
+                        <span class="form-check">
+                            <input type="radio" class="form-check-input" name="UserType" value="@UserType.Restaurant" >
+                            <span class="form-check-label">I am a owner.</span>
                         </span>
                     </label>
                     <!-- End Form Radio -->
@@ -72,17 +72,18 @@
         </form>
 
         <div class="text-start">
-            <p>Don't have an account? <a class="link" href="">Signup here</a></p>
+            <p>Don't have an account? <a class="link" href="../Customer/Register">Signup here</a></p>
         </div>
 
     </div>
 </div>
 
 @section scripts{
-    <script>
-        var userType = "@userType";
+    <script type="text/javascript">
+       
          $(function () {
-           
+            
+
             $('.loginform').on('keydown', 'input', function (e) {
                 if (e.keyCode === 13) {
                     $('.btnlogin').click();
@@ -96,7 +97,8 @@
 
         function login() {
             $('.loginform').submit(function (e) {
-
+                var userType = $('input[name="UserType"]:checked').val();
+                console.log("usertype:", userType);
                 e.preventDefault();
                 var data = {
                     "Email": $('#txt-email').val(),
@@ -113,8 +115,11 @@
                     },
                     success: function (response) {
 
-                        if (response == "@ResponseStatus.Success") {
+                        if (response == "@ResponseStatus.Success" && userType == "@UserType.Customer") {
                             window.location = "../Customer/Index";
+                        }
+                        else if (response == "@ResponseStatus.Success" && userType == "@UserType.Restaurant") {
+                            window.location = "../Restaurant/Index";
                         }
                         else {
                             $('.btn').prop('disabled', false);

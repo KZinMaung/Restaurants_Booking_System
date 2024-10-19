@@ -100,7 +100,7 @@ namespace API.Services.Auth
             var restaurant = new tbRestaurant();
             bool isValid = false;
             AuthenticaticationData data = new AuthenticaticationData();
-            Claims claims = null;
+            Claims claims = new Claims();
 
             restaurant = await _uow.restaurantRepo.GetAll().Where(a => a.Email == loginRequest.Email && a.IsDeleted != true).FirstOrDefaultAsync() ?? new tbRestaurant();
             isValid = restaurant.Id != 0 && VerifyPassword(loginRequest.Password, restaurant.Password);
