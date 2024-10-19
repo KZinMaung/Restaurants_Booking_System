@@ -23,6 +23,13 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("api/restaurant/get-by-id")]
+        public async Task<IActionResult> GetById(int id)
+
+        {
+            var result = await this._irestaurant.GetById(id);
+            return Ok(result);
+        }
 
 
     }

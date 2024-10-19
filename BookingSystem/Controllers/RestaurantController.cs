@@ -8,9 +8,17 @@ namespace BookingSystem.Controllers
 {
     public class RestaurantController : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var result = User.Identity.IsAuthenticated.ToString();
+            int id = 0;
+
+            if(result == "True")
+            {
+                id = int.Parse(User.Claims.ToArray()[AuthDataIndex.Id].Value);
+            }
+            tbRestaurant res = await RestaurantApiRH.GetById(id);
+            return View(res);
         }
 
         public IActionResult LoadMenu()
@@ -109,6 +117,13 @@ namespace BookingSystem.Controllers
             ResponseData result = await RestaurantApiRH.UpSert(res);
            
             return Json(result);
+        }
+
+
+        public async Task<IActionResult> GetById(int id)
+        {
+            tbRestaurant result = await RestaurantApiRH.GetById(id);
+            return Ok(result);
         }
     }
 }
