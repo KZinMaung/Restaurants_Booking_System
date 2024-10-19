@@ -1,4 +1,5 @@
-﻿@model Data.Models.tbCustomer
+﻿@using Data.Constants
+@model Data.Models.tbCustomer
 
 @{
     ViewData["Title"] = "Signup Page";
@@ -66,11 +67,11 @@
             </div>
         </form>
         <div class="text-start">
-            <p>Already has an account? <a class="link" href="../page-signup-simple.html">Login here</a></p>
+            <p>Already has an account? <a class="link" href="../Authentication">Login here</a></p>
         </div>
         <span class="divider-center">OR</span>
         <div class="text-start">
-            <p>Are you a restaurant owner? <a class="link" href="/RestaurantRegister">Register as owner</a></p>
+            <p>Are you a restaurant owner? <a class="link" href="../Restaurant/Register">Register as owner</a></p>
         </div>
 
     </div>
@@ -91,7 +92,7 @@
                     $('.btn').prop("disabled", true);
                 },
                 success: function (status) {
-                    if (status == "success") {
+                    if (status ==  "@ResponseStatus.Success") {
                         alert("Successfully registered!!");
                         window.location.href = "../Authentication";
                     }

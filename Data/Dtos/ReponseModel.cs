@@ -11,5 +11,9 @@ namespace Data.Dtos
         public string? Token { get; set; }
     }
 
+    public class ResponseData
+    {
+        public string? Status { get; set; }
+    }
     
 }

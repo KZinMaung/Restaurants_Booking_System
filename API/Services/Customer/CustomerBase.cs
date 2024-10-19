@@ -36,7 +36,6 @@ namespace API.Services.Customer
         }
 
 
-
         public async Task<tbCustomer> CreateCustomer(tbCustomer customer)
         {
 
@@ -64,6 +63,7 @@ namespace API.Services.Customer
             }
 
         }
+
 
 
         public async Task<tbCustomer> GetCustomerById(int id)
