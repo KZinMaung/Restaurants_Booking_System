@@ -89,10 +89,10 @@ namespace Data.Models
         public string? ProfilePhotoString { get; set; }
 
         [Required]
-        public DateTime OpenTime { get; set; }
+        public TimeSpan OpenTime { get; set; }
 
         [Required]
-        public DateTime CloseTime { get; set; }
+        public TimeSpan CloseTime { get; set; }
 
         [Required]
         public int Duration { get; set; }
