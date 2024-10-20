@@ -39,13 +39,7 @@
 <!-- End Tab Content -->
 @section scripts{
     <script type="text/javascript">
-        $(document).ready(function () {
-            // INITIALIZATION OF FILE ATTACH
-            // =======================================================
-            new HSFileAttach('.js-file-attach')
-
-        })
-
+        
 
         var resId = @Model?.Id;
         function LoadMenu() {
@@ -62,6 +56,11 @@
                 success: function (data) {
                     $('#div_tab_content').empty().append(data);
                    
+                },
+                complete: function () {
+                    // INITIALIZATION OF FILE ATTACH
+                    // =======================================================
+                    new HSFileAttach('.js-file-attach')
                 }
             });
         }
@@ -100,5 +99,5 @@
 
     </script>
    
-}
+
 }
