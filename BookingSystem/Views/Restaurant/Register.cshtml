@@ -87,7 +87,61 @@
                         <input type="file" id="profile-file-data"  class="form-control" onchange="ShowProfilePreview(this, document.getElementById('profile-preview'))">
 
                     </div>
-                    
+
+                    <!-- Media -->
+                    <label class="form-label" for="exampleFormControlInput1">Cover Photo</label>
+                    <div class="d-flex align-items-center mb-3">
+                        <!-- Avatar -->
+                        <label class="avatar avatar-xl avatar-circle" for="coverPhoto">
+                            <img id="coverImg" class="avatar-img w-100" src="../assets/img/160x160/img1.jpg" alt="Image Description">
+                        </label>
+
+                        <div class="d-flex gap-3 ms-4">
+                            <div class="form-attachment-btn btn btn-sm btn-primary">
+                                Upload photo
+                                <input type="file" class="js-file-attach form-attachment-btn-label" id="coverPhoto"
+                                       data-hs-file-attach-options='{
+                                      "textTarget": "#coverImg",
+                                      "mode": "image",
+                                      "targetAttr": "src",
+                                      "resetTarget": ".js-file-attach-reset-cover-img",
+                                      "resetImg": "../assets/img/160x160/img1.jpg",
+                                      "allowTypes": [".png", ".jpeg", ".jpg"]
+                                   }'>
+                            </div>
+                            <!-- End Avatar -->
+
+                            <button type="button" class="js-file-attach-reset-cover-img btn btn-white btn-sm">Delete</button>
+                        </div>
+                    </div>
+                    <!-- End Media -->
+                    <!-- Media -->
+                    <label class="form-label" for="exampleFormControlInput1">Profile Photo</label>
+                    <div class="d-flex align-items-center mb-3">
+                        <!-- Avatar -->
+                        <label class="avatar avatar-xl avatar-circle" for="profilePhoto">
+                            <img id="profileImg" class="avatar-img w-100" src="../assets/img/160x160/img1.jpg" alt="Image Description">
+                        </label>
+
+                        <div class="d-flex gap-3 ms-4">
+                            <div class="form-attachment-btn btn btn-sm btn-primary">
+                                Upload photo
+                                <input type="file" class="js-file-attach form-attachment-btn-label" id="profilePhoto"
+                                       data-hs-file-attach-options='{
+                                      "textTarget": "#profileImg",
+                                      "mode": "image",
+                                      "targetAttr": "src",
+                                      "resetTarget": ".js-file-attach-reset-profile-img",
+                                      "resetImg": "../assets/img/160x160/img1.jpg",
+                                      "allowTypes": [".png", ".jpeg", ".jpg"]
+                                   }'>
+                            </div>
+                            <!-- End Avatar -->
+
+                            <button type="button" class="js-file-attach-reset-profile-img btn btn-white btn-sm">Delete</button>
+                        </div>
+                    </div>
+                    <!-- End Media -->
                     <!-- input group -->
                     <div class="mb-3">
                         <label for="address" class="form-label">Address</label>
