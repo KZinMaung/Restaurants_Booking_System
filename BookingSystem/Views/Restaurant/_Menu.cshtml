@@ -2,108 +2,20 @@
 
 <div id="div_menu">
 
-    <button type="button" class="mb-5 btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addnewmenumodal">
+    <button type="button" class="mb-5 btn btn-primary btn-sm" data-bs-toggle="modal" onclick="AddMenu()">
         Add New
         <i class="bi-plus ms-1"></i>
     </button>
     <!-- Start Menu List -->
-    <div class="d-flex flex-row justify-content-between align-items-center mb-3">
-        <div class="d-flex flex-row align-items-center">
-            <span class="avatar avatar-lg avatar-4x3 me-3">
-                <img class="avatar-img" src="../assets/img/documentation/img1.jpg" alt="Image Description">
-            </span>
-            <h5>Menu Name</h5>
-        </div>
-        <div class="d-flex align-items-center">
-            <p class="m-0">20000 MMK</p>
-            <button type="button" class="btn btn-outline-primary btn-sm btn-icon rounded-pill mx-2">
-                <i class="bi bi-pencil"></i>
-            </button>
-            <button type="button" class="btn btn-outline-primary btn-icon btn-sm rounded-pill">
-                <i class="bi bi-trash"></i>
-            </button>
-        </div>
-    </div>
-    <!-- End Menu List -->
-    <!-- Start Menu List -->
-    <div class="d-flex flex-row justify-content-between align-items-center mb-3">
-        <div class="d-flex flex-row align-items-center">
-            <span class="avatar avatar-lg avatar-4x3 me-3">
-                <img class="avatar-img" src="../assets/img/documentation/img1.jpg" alt="Image Description">
-            </span>
-            <h5>Menu Name</h5>
-        </div>
-        <div class="d-flex align-items-center">
-            <p class="m-0">20000 MMK</p>
-            <button type="button" class="btn btn-outline-primary btn-sm btn-icon rounded-pill mx-2">
-                <i class="bi bi-pencil"></i>
-            </button>
-            <button type="button" class="btn btn-outline-primary btn-icon btn-sm rounded-pill">
-                <i class="bi bi-trash"></i>
-            </button>
-        </div>
-    </div>
-    <!-- End Menu List -->
+    <div id="div_menu_list">
 
+    </div>
+    <!-- End Menu List -->
     <!-- Add New Menu Modal -->
-    <div class="modal fade" id="addnewmenumodal" tabindex="-1" role="dialog" aria-labelledby="addNewModal" aria-hidden="true">
+    <div class="modal fade" id="MenuFormModal" tabindex="-1" role="dialog" aria-labelledby="addNewModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div>
-                            <div class="mb-3">
-                             <!-- Media -->
-                            <label class="form-label" for="exampleFormControlInput1">Menu Photo</label>
-                            <div class="d-flex align-items-center mb-3">
-                                <!-- Avatar -->
-                                <label class="avatar avatar-xl avatar-circle" for="menuPhoto">
-                                    <img id="menuImg" class="avatar-img w-100" src="../assets/img/160x160/img1.jpg" alt="Image Description">
-                                </label>
-
-                                <div class="d-flex gap-3 ms-4">
-                                    <div class="form-attachment-btn btn btn-sm btn-primary">
-                                        Upload photo
-                                        <input type="file" class="js-file-attach form-attachment-btn-label" id="menuPhoto"
-                                                                           data-hs-file-attach-options='{
-                                              "textTarget": "#menuImg",
-                                              "mode": "image",
-                                              "targetAttr": "src",
-                                              "resetTarget": ".js-file-attach-reset-img",
-                                              "resetImg": "../assets/img/160x160/img1.jpg",
-                                              "allowTypes": [".png", ".jpeg", ".jpg"]
-                                           }'>
-                                    </div>
-                                    <!-- End Avatar -->
-
-                                    <button type="button" class="js-file-attach-reset-img btn btn-white btn-sm">Delete</button>
-                                </div>
-                            </div>
-                            <!-- End Media -->
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="name">Name</label>
-                                <input type="text" id="name" class="form-control" placeholder="Menu Name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="name">Price</label>
-                                <input type="text" id="name" class="form-control" placeholder="Price" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="description">Description</label>
-                                <input type="text" id="description" class="form-control" placeholder="eg. chicken, spicy, sour" required>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-white" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Add Menu</button>
-                </div>
+                <div id="div_menu_form"></div>
             </div>
         </div>
     </div>

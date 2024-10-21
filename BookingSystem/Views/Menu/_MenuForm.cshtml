@@ -1,0 +1,75 @@
+﻿@model Data.Models.tbMenu
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "MenuForm" }))
+{
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div>
+                <div class="mb-3">
+                    <!-- Media -->
+                    <label class="form-label" for="exampleFormControlInput1">Menu Photo</label>
+                    <div class="d-flex align-items-center mb-3">
+                        <!-- Avatar -->
+                        <label class="avatar avatar-xl avatar-circle" for="menuPhoto">
+                            <img id="menuImg" class="avatar-img w-100" src="@Model.PhotoUrl" alt="Image Description">
+                        </label>
+                        <input type="hidden" name="PhotoString" id="menu_photo_string" />
+                        <div class="d-flex gap-3 ms-4">
+                            <div class="form-attachment-btn btn btn-sm btn-primary">
+                                Upload photo
+                                <input type="file" class="js-file-attach form-attachment-btn-label" id="menuPhoto"
+                                       onchange="ShowImagePreview(this)"
+                                       data-hs-file-attach-options='{
+                                                  "textTarget": "#menuImg",
+                                                  "mode": "image",
+                                                  "targetAttr": "src",
+                                                  "resetTarget": ".js-file-attach-reset-img",
+                                                  "resetImg": "../assets/img/160x160/img1.jpg",
+                                                  "allowTypes": [".png", ".jpeg", ".jpg"]
+                                               }'
+                                               
+                                >
+                            </div>
+                            <!-- End Avatar -->
+
+                            <button type="button" class="js-file-attach-reset-img btn btn-white btn-sm">Delete</button>
+                        </div>
+                    </div>
+                    <!-- End Media -->
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="name">Name</label>
+                    <input type="text" name="Name" value="@Model.Name" class="form-control" placeholder="Menu Name" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="name">Price</label>
+                    <input type="text" name="Price" value="@Model.Price" class="form-control" placeholder="Price" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description</label>
+                    <input type="text" name="Description" value="@Model.Description" class="form-control" placeholder="eg. chicken, spicy, sour" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+
+            <input type="hidden" name="Id" value="@Model.Id">
+            <input type="hidden" name="Category" value="@Model.Category">
+            <input type="hidden" name="RestaurantId" value="@Model.RestaurantId">
+            <input type="hidden" name="Photo" value="@Model.Photo">
+            <input type="hidden" name="CreatedAt" value="@Model.CreatedAt">
+            <input type="hidden" name="Accesstime" value="@Model.Accesstime">
+            <input type="hidden" name="IsDeleted" value="@Model.IsDeleted">
+
+
+        </form>
+    </div>
+   
+}

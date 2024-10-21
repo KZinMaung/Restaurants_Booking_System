@@ -1,5 +1,6 @@
 using API.Services.Auth;
 using API.Services.Customer;
+using API.Services.Menu;
 using API.Services.Restaurant;
 using Data.Model;
 using Infra.BlobStorage;
@@ -93,6 +94,14 @@ builder.Services.AddScoped<IRestaurant>(s =>
     var webHostEnvironment = s.GetService<IWebHostEnvironment>();
 
     return new RestaurantBase(dbContext, azureBlobStorage, configuration);
+});
+
+
+
+builder.Services.AddScoped<IMenu>(s =>
+{
+    var dbContext = s.GetService<BookingSystemDbCotnext>();
+    return new MenuBase(dbContext, configuration);
 });
 
 var app = builder.Build();

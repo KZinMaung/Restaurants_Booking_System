@@ -2,53 +2,13 @@
 using Data.Dtos;
 using Data.Models;
 using Infra.Helpers;
-using Microsoft.AspNetCore.Authorization;
+using Infra.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingSystem.Controllers
 {
-    public class RestaurantController : Controller
+    public class MenuController : Controller
     {
-        [Authorize]
-        public async Task<IActionResult> Index()
-        {
-            var result = User.Identity.IsAuthenticated.ToString();
-            int id = 0;
-
-            if(result == "True")
-            {
-                id = int.Parse(User.Claims.ToArray()[AuthDataIndex.Id].Value);
-            }
-            tbRestaurant res = await RestaurantApiRH.GetById(id);
-            return View(res);
-        }
-
-        public IActionResult LoadMenu()
-        {
-            return PartialView("_Menu");
-        }
-
-        public  async Task<IActionResult> LoadAbout(int id)
-        {
-            tbRestaurant res = await RestaurantApiRH.GetById(id);
-            return PartialView("_About", res);
-        }
-
-        public IActionResult LoadReviews()
-        {
-            return PartialView("_Reviews");
-        }
-
-        public IActionResult Register()
-        {
-            return View(new tbRestaurant());
-        }
-
-        public IActionResult Bookings()
-        {
-            return View();
-        }
-
         public static string GetFileExtension(string base64String)
         {
             var data = base64String.Substring(0, 5);
@@ -105,30 +65,61 @@ namespace BookingSystem.Controllers
         }
 
 
-        public async Task<IActionResult> UpSert(tbRestaurant res)
+        public async Task<IActionResult> UpSert(tbMenu menu)
         {
-            if (res.CoverPhotoString != null)
-            {
-                res.CoverPhoto = UploadPhoto(res.CoverPhotoString);
-            }
+            var isAuthenticated = User.Identity.IsAuthenticated.ToString();
+            int resId = 0;
 
-            if (res.ProfilePhotoString != null)
+            if (isAuthenticated == "True")
             {
-                res.ProfilePhoto = UploadPhoto(res.ProfilePhotoString);
+                resId = int.Parse(User.Claims.ToArray()[AuthDataIndex.Id].Value);
             }
-
-            ResponseData result = await RestaurantApiRH.UpSert(res);
            
+            if (menu.PhotoString != null)
+            {
+                menu.Photo = UploadPhoto(menu.PhotoString);
+            }
+           
+            menu.RestaurantId = resId;
+            ResponseData result = await MenuApiRH.UpSert(menu);
             return Json(result);
         }
 
 
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetList(int resId = 0, int page = 1, int pageSize = 10, string? q = "")
         {
-            tbRestaurant result = await RestaurantApiRH.GetById(id);
-            return Ok(result);
+            
+            ViewBag.page = page;
+            ViewBag.pagesize = pageSize;
+            PagedListClient<tbMenu> result = await MenuApiRH.GetList(resId, page, pageSize, q);
+
+            return PartialView("_MenuList", result);
         }
 
-       
+        public async Task<IActionResult> MenuForm(string FormType, int Id)
+        {
+
+            tbMenu menu = new tbMenu();
+            if (FormType == "Add")
+            {
+                return PartialView("_MenuForm", menu);
+            }
+
+            else
+            {
+                tbMenu result = await MenuApiRH.GetById(Id);
+                return PartialView("_MenuForm", result);
+ 
+            }
+        }
+
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            ResponseData result = await MenuApiRH.Delete(id);
+            return Json(result);
+
+        }
+
     }
 }

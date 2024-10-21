@@ -1,4 +1,5 @@
-﻿@model Data.Models.tbRestaurant
+﻿@using Data.Constants
+@model Data.Models.tbRestaurant
 @{
     ViewData["Title"] = "Restaurant Home Page";
     Console.WriteLine(Model);
@@ -38,10 +39,44 @@
 </div>
 <!-- End Tab Content -->
 @section scripts{
+    <script src="~/js/sweetalert.js"></script>
     <script type="text/javascript">
-        
-
+        var filesize = 2000000;
         var resId = @Model?.Id;
+
+
+        var page = 1;
+        var pagesize = 10;
+        var q;
+        $(function () {
+            initPaging();
+            $('.nav-link').removeClass('active');
+            // $('#li_seafarer').addClass('active');
+            LoadMenu();
+
+        });
+
+
+        function initPaging() {
+            $("#div_menu_list").on("click", ".pagination-bx a", function (e) {
+
+                e.preventDefault();
+                var $a = $(this).attr("href");
+                try {
+                    var pageurl = $a.split(/=/);
+                    page = pageurl[1];
+                    if (page == null) {
+                        page = 1;
+                    }
+                }
+                catch (e) {
+                    page = 1;
+                }
+                LoadMenuList();
+            });
+        }
+
+
         function LoadMenu() {
             $.ajax({
                 cache: false,
@@ -58,9 +93,7 @@
                    
                 },
                 complete: function () {
-                    // INITIALIZATION OF FILE ATTACH
-                    // =======================================================
-                    new HSFileAttach('.js-file-attach')
+                   LoadMenuList();
                 }
             });
         }
@@ -97,7 +130,234 @@
             });
         }
 
+
+
+        function AddMenu() {
+            Form("Add", 0);
+        }
+
+
+        function EditMenu(e) {
+            var id = $(e).attr('data-ID');
+            Form("Edit", id)
+        }
+
+        function Form(FormType, Id) {
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("MenuForm", "Menu")',
+                data: { FormType: FormType, Id : Id },
+                beforeSend: function () {
+
+                },
+                success: function (data) {
+                    $('#div_menu_form').empty().append(data);
+                    $('#MenuFormModal').modal('show');
+                },
+                complete: function () {
+                    new HSFileAttach('.js-file-attach');
+                    $('#MenuForm').submit(function (e) {
+
+                        e.preventDefault();
+
+                        $.ajax({
+                            cache: false,
+                            url: '@Url.Action("UpSert", "Menu")',
+                            type: "Post",
+                            data: $(this).serialize() ,
+                            beforeSend: function () {
+                                $('.btn').prop("disabled", true);
+                            },
+                            success: function (data) {
+                                console.log("data:", data);
+                                if (data?.Status == "@ResponseStatus.Success") {
+                                    $('#MenuFormModal').modal('hide');
+                                    alert("Success!!");
+                                    LoadMenuList();
+                                    
+                                }
+                                else {
+                                    alert("Adding menu failed!!")
+                                }
+
+                            },
+                            complete: function () {
+                                $('.btn').prop("disabled", false);
+
+
+                            }
+                        });
+                    });
+                }
+
+            });
+        }
+
+
+        
+        function dataURItoBlob(dataURI) {
+            var binary = atob(dataURI.split(',')[1]);
+            var array = [];
+            for (var i = 0; i < binary.length; i++) {
+                array.push(binary.charCodeAt(i));
+            }
+            return new Blob([new Uint8Array(array)], { type: 'image/png' });
+        }
+
+
+        function maxwidthheight(width, height) {
+            var MAX_WIDTH = 1200;  // to remove maximum width height
+            var MAX_HEIGHT = 1200;
+            var width = width;
+            var height = height;
+
+            if (width > height) {
+                if (width > MAX_WIDTH) {
+                    height *= MAX_WIDTH / width;
+                    width = MAX_WIDTH;
+                }
+            } else {
+                if (height > MAX_HEIGHT) {
+                    width *= MAX_HEIGHT / height;
+                    height = MAX_HEIGHT;
+                }
+            }
+            var a = { width: width, height: height };
+            return a
+        }
+
+
+        function ShowImagePreview(imageUploader) {
+            var filesToUpload = document.getElementById('menuPhoto').files;
+            var file = filesToUpload[0];
+
+            if (filesize != undefined) {
+                if (filesize <= file.size) {
+                    isFileSizeValid = false;
+                    swal({
+                        title: "File size can't be greater than 2 MB.",
+                        text: "",
+                        buttonsStyling: false,
+                        confirmButtonClass: "btn btn-primary",
+                        type: "error"
+                    }).catch(swal.noop);
+                    return false;
+                } else {
+                    isFileSizeValid = true;
+                }
+
+            }
+
+            var img = document.createElement("img");
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var mime_type = "image/jpeg";
+                if (typeof output_format !== "undefined" && output_format == "png") {
+                    mime_type = "image/png";
+                }
+                reader.onloadend = function () {
+                    img.src = e.target.result;
+                    var base64data = reader.result;
+                    console.log("base64", base64data);
+
+                    $('#menu_photo_string').val(base64data.split(",")[1]);
+
+                }
+            }
+            reader.readAsDataURL(file);
+        }
+
+
+
+        function LoadMenuList() {
+
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("GetList", "Menu")',
+                data: {
+                    resId: resId, page: page, pageSize: pagesize, q: q
+                },
+                beforeSend: function () {
+                    $('#div_menu_list').empty().append('<div class="loading text-center"><div class= "spinner-border" role = "status"></div><div class= "text-muted" > loading...</div></div>');
+
+                },
+                success: function (data) {
+                    $('#div_menu_list').empty().append(data);
+                    $(".pagination li").addClass("page-item");
+                    $(".pagination span").addClass("page-link");
+                    $(".pagination a").addClass("page-link");
+                    
+
+                },
+                complete: function () {
+
+                }
+
+            });
+        }
+
+        function RemoveRequiredField(){
+            var menuPhotoInput = document.getElementById('menuPhoto');
+            var existingImageSrc = document.getElementById('menuImg').src;
+    
+            // If there's already an image (i.e., when updating), remove 'required'
+            if (existingImageSrc && existingImageSrc !== "https://localhost:7156/assets/img/160x160/img1.jpg") {
+                menuPhotoInput.removeAttribute('required');
+            }
+        }
+
+           
+        function Delete(e) {
+            var id = $(e).attr('data-ID');
+
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            url: '@Url.Action("Delete", "Menu")',
+                            data: { id: id },
+                            beforeSend: function () {
+
+                            },
+                            success: function (data) {
+                                console.log("data:", data);
+                                 if (data?.Status == "@ResponseStatus.Success") {
+
+                                    $('#div_menu_' + id).remove();
+
+                                    swal("Menu has been deleted!", {
+                                        icon: "success",
+                                    });
+                                    LoadMenuList();
+                                }
+                                else {
+                                    swal("Delete Fail!!", {
+                                        icon: "warning",
+                                    });
+                                }
+
+                            }
+
+                        });
+
+                    } else {
+
+                    }
+                });
+
+        }
+
+
+
+
+        
     </script>
-   
+    
 
 }

@@ -19,10 +19,29 @@ namespace Data.Models
         public string Name { get; set; }
 
         [Required]
-        public float Price { get; set; }
+        public Double Price { get; set; }
 
-        [Required]
+        
         public string Photo { get; set; }
+
+        [NotMapped]
+        public string PhotoUrl
+        {
+            get
+            {
+                if (this.Photo != null)
+                {
+
+                    return $"https://localhost:7156/Storage/{Photo}";
+                }
+                else
+                {
+                    return $"https://localhost:7156/assets/img/160x160/img1.jpg";
+
+                }
+            }
+        }
+
 
         [NotMapped]
         public string? PhotoString { get; set; }
