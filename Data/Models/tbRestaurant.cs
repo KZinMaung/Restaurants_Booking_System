@@ -109,5 +109,10 @@ namespace Data.Models
 
         public bool IsDeleted { get; set; } = false;
 
+        public ICollection<tbRatingAndReview>? RatingAndReviews { get; set; }
+
+        [NotMapped]
+        public double? AverageRating { get; set; }
+
     }
 }

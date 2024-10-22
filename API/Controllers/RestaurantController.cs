@@ -11,6 +11,7 @@ namespace API.Controllers
     public class RestaurantController : ControllerBase
     {
         IRestaurant _irestaurant;
+        
         public RestaurantController(IRestaurant irestaurant)
         {
             this._irestaurant = irestaurant;
@@ -31,6 +32,23 @@ namespace API.Controllers
             return Ok(result);
         }
 
+
+        [HttpGet("api/restaurant/get-top-rated-restaurants")]
+        public async Task<IActionResult> GetTopRatedRestaurants(int page, int pageSize, string? q = "")
+
+        {
+            var result = await this._irestaurant.GetTopRatedRestaurants(page,pageSize,q);
+            return Ok(result);
+        }
+
+        [HttpGet("api/restaurant/get-list")]
+        public async Task<IActionResult> GetList(int page = 1, int pageSize = 10, string? sortVal = "Id", string? sortDir = "desc",
+                                string? q = "")
+
+        {
+            var result = await this._irestaurant.GetList(page, pageSize, sortVal, sortDir, q);
+            return Ok(result);
+        }
 
     }
 }

@@ -6,9 +6,11 @@ using Data.Model;
 using Data.Models;
 using Infra.BlobStorage;
 using Infra.Helpers;
+using Infra.Services;
 using Infra.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace API.Services.Restaurant
 {
@@ -34,7 +36,36 @@ namespace API.Services.Restaurant
             return BCrypt.Net.BCrypt.HashPassword(password);
         }
 
+        private async void InsertSchedules(tbRestaurant restaurant)
+        {
+            // Generate the restaurant schedule
+            TimeSpan openTime = restaurant.OpenTime;
+            TimeSpan closedTime = restaurant.CloseTime;
+            int durationInMinutes = restaurant.Duration;
 
+            List<tbRestaurantSchedule> schedules = new List<tbRestaurantSchedule>();
+
+            for (TimeSpan current = openTime; current < closedTime; current = current.Add(TimeSpan.FromMinutes(durationInMinutes)))
+            {
+                var schedule = new tbRestaurantSchedule
+                {
+                    RestaurantId = restaurant.Id,
+                    StartTime = current,
+                    EndTime = current.Add(TimeSpan.FromMinutes(durationInMinutes))
+                };
+
+                // Ensure the schedule doesn't go beyond the closing time
+                if (schedule.EndTime > closedTime)
+                {
+                    schedule.EndTime = closedTime;
+                }
+
+                schedules.Add(schedule);
+            }
+
+            // Insert schedules into the database
+            await _uow.restaurantScheduleRepo.InsertListAsync(schedules);
+        }
         public async Task<ResponseData> UpSert(tbRestaurant restaurant)
         {
             tbRestaurant entity;
@@ -53,6 +84,13 @@ namespace API.Services.Restaurant
                 restaurant.Accesstime = MyExtension.GetLocalTime();
                 restaurant.CreatedAt = MyExtension.GetLocalTime();
                 entity = await _uow.restaurantRepo.InsertReturnAsync(restaurant);
+
+                if (entity != null)
+                {
+                     InsertSchedules(entity);
+                }
+
+
             }
 
 
@@ -67,5 +105,62 @@ namespace API.Services.Restaurant
             return await _uow.restaurantRepo.GetAll()
                 .FirstOrDefaultAsync(a => a.Id == id && a.IsDeleted != true) ?? new tbRestaurant();
         }
+
+
+
+        public async Task<Model<tbRestaurant>> GetTopRatedRestaurants(int page, int pageSize, string? q = "")
+        {
+            string? sortVal = "AverageRating";
+            string? sortDir = "desc";
+            // Join Restaurant with RatingAndReview and group the results by restaurant
+            var query = from r in _uow.restaurantRepo.GetAll().Where(r => r.IsDeleted != true)
+                        join rr in _uow.ratingNReviewRepo.GetAll() on r.Id equals rr.RestaurantId into ratingsGroup
+                        select new
+                        {
+                            Restaurant = r,
+                            AverageRating = ratingsGroup.Any() ? ratingsGroup.Average(rr => rr.Rating) : 0
+                        };
+
+            // Apply search filter
+            if (!string.IsNullOrEmpty(q))
+            {
+                query = query.Where(r => r.Restaurant.Name.Contains(q));
+            }
+
+            // Apply sorting (default is by AverageRating in descending order)
+            if (sortDir == "asc")
+            {
+                query = query.OrderBy(r => EF.Property<object>(r, sortVal));
+            }
+            else
+            {
+                query = query.OrderByDescending(r => EF.Property<object>(r, sortVal));
+            }
+
+            // Paging the result
+            var pagedResult = await PagingService<tbRestaurant>.getPaging(page, pageSize, query.Select(r => r.Restaurant));
+            return pagedResult;
+        }
+
+
+        public async Task<Model<tbRestaurant>> GetList(int page, int pageSize, string? sortVal = "Id", string? sortDir = "desc",
+                        string? q = "")
+        {
+            Expression<Func<tbRestaurant, bool>> basicFilter = null;
+            IQueryable<tbRestaurant> query = _uow.restaurantRepo.GetAll()
+                                            .Where(a => a.IsDeleted != true).AsQueryable();
+            if (!string.IsNullOrEmpty(q))
+            {
+                basicFilter = n => n.Name.Contains(q);
+                query = query.Where(basicFilter);
+            }
+
+         
+            query = SORTLIT<tbRestaurant>.Sort(query, sortVal, sortDir);
+            var result = await PagingService<tbRestaurant>.getPaging(page, pageSize, query);
+            return result;
+        }
+
+
     }
 }
