@@ -156,6 +156,7 @@
                 },
                 complete: function () {
                     new HSFileAttach('.js-file-attach');
+                    RemoveRequiredField();
                     $('#MenuForm').submit(function (e) {
 
                         e.preventDefault();
@@ -227,7 +228,7 @@
         }
 
 
-        function ShowImagePreview(imageUploader) {
+        function ShowImagePreview(imageUploader, previewImage) {
             var filesToUpload = document.getElementById('menuPhoto').files;
             var file = filesToUpload[0];
 
@@ -251,10 +252,32 @@
             var img = document.createElement("img");
             var reader = new FileReader();
             reader.onload = function (e) {
+                $(previewImage).attr('src', e.target.result);
+                img.src = e.target.result;
+
                 var mime_type = "image/jpeg";
                 if (typeof output_format !== "undefined" && output_format == "png") {
                     mime_type = "image/png";
                 }
+
+                var canvas = document.createElement("canvas");
+                if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+                    alert('Photo is uploading...');
+                }
+                //set max height width
+                var gg = maxwidthheight(img.width, img.height);
+                width = gg.width;
+                height = gg.height;
+                canvas.width = width;
+                canvas.height = height;
+                var ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                var dataurl = canvas.toDataURL(mime_type, 60 / 100);
+                //document.getElementById('image').src = dataurl;
+                var blob = dataURItoBlob(dataurl);
+                console.log("blob" + dataurl);
+
+
                 reader.onloadend = function () {
                     img.src = e.target.result;
                     var base64data = reader.result;

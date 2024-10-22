@@ -23,21 +23,11 @@
                             <div class="form-attachment-btn btn btn-sm btn-primary">
                                 Upload photo
                                 <input type="file" class="js-file-attach form-attachment-btn-label" id="menuPhoto"
-                                       onchange="ShowImagePreview(this)"
-                                       data-hs-file-attach-options='{
-                                                  "textTarget": "#menuImg",
-                                                  "mode": "image",
-                                                  "targetAttr": "src",
-                                                  "resetTarget": ".js-file-attach-reset-img",
-                                                  "resetImg": "../assets/img/160x160/img1.jpg",
-                                                  "allowTypes": [".png", ".jpeg", ".jpg"]
-                                               }'
-                                               
-                                >
+                                       onchange="ShowImagePreview(this,document.getElementById('menuImg'))" required>
                             </div>
                             <!-- End Avatar -->
 
-                            <button type="button" class="js-file-attach-reset-img btn btn-white btn-sm">Delete</button>
+                            @* <button type="button" class="js-file-attach-reset-img btn btn-white btn-sm">Delete</button> *@
                         </div>
                     </div>
                     <!-- End Media -->
