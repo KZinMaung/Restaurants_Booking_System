@@ -2,6 +2,7 @@
 using Data.Dtos;
 using Data.Models;
 using Infra.Helpers;
+using Infra.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -129,6 +130,45 @@ namespace BookingSystem.Controllers
             return Ok(result);
         }
 
-       
+        public async Task<IActionResult> GetMostPopularRestaurants(int page = 1, int pageSize = 3, string? q = "")
+        {
+
+            PagedListClient<RestaurantWithRating> result = await RestaurantApiRH.GetTopRatedRestaurants(page, pageSize, q);
+            return PartialView("_MostPopularRestaurants", result);
+        }
+
+        public async Task<IActionResult> GetNewestRestaurants(int page = 1, int pageSize = 3, string? q = "")
+        {
+
+            PagedListClient<RestaurantWithRating> result = await RestaurantApiRH.GetList(page, pageSize, q);
+            return PartialView("_NewestRestaurants", result);
+        }
+
+        public async Task<IActionResult> ViewAllPopularRestaurants()
+        {
+            return View("PopularRestaurants");
+        }
+
+        public async Task<IActionResult> GetAllPopularRestaurants(int page = 1, int pageSize = 9, string? q = "")
+        {
+
+            PagedListClient<RestaurantWithRating> result = await RestaurantApiRH.GetTopRatedRestaurants(page, pageSize, q);
+            return PartialView("_PopularRestaurants", result);
+        }
+
+
+        public async Task<IActionResult> ViewAllNewRestaurants()
+        {
+            return View("NewRestaurants");
+        }
+
+        public async Task<IActionResult> GetAllNewRestaurants(int page = 1, int pageSize = 9, string? q = "")
+        {
+
+            PagedListClient<RestaurantWithRating> result = await RestaurantApiRH.GetList(page, pageSize, q);
+            return PartialView("_NewRestaurants", result);
+        }
+
+
     }
 }

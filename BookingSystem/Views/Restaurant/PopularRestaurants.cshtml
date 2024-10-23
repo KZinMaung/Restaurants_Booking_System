@@ -1,0 +1,94 @@
+﻿@{
+    ViewData["Title"] = "Popular Restaurants";
+}
+
+<div class="text-center mt-5">
+
+    <div class="d-flex flex-column justify-content-center align-items-center background-img w-100 vh-30">
+        <div class="w-50 gap-3">
+            <img src="~/img/tabletalk-letter.png" style="width: 218px; height: 35px;" />
+            <h3 class="text-white my-3">Restaurant Reservation</h3>
+            <form action="">
+                <div class="input-card input-card-sm">
+                    <div class="input-card-form">
+                        <input type="text" class="form-control form-control-md" placeholder="Restaurant name..." aria-label="Restaurant name">
+                    </div>
+                    <button type="button" class="btn btn-primary btn-sm">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Popular Restaurants -->
+
+<div class="row contant-space-1 mt-5">
+    <div class="d-flex justify-content-between">
+        <h2 class="m-0" style="line-height: 1.5;">Popular Restaurants</h2>
+    </div>
+    <div id="div_popular_restaurants">
+
+    </div>
+</div>
+
+<!-- End Popular Restaurants -->
+
+@section scripts{
+    <script type="text/javascript">
+        var page = 1;
+        var pagesize = 9;
+        var q;
+        $(function () {
+            initPaging();
+            LoadMainList();
+        });
+
+
+        function initPaging() {
+            $("#div_popular_restaurants").on("click", ".pagination-bx a", function (e) {
+                e.preventDefault();
+                var $a = $(this).attr("href");
+                try {
+                    var pageurl = $a.split(/=/);
+                    page = pageurl[1];
+                    if (page == null) {
+                        page = 1;
+                    }
+                }
+                catch (e) {
+                    page = 1;
+                }
+                LoadMainList();
+            });
+        }
+
+        function LoadMainList() {
+
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("GetAllPopularRestaurants", "Restaurant")',
+                data: {
+                    page: page, pageSize: pagesize, q: q
+                },
+                beforeSend: function () {
+                    $('#div_popular_restaurants').empty().append('<div class="loading text-center"><div class= "spinner-border" role = "status"></div><div class= "text-muted" > loading...</div></div>');
+
+                },
+                success: function (data) {
+                    $('#div_popular_restaurants').empty().append(data);
+                    $(".pagination li").addClass("page-item");
+                    $(".pagination span").addClass("page-link");
+                    $(".pagination a").addClass("page-link");
+                   
+
+                },
+                complete: function () {
+
+                }
+
+            });
+        }
+
+    </script>
+}

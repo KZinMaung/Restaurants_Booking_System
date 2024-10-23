@@ -108,14 +108,14 @@ namespace API.Services.Restaurant
 
 
 
-        public async Task<Model<tbRestaurant>> GetTopRatedRestaurants(int page, int pageSize, string? q = "")
+        public async Task<Model<RestaurantWithRating>> GetTopRatedRestaurants(int page, int pageSize, string? q = "")
         {
             string? sortVal = "AverageRating";
             string? sortDir = "desc";
             // Join Restaurant with RatingAndReview and group the results by restaurant
             var query = from r in _uow.restaurantRepo.GetAll().Where(r => r.IsDeleted != true)
                         join rr in _uow.ratingNReviewRepo.GetAll() on r.Id equals rr.RestaurantId into ratingsGroup
-                        select new
+                        select new RestaurantWithRating
                         {
                             Restaurant = r,
                             AverageRating = ratingsGroup.Any() ? ratingsGroup.Average(rr => rr.Rating) : 0
@@ -127,37 +127,44 @@ namespace API.Services.Restaurant
                 query = query.Where(r => r.Restaurant.Name.Contains(q));
             }
 
-            // Apply sorting (default is by AverageRating in descending order)
-            if (sortDir == "asc")
-            {
-                query = query.OrderBy(r => EF.Property<object>(r, sortVal));
-            }
-            else
-            {
-                query = query.OrderByDescending(r => EF.Property<object>(r, sortVal));
-            }
-
+            query = SORTLIT<RestaurantWithRating>.Sort(query, sortVal, sortDir);
             // Paging the result
-            var pagedResult = await PagingService<tbRestaurant>.getPaging(page, pageSize, query.Select(r => r.Restaurant));
+            var pagedResult = await PagingService<RestaurantWithRating>.getPaging(page, pageSize, query);
             return pagedResult;
         }
 
 
-        public async Task<Model<tbRestaurant>> GetList(int page, int pageSize, string? sortVal = "Id", string? sortDir = "desc",
+        public async Task<Model<RestaurantWithRating>> GetList(int page, int pageSize, string? sortVal = "Id", string? sortDir = "desc",
                         string? q = "")
         {
             Expression<Func<tbRestaurant, bool>> basicFilter = null;
-            IQueryable<tbRestaurant> query = _uow.restaurantRepo.GetAll()
-                                            .Where(a => a.IsDeleted != true).AsQueryable();
+
+            var query = from r in _uow.restaurantRepo.GetAll().Where(r => r.IsDeleted != true)
+                        join rr in _uow.ratingNReviewRepo.GetAll() on r.Id equals rr.RestaurantId into ratingsGroup
+                        select new RestaurantWithRating
+                        {
+                            Restaurant = r,
+                            AverageRating = ratingsGroup.Any() ? ratingsGroup.Average(rr => rr.Rating) : 0
+                        };
+
+            // Apply search filter
             if (!string.IsNullOrEmpty(q))
             {
-                basicFilter = n => n.Name.Contains(q);
-                query = query.Where(basicFilter);
+                query = query.Where(r => r.Restaurant.Name.Contains(q));
             }
 
-         
-            query = SORTLIT<tbRestaurant>.Sort(query, sortVal, sortDir);
-            var result = await PagingService<tbRestaurant>.getPaging(page, pageSize, query);
+
+            // Apply sorting (default is by AverageRating in descending order)
+            if (sortDir == "asc")
+            {
+                query = query.OrderBy(r => EF.Property<object>(r.Restaurant, sortVal));
+            }
+            else
+            {
+                query = query.OrderByDescending(r => EF.Property<object>(r.Restaurant, sortVal));
+            }
+
+            var result = await PagingService<RestaurantWithRating>.getPaging(page, pageSize, query);
             return result;
         }
 

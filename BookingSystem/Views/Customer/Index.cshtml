@@ -20,191 +20,99 @@
     </div>
 </div>
 
+<div id="div_restaurants">
+    
+    <!-- Popular Restaurants -->
 
-<!-- Popular Restaurants -->
-
-<div class="row contant-space-1 mt-5">
-    <div class="d-flex justify-content-between">
-        <h2 class="m-0" style="line-height: 1.5;">Popular Restaurants</h2>
-        <button type="button" class="btn btn-ghost btn-sm">
-            View all
-            <i class="bi-arrow-right-short ms-1"></i>
-        </button>
-    </div>
-    <!-- Card Grid -->
-    <div class="container mt-5">
-
-        <div class="row mb-5 mb-sm-5">
-            <div class="col-md-4 mb-3 mb-md-5 h-100">
-                <!-- Card -->
-                <a class="card card-transition" href="#" data-aos="fade-up">
-                    <div class="card-pinned">
-                        <img class="card-img-top" src="../assets/svg/components/card-7.svg" alt="Image Description">
-
-                        <span class="card-pinned-top-start">
-                            <span class="badge bg-primary rounded-pill">4.5</span>
-                        </span>
-                    </div>
-
-                    <div class="p-3">
-                        <h3 class="card-title text-inherit">Restaurant Name</h3>
-                        <p class="card-text text-body" style="height:45px; overflow: hidden;">4517 Washington Ave. Manchester, Kentucky 39495 </p>
-                    </div>
-
-                    <div class="card-footer p-3">
-                        <span class="card-link"><i class="bi-people small me-2"></i>14 seats available </span>
-                    </div>
-                </a>
-                <!-- End Card -->
-            </div>
-            <!-- End Col -->
-
-            <div class="col-md mb-4 mb-md-5 h-100">
-                <!-- Card -->
-                <a class="card card-transition" href="#" data-aos="fade-up" data-aos-delay="150">
-                    <div class="card-pinned">
-                        <img class="card-img-top" src="../assets/svg/components/card-8.svg" alt="Image Description">
-
-                        <span class="card-pinned-top-start">
-                            <span class="badge bg-primary rounded-pill">$99</span>
-                        </span>
-                    </div>
-
-                    <div class="p-3">
-                        <h3 class="card-title text-inherit">Charts in design</h3>
-                        <p class="card-text text-body" style="height:45px; overflow: hidden;">Learn the best ways to create and use charts and data content in web applications.</p>
-                    </div>
-
-                    <div class="card-footer p-3">
-                        <span class="card-link"><i class="bi-people small me-2"></i>14 seats available </span>
-                    </div>
-                </a>
-                <!-- End Card -->
-            </div>
-            <!-- End Col -->
-
-            <div class="col-md mb-4 mb-md-5 h-100">
-                <!-- Card -->
-                <a class="card card-transition" href="#" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card-pinned">
-                        <img class="card-img-top" src="../assets/svg/components/card-9.svg" alt="Image Description">
-
-                        <span class="card-pinned-top-start">
-                            <span class="badge bg-primary rounded-pill">Free</span>
-                        </span>
-                    </div>
-
-                    <div class="p-3">
-                        <h3 class="card-title text-inherit">Layer shadows</h3>
-                        <p class="card-text text-body" style="height:45px; overflow: hidden;">Best tips and guidelines how to use shadows with layers.</p>
-                    </div>
-
-                    <div class="card-footer p-3">
-                        <span class="card-link"><i class="bi-people small me-2"></i>14 seats available </span>
-                    </div>
-                </a>
-                <!-- End Card -->
-            </div>
-            <!-- End Col -->
+    <div class="row contant-space-1 mt-5">
+        <div class="d-flex justify-content-between">
+            <h2 class="m-0" style="line-height: 1.5;">Popular Restaurants</h2>
+            <button type="button" class="btn btn-ghost btn-sm" onclick="ViewAllPopularRestaurants()">
+                View all
+                <i class="bi-arrow-right-short ms-1"></i>
+            </button>
         </div>
-        <!-- End Row -->
+        <div id="div_popular_restaurants">
+
+        </div>
+    
+    </div>
+
+    <!-- End Popular Restaurants -->
+    <!-- New Restaurants -->
+    <div class="row contant-space-1">
+        <div class="d-flex justify-content-between">
+            <h2 class="m-0" style="line-height: 1.5;">New Restaurants</h2>
+            <button type="button" class="btn btn-ghost btn-sm" onclick="ViewAllNewRestaurants()">
+                View all
+                <i class="bi-arrow-right-short ms-1"></i>
+            </button>
+        </div>
+        <div id="div_new_restaurants">
+
+        </div>
 
     </div>
-    <!-- End Card Grid -->
+    <!-- End New Restaurants -->
 </div>
 
-<!-- End Popular Restaurants -->
-<!-- New Restaurants -->
-<div class="row contant-space-1">
-    <div class="d-flex justify-content-between">
-        <h2 class="m-0" style="line-height: 1.5;">New Restaurants</h2>
-        <button type="button" class="btn btn-ghost btn-sm">
-            View all
-            <i class="bi-arrow-right-short ms-1"></i>
-        </button>
-    </div>
-    <!-- Card Grid -->
-    <div class="container mt-5">
-
-        <div class="row mb-5 mb-sm-5">
-            <div class="col-md-4 mb-3 mb-md-5 h-100">
-                <!-- Card -->
-                <a class="card card-transition" href="#" data-aos="fade-up">
-                    <div class="card-pinned">
-                        <img class="card-img-top" src="../assets/svg/components/card-7.svg" alt="Image Description">
-
-                        <span class="card-pinned-top-start">
-                            <span class="badge bg-primary rounded-pill">4.5</span>
-                        </span>
-                    </div>
-
-                    <div class="p-3">
-                        <h3 class="card-title text-inherit">Restaurant Name</h3>
-                        <p class="card-text text-body" style="height:45px; overflow: hidden;">4517 Washington Ave. Manchester, Kentucky 39495 </p>
-                    </div>
-
-                    <div class="card-footer p-3">
-                        <span class="card-link"><i class="bi-people small me-2"></i>14 seats available </span>
-                    </div>
-                </a>
-                <!-- End Card -->
-            </div>
-            <!-- End Col -->
-
-            <div class="col-md mb-4 mb-md-5 h-100">
-                <!-- Card -->
-                <a class="card card-transition" href="#" data-aos="fade-up" data-aos-delay="150">
-                    <div class="card-pinned">
-                        <img class="card-img-top" src="../assets/svg/components/card-8.svg" alt="Image Description">
-
-                        <span class="card-pinned-top-start">
-                            <span class="badge bg-primary rounded-pill">$99</span>
-                        </span>
-                    </div>
-
-                    <div class="p-3">
-                        <h3 class="card-title text-inherit">Charts in design</h3>
-                        <p class="card-text text-body" style="height:45px; overflow: hidden;">Learn the best ways to create and use charts and data content in web applications.</p>
-                    </div>
-
-                    <div class="card-footer p-3">
-                        <span class="card-link"><i class="bi-people small me-2"></i>14 seats available </span>
-                    </div>
-                </a>
-                <!-- End Card -->
-            </div>
-            <!-- End Col -->
-
-            <div class="col-md mb-4 mb-md-5 h-100">
-                <!-- Card -->
-                <a class="card card-transition" href="#" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card-pinned">
-                        <img class="card-img-top" src="../assets/svg/components/card-9.svg" alt="Image Description">
-
-                        <span class="card-pinned-top-start">
-                            <span class="badge bg-primary rounded-pill">Free</span>
-                        </span>
-                    </div>
-
-                    <div class="p-3">
-                        <h3 class="card-title text-inherit">Layer shadows</h3>
-                        <p class="card-text text-body" style="height:45px; overflow: hidden;">Best tips and guidelines how to use shadows with layers.</p>
-                    </div>
-
-                    <div class="card-footer p-3">
-                        <span class="card-link"><i class="bi-people small me-2"></i>14 seats available </span>
-                    </div>
-                </a>
-                <!-- End Card -->
-            </div>
-            <!-- End Col -->
-        </div>
-        <!-- End Row -->
-
-    </div>
-    <!-- End Card Grid -->
-</div>
-<!-- End New Restaurants -->
 @section scripts{
-   
+   <script type="text/javascript">
+        $(function () {
+            LoadMostPopularRestaurants();
+            LoadNewestRestaurants();
+        });
+
+
+
+        function LoadMostPopularRestaurants() {
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("GetMostPopularRestaurants", "Restaurant")',
+                data: {
+
+                },
+                beforeSend: function () {
+                    $('#div_popular_restaurants').empty().append('<div class="loading text-center"><div class= "spinner-border" role = "status"></div><div class= "text-muted" > loading...</div></div>');
+
+                },
+                success: function (data) {
+                    $('#div_popular_restaurants').empty().append(data);
+
+                }
+            });
+        }
+
+
+        function LoadNewestRestaurants() {
+            $.ajax({
+                cache: false,
+                    url: '@Url.Action("GetNewestRestaurants", "Restaurant")',
+                data: {
+
+                },
+                beforeSend: function () {
+                    $('#div_new_restaurants').empty().append('<div class="loading text-center"><div class= "spinner-border" role = "status"></div><div class= "text-muted" > loading...</div></div>');
+
+                },
+                success: function (data) {
+                    $('#div_new_restaurants').empty().append(data);
+
+                }
+            });
+        }
+
+
+       
+
+        function ViewAllPopularRestaurants(){
+            location.href = '../Restaurant/ViewAllPopularRestaurants';
+        }
+
+        function ViewAllNewRestaurants(){
+            location.href = '../Restaurant/ViewAllNewRestaurants';
+        }
+
+
+   </script>
 }

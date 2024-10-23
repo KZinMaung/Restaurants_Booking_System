@@ -1,0 +1,43 @@
+﻿@model Infra.Services.PagedListClient<Data.Dtos.RestaurantWithRating>
+@using X.PagedList.Mvc.Core
+@if (Model.Results.TotalItemCount > 0)
+{
+        <!-- Card Grid -->
+        <div class="container mt-5">
+
+            <div class="row mb-5 mb-sm-5">
+            @foreach (var item in Model.Results)
+            {
+                var res = item.Restaurant;
+                            <div class="col-md-4 mb-3 mb-md-5 h-100">
+                                <!-- Card -->
+                                <a class="card card-transition" href="#" data-aos="fade-up">
+                                    <div class="card-pinned">
+                                            <img class="card-img-top" src="@res.ProfilePhotoUrl" alt="Image Description" style="height:225px">
+
+                                        <span class="card-pinned-top-start">
+                                            <span class="badge bg-primary rounded-pill">@item.AverageRating</span>
+                                        </span>
+                                    </div>
+
+                                    <div class="p-3">
+                                        <h3 class="card-title text-inherit">@res.Name</h3>
+                                        <p class="card-text text-body" style="height:45px; overflow: hidden;">@res.Location</p>
+                                    </div>
+
+                        @*   <div class="card-footer p-3">
+                                <span class="card-link"><i class="bi-people small me-2"></i>14 seats available </span>
+                            </div> *@
+                                </a>
+                                <!-- End Card -->
+                            </div>
+                            <!-- End Col -->
+            }
+            </div>
+            <!-- End Row -->
+
+        </div>
+        <!-- End Card Grid -->
+
+}
+

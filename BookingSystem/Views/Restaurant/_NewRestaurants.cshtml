@@ -1,0 +1,53 @@
+﻿ @model Infra.Services.PagedListClient<Data.Dtos.RestaurantWithRating>
+@using X.PagedList.Mvc.Core
+
+@if (Model.Results.TotalItemCount > 0)
+{
+    <!-- Card Grid -->
+    <div class="container mt-5">
+
+        <div class="row mb-5 mb-sm-5">
+            <div class="d-flex flex-wrap">
+                @foreach (var item in Model.Results)
+                {
+                    var res = item.Restaurant;
+                    <div class="col-md-4 mb-4 mb-md-5 px-2">
+                        <!-- Card -->
+                        <a class="card card-transition" href="#" data-aos="fade-up" data-aos-delay="150">
+                            <div class="card-pinned">
+                                <img class="card-img-top" src="@res.ProfilePhotoUrl" alt="Image Description" style="height:225px">
+
+                                <span class="card-pinned-top-start">
+                                    <span class="badge bg-primary rounded-pill">@item.AverageRating</span>
+                                </span>
+                            </div>
+
+                            <div class="p-3">
+                                <h3 class="card-title text-inherit">@res.Name</h3>
+                                <p class="card-text text-body" style="height:45px; overflow: hidden;">@res.Location</p>
+                            </div>
+
+                        </a>
+                        <!-- End Card -->
+                    </div>
+                    <!-- End Col -->
+                }
+
+            </div>
+
+        </div>
+        <!-- End Row -->
+        <div class="row mt-35">
+            <div class="col-lg-12 d-flex justify-content-center">
+                <div class="pagination-bx text-center">
+                    @Html.PagedListPager(Model.Results, page => Url.Action("GetAllNewRestaurants", "Restaurant",
+                             new { page }), X.PagedList.Mvc.Core.PagedListRenderOptions.ClassicPlusFirstAndLast)
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+<!-- End Card Grid -->
