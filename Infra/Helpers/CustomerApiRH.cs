@@ -18,6 +18,12 @@ namespace Infra.Helpers
             return data;
         }
 
-       
+        public static async Task<tbCustomer> GetById(int id)
+        {
+            var url = string.Format("api/customer/get-by-id?id={0}", id);
+            var data = await ApiRequestBase<tbCustomer>.GetRequest(url.route(Request.BookingSystem));
+            return data;
+        }
+
     }
 }

@@ -2,6 +2,7 @@ using API.Services.Auth;
 using API.Services.Customer;
 using API.Services.Menu;
 using API.Services.Restaurant;
+using API.Services.RestaurantSchedule;
 using Data.Model;
 using Infra.BlobStorage;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -84,6 +85,10 @@ builder.Services.AddScoped<ICustomer>(s => new CustomerBase(
            s.GetService<BookingSystemDbCotnext>(),
            s.GetService<IAzureBlobStorage>(),
            configuration
+           ));
+
+builder.Services.AddScoped<IRestaurantSchedule>(s => new RestaurantScheduleBase(
+           s.GetService<BookingSystemDbCotnext>()
            ));
 
 

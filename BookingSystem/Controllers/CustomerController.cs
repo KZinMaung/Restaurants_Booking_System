@@ -1,5 +1,6 @@
 ﻿using Data.Constants;
 using Data.Models;
+using Data.ViewModels;
 using Infra.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,9 +18,27 @@ namespace BookingSystem.Controllers
             return View(new tbCustomer());
         }
 
-        public IActionResult Reserve()
+        [HttpGet("Customer/Reserve/{resId}")]
+        public async Task<IActionResult> Reserve(int resId)
         {
-            return View();
+            tbRestaurant res = await RestaurantApiRH.GetById(resId);
+            List<tbRestaurantSchedule> schedules = await RestaurantScheduleApiRH.GetList(resId);
+
+            var result = User.Identity.IsAuthenticated.ToString();
+            int cusId = 0;
+
+            if (result == "True")
+            {
+                cusId = int.Parse(User.Claims.ToArray()[AuthDataIndex.Id].Value);
+            }
+            tbCustomer cus = await CustomerApiRH.GetById(cusId);
+
+            ReserveViewModel viewModel = new ReserveViewModel();
+            viewModel.restaurant = res;
+            viewModel.schedules = schedules;
+            viewModel.customer = cus;
+
+            return View(viewModel);
         }
 
 

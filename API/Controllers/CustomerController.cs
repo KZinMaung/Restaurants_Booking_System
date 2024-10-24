@@ -24,7 +24,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("api/users/{id}")]
+        [HttpGet("api/customer/get-by-id")]
         public async Task<IActionResult> GetCustomerById(int id)
 
         {

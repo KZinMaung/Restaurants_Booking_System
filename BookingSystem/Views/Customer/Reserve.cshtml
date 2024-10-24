@@ -1,13 +1,15 @@
-﻿@{
+﻿@model Data.ViewModels.ReserveViewModel
+@{
     ViewData["Title"] = "Reserve Page";
+    
 }
 
 <div>
-    <h2>Restaurant Name</h2>
+    <h2>@Model.restaurant.Name</h2>
     <div class="row mt-3">
         <div class="col-12 col-md-8">
             <div class="image-container">
-                <img class="cover-img" src="~/img/cover photo.png" alt="Restaurant_Cover" />
+                <img class="cover-img" src="" alt="Restaurant_Cover" />
             </div>
 
             <div class="mt-5">
