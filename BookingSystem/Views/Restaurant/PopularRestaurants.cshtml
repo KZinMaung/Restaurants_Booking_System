@@ -11,7 +11,7 @@
             <form action="">
                 <div class="input-card input-card-sm">
                     <div class="input-card-form">
-                        <input type="text" class="form-control form-control-md" placeholder="Restaurant name..." aria-label="Restaurant name">
+                        <input type="text" class="form-control form-control-md" placeholder="Restaurant name..." aria-label="Restaurant name" id="txt_name">
                     </div>
                     <button type="button" class="btn btn-primary btn-sm">Search</button>
                 </div>
@@ -39,11 +39,31 @@
         var page = 1;
         var pagesize = 9;
         var q;
+
         $(function () {
             initPaging();
             LoadMainList();
         });
 
+        let input = document.getElementById('txt_name');
+        let timeout = null;
+
+        input.addEventListener('keyup', function (e) {
+            clearTimeout(timeout);
+
+            timeout = setTimeout(function () {
+                Search();
+            }, 1000);
+        });
+
+
+        function Search() {
+
+            q = $('#txt_name').val().trim();
+            page = 1;
+            LoadMainList();
+
+        }
 
         function initPaging() {
             $("#div_popular_restaurants").on("click", ".pagination-bx a", function (e) {

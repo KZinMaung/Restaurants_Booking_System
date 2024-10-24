@@ -11,7 +11,7 @@
             <form action="">
                 <div class="input-card input-card-sm">
                     <div class="input-card-form">
-                        <input type="text" class="form-control form-control-md" placeholder="Restaurant name..." aria-label="Restaurant name">
+                        <input type="text" class="form-control form-control-md" placeholder="Restaurant name..." aria-label="Restaurant name" id="txt_name">
                     </div>
                     <button type="button" class="btn btn-primary btn-sm">Search</button>
                 </div>
@@ -20,13 +20,15 @@
     </div>
 </div>
 
+<div class="row contant-space-1 mt-5" id="title" hidden>
+    <h2 class="m-0" style="line-height: 1.5;">Popular Restaurants</h2>
+</div>
 <div id="div_restaurants">
-    
     <!-- Popular Restaurants -->
 
     <div class="row contant-space-1 mt-5">
         <div class="d-flex justify-content-between">
-            <h2 class="m-0" style="line-height: 1.5;">Popular Restaurants</h2>
+            <h2 class="m-0" style="line-height: 1.5;">Most Popular Restaurants</h2>
             <button type="button" class="btn btn-ghost btn-sm" onclick="ViewAllPopularRestaurants()">
                 View all
                 <i class="bi-arrow-right-short ms-1"></i>
@@ -42,7 +44,7 @@
     <!-- New Restaurants -->
     <div class="row contant-space-1">
         <div class="d-flex justify-content-between">
-            <h2 class="m-0" style="line-height: 1.5;">New Restaurants</h2>
+            <h2 class="m-0" style="line-height: 1.5;">Newest Restaurants</h2>
             <button type="button" class="btn btn-ghost btn-sm" onclick="ViewAllNewRestaurants()">
                 View all
                 <i class="bi-arrow-right-short ms-1"></i>
@@ -58,13 +60,86 @@
 
 @section scripts{
    <script type="text/javascript">
+
+        var page = 1;
+        var pagesize = 9;
+        var q;
+
         $(function () {
             LoadMostPopularRestaurants();
             LoadNewestRestaurants();
+
+            initPaging();
         });
 
 
 
+
+        let input = document.getElementById('txt_name');
+        let timeout = null;
+
+        input.addEventListener('keyup', function (e) {
+            clearTimeout(timeout);
+
+            timeout = setTimeout(function () {
+                Search();
+            }, 1000);
+        });
+
+
+        function Search() {
+
+            q = $('#txt_name').val().trim();
+            page = 1;
+            LoadMainList();
+
+        }
+
+        function initPaging() {
+            $("#div_restaurants").on("click", ".pagination-bx a", function (e) {
+                e.preventDefault();
+                var $a = $(this).attr("href");
+                try {
+                    var pageurl = $a.split(/=/);
+                    page = pageurl[1];
+                    if (page == null) {
+                        page = 1;
+                    }
+                }
+                catch (e) {
+                    page = 1;
+                }
+                LoadMainList();
+            });
+        }
+
+        function LoadMainList() {
+
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("GetAllPopularRestaurants", "Restaurant")',
+                data: {
+                    page: page, pageSize: pagesize, q: q
+                },
+                beforeSend: function () {
+                    $('#div_restaurants').empty().append('<div class="loading text-center"><div class= "spinner-border" role = "status"></div><div class= "text-muted" > loading...</div></div>');
+
+                },
+                success: function (data) {
+                    $("#title").removeAttr("hidden");
+                    $('#div_restaurants').empty().append(data);
+                    $(".pagination li").addClass("page-item");
+                    $(".pagination span").addClass("page-link");
+                    $(".pagination a").addClass("page-link");
+
+
+                },
+                complete: function () {
+
+                }
+
+            });
+        }
         function LoadMostPopularRestaurants() {
             $.ajax({
                 cache: false,
@@ -112,6 +187,10 @@
         function ViewAllNewRestaurants(){
             location.href = '../Restaurant/ViewAllNewRestaurants';
         }
+
+
+
+
 
 
    </script>
