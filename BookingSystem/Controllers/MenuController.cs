@@ -91,6 +91,7 @@ namespace BookingSystem.Controllers
             
             ViewBag.page = page;
             ViewBag.pagesize = pageSize;
+            
             PagedListClient<tbMenu> result = await MenuApiRH.GetList(resId, page, pageSize, q);
 
             return PartialView("_MenuList", result);

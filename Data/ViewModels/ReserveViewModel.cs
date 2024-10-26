@@ -9,10 +9,10 @@ namespace Data.ViewModels
 {
     public class ReserveViewModel
     {
-        public tbRestaurant restaurant {  get; set; } = new tbRestaurant();
-        public List<tbRestaurantSchedule> schedules { get; set; }   = new List<tbRestaurantSchedule> { };
+        public tbRestaurant Restaurant {  get; set; } = new tbRestaurant();
+        public List<tbRestaurantSchedule> Schedules { get; set; }   = new List<tbRestaurantSchedule> { };
 
-        public tbCustomer? customer { get; set; }
+        public tbCustomer? Customer { get; set; }
 
     }
 }

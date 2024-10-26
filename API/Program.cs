@@ -1,4 +1,5 @@
 using API.Services.Auth;
+using API.Services.Booking;
 using API.Services.Customer;
 using API.Services.Menu;
 using API.Services.Restaurant;
@@ -101,6 +102,12 @@ builder.Services.AddScoped<IRestaurant>(s =>
     return new RestaurantBase(dbContext, azureBlobStorage, configuration);
 });
 
+
+builder.Services.AddScoped<IBooking>(s =>
+{
+    var dbContext = s.GetService<BookingSystemDbCotnext>();
+    return new BookingBase(dbContext);
+});
 
 
 builder.Services.AddScoped<IMenu>(s =>

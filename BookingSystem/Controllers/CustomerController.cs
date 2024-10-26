@@ -18,7 +18,7 @@ namespace BookingSystem.Controllers
             return View(new tbCustomer());
         }
 
-        [HttpGet("Customer/Reserve/{resId}")]
+       [HttpGet("Customer/Reserve/{resId}")]
         public async Task<IActionResult> Reserve(int resId)
         {
             tbRestaurant res = await RestaurantApiRH.GetById(resId);
@@ -34,23 +34,21 @@ namespace BookingSystem.Controllers
             tbCustomer cus = await CustomerApiRH.GetById(cusId);
 
             ReserveViewModel viewModel = new ReserveViewModel();
-            viewModel.restaurant = res;
-            viewModel.schedules = schedules;
-            viewModel.customer = cus;
+            viewModel.Restaurant = res;
+            viewModel.Schedules = schedules;
+            viewModel.Customer = cus;
 
             return View(viewModel);
         }
 
+        
 
         public IActionResult LoadMenu()
         {
             return PartialView("_Menu");
         }
 
-        public IActionResult LoadAbout()
-        {
-            return PartialView("_About");
-        }
+       
 
         public IActionResult LoadReviews()
         {

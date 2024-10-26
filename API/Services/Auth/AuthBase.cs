@@ -139,7 +139,7 @@ namespace API.Services.Auth
             new Claim(ClaimTypes.Name, claimData.Name),
             new Claim(ClaimTypes.Email, claimData.Email),
             new Claim(ClaimTypes.MobilePhone, claimData.Phone),
-            new Claim(ClaimTypes.Uri, claimData.ProfilePhotoUrl)
+            new Claim(ClaimTypes.Uri, claimData.ProfilePhotoUrl ?? "")
 
             };
 

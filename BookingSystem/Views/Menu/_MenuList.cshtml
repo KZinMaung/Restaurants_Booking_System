@@ -1,5 +1,8 @@
 ﻿@model Infra.Services.PagedListClient<Data.Models.tbMenu>
 @using X.PagedList.Mvc.Core
+@{
+ 
+}
 
 @if (Model.Results.TotalItemCount > 0)
 {
@@ -14,12 +17,15 @@
             </div>
             <div class="d-flex align-items-center">
                 <p class="m-0">@item.Price MMK</p>
-                <button type="button" class="btn btn-outline-primary btn-sm btn-icon rounded-pill mx-2" data-ID="@item.Id" onclick="EditMenu(this)">
-                    <i class="bi bi-pencil"></i>
-                </button>
-                <button type="button" class="btn btn-outline-primary btn-icon btn-sm rounded-pill" data-ID="@item.Id" onclick="Delete(this)">
-                    <i class="bi bi-trash"></i>
-                </button>
+                <div class="div-actions">
+                    <button type="button" class="btn btn-outline-primary btn-sm btn-icon rounded-pill mx-2" data-ID="@item.Id" onclick="EditMenu(this)">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-primary btn-icon btn-sm rounded-pill" data-ID="@item.Id" onclick="Delete(this)">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+                
             </div>
         </div>
     }
