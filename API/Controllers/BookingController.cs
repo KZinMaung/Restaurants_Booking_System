@@ -1,6 +1,5 @@
 ﻿using API.Services.Booking;
-using API.Services.Menu;
-using Microsoft.AspNetCore.Http;
+using Data.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -20,6 +19,22 @@ namespace API.Controllers
 
         {
             var result = await this._ibooking.GetAvailableCount(resId, resScheId, bookingDate);
+            return Ok(result);
+        }
+
+        [HttpPost("api/booking/upsert")]
+        public async Task<IActionResult> UpSert(tbBooking booking)
+        {
+            var result = await this._ibooking.UpSert(booking);
+            return Ok(result);
+        }
+
+
+        [HttpGet("api/booking/get-list")]
+        public async Task<IActionResult> GetList(int cusId = 0, int page = 1, int pageSize = 10, string? q = "")
+
+        {
+            var result = await this._ibooking.GetList(cusId, page, pageSize, q);
             return Ok(result);
         }
     }

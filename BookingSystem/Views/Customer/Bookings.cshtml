@@ -3,56 +3,65 @@
 }
 
 <div class="row mt-5">
-    <!-- My Booking List Start -->
-    <div class="d-flex align-items-center border p-3 gap-3 rounded mb-3">
-        <div class="restaurant-photo">
-            <img class="img-fluid" src="~/img/cover photo.png" alt="Image" />
-        </div>
-        <div class="d-flex flex-column gap-2 w-100">
-            <div class="d-flex justify-content-between align-items-center">
-                <h4>Restaurant Name</h4>
-                @* <span class="badge bg-soft-secondary text-secondary">Finished</span> *@
-            </div>
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="d-flex flex-row gap-3">
-                    <span class="badge bg-soft-primary text-primary">23 Sep 2024</span>
-                    <span class="badge bg-soft-primary text-primary">1:00 PM</span>
-                    <span class="badge bg-soft-primary text-primary">3 person(s)</span>
-                </div>
-                <div class="d-flex gap-3">
-                    <span>Johnnathan</span>
-                    <span>johnnathan@gmail.com</span>
-                    <span>09876543212</span>
-                </div>
-            </div>
+    <div id="div-customer-bookings">
 
-        </div>
-    </div>
-    <!-- My Booking List End -->
-    <!-- My Booking List Start -->
-    <div class="d-flex align-items-center border p-3 gap-3 rounded mb-3">
-        <div class="restaurant-photo">
-            <img class="img-fluid" src="~/img/cover photo.png" alt="Image" />
-        </div>
-        <div class="d-flex flex-column gap-2 w-100">
-            <div class="d-flex justify-content-between align-items-center">
-                <h4>Restaurant Name</h4>
-                <span class="badge bg-soft-secondary text-secondary">Finished</span>
-            </div>
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="d-flex flex-row gap-3">
-                    <span class="badge bg-soft-primary text-primary">23 Sep 2024</span>
-                    <span class="badge bg-soft-primary text-primary">1:00 PM</span>
-                    <span class="badge bg-soft-primary text-primary">3 person(s)</span>
-                </div>
-                <div class="d-flex gap-3">
-                    <span>Johnnathan</span>
-                    <span>johnnathan@gmail.com</span>
-                    <span>09876543212</span>
-                </div>
-            </div>
 
-        </div>
     </div>
-    <!-- My Booking List End -->
 </div>
+@section scripts{
+   <script type="text/javascript">
+        var page = 1;
+        var pagesize = 9;
+        var q;
+        $(function () {
+            initPaging();
+            LoadMainList();
+        });
+
+        function initPaging() {
+            $("#div-customer-bookings").on("click", ".pagination-bx a", function (e) {
+                e.preventDefault();
+                var $a = $(this).attr("href");
+                try {
+                    var pageurl = $a.split(/=/);
+                    page = pageurl[1];
+                    if (page == null) {
+                        page = 1;
+                    }
+                }
+                catch (e) {
+                    page = 1;
+                }
+                LoadMainList();
+            });
+        }
+
+        function LoadMainList() {
+
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("GetList", "Booking")',
+                data: {
+                    page: page, pageSize: pagesize, q: q
+                },
+                beforeSend: function () {
+                    $('#div-customer-bookings').empty().append('<div class="loading text-center"><div class= "spinner-border" role = "status"></div><div class= "text-muted" > loading...</div></div>');
+
+                },
+                success: function (data) {
+                    
+                    $('#div-customer-bookings').empty().append(data);
+                    $(".pagination li").addClass("page-item");
+                    $(".pagination span").addClass("page-link");
+                    $(".pagination a").addClass("page-link");
+
+
+                },
+                complete: function () {
+
+                }
+
+            });
+        }
+    </script>
+}

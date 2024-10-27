@@ -31,6 +31,9 @@ namespace Data.Models
 
         public string? Status { get; set; }
 
+  
+        public string? BookingCode { get; set; }
+
         [Required]
         public string CustomerName { get; set; }
 

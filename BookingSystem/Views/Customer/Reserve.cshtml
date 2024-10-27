@@ -1,4 +1,5 @@
-﻿@model Data.ViewModels.ReserveViewModel
+﻿@using Data.Constants
+@model Data.ViewModels.ReserveViewModel
 @{
     ViewData["Title"] = "Reserve Page";
     var res = Model.Restaurant;
@@ -129,7 +130,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white btn-sm" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary btn-sm">Confirm</button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="ConfirmReservation()">Confirm</button>
             </div>
         </div>
     </div>
@@ -148,6 +149,7 @@
         var pagesize = 5;
         var q;
         var availableCount ;
+        var reservationData;
 
         $(function () {
             initPaging();
@@ -280,6 +282,17 @@
             var cusEmail = $('#txt-email').val();
             var cusPhone = $('#txt-phone').val();
 
+            reservationData = {
+                "CustomerId": '@cus?.Id',
+                "RestaurantId": '@res.Id',
+                "BookingDate": date,
+                "RestaurantScheduleId": scheduleId,
+                "NoOfTable": noOfTable,
+                "CustomerName": cusName,
+                "CustomerEmail": cusEmail,
+                "CustomerPhone": cusPhone
+                }
+
 
              if (!date || !scheduleId || !scheduleText || !noOfTable || !cusName || !cusEmail || !cusPhone) {
                 alert("Please fill in all the required fields.");
@@ -300,8 +313,35 @@
 
              $('#reviewReservationModal').modal('show');
         }
-          
-        
-        
+
+        function ConfirmReservation() {
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("UpSert", "Booking")',
+                type:'Post',
+                data: { data : reservationData },
+                beforeSend: function () {
+                    $('.btn').prop("disabled", true);
+                },
+                success: function (data) {
+                    console.log("data:", data);
+                    if (data?.Status == "@ResponseStatus.Success") {
+                        $('#reviewReservationModal').modal('hide');
+                        alert("Success!!");
+                        
+                    }
+                    else {
+                        alert("Try again!!")
+                    }
+                },
+                complete: function () {
+                    $('.btn').prop("disabled", false);
+
+
+                }
+            });
+        }
+
+
     </script>
 }
