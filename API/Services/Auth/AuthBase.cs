@@ -83,6 +83,7 @@ namespace API.Services.Auth
                 claims.Name = customer.Name;
                 claims.Email = customer.Email;
                 claims.Phone = customer.Phone;
+                claims.UserType = UserType.Customer;
                 var token = GenerateJwtToken(claims);
 
                 data.Token = token;
@@ -111,6 +112,7 @@ namespace API.Services.Auth
                 claims.Email = restaurant.Email;
                 claims.Phone = restaurant.Phone;
                 claims.ProfilePhotoUrl = restaurant.ProfilePhotoUrl;
+                claims.UserType = UserType.Restaurant;
                 var token = GenerateJwtToken(claims);
                
 
@@ -139,8 +141,8 @@ namespace API.Services.Auth
             new Claim(ClaimTypes.Name, claimData.Name),
             new Claim(ClaimTypes.Email, claimData.Email),
             new Claim(ClaimTypes.MobilePhone, claimData.Phone),
-            new Claim(ClaimTypes.Uri, claimData.ProfilePhotoUrl ?? "")
-
+            new Claim(ClaimTypes.Uri, claimData.ProfilePhotoUrl ?? ""),
+            new Claim(ClaimTypes.Role, claimData.UserType),
             };
 
             var token = new JwtSecurityToken(

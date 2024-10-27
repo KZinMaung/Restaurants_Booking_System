@@ -1,60 +1,70 @@
-﻿@{
+﻿@using Data.Constants
+@{
     ViewData["Title"] = "Restaurant Bookings";
 }
 
 
 <div class="mt-5">
     <h3>Booking List</h3>
-    <div class="mt-3" style="height: 70vh;">
-        <!-- Table -->
-        <table id="example" class="display" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Time</th>
-                    <th>Date</th>
-                    <th>Table</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Tiger Nixon</td>
-                    <td>0987654321</td>
-                    <td>12:00 PM - 1:00 PM</td>
-                    <td>22 Oct 2024</td>
-                    <td>2</td>
-                    <td><button type="button" class="btn btn-xs btn-primary">Finish</button></td>
-                </tr>
-                <tr>
-                    <td>Tiger Nixon</td>
-                    <td>0987654321</td>
-                    <td>12:00 PM - 1:00 PM</td>
-                    <td>22 Oct 2024</td>
-                    <td>2</td>
-                    <td><button type="button" class="btn btn-xs btn-primary">Finish</button></td>
-                </tr>
-                <tr>
-                    <td>Tiger Nixon</td>
-                    <td>0987654321</td>
-                    <td>12:00 PM - 1:00 PM</td>
-                    <td>22 Oct 2024</td>
-                    <td>2</td>
-                    <td><button type="button" class="btn btn-xs btn-primary">Finish</button></td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Time</th>
-                    <th>Date</th>
-                    <th>Table</th>
-                    <th>Action</th>
-                </tr>
-            </tfoot>
-        </table>
-        <!-- End Table -->
+    <div id="div-restaurant-bookings">
+        
     </div>
+   
 </div>
+@section scripts {
+    <script type="text/javascript">
+        var page = 1;
+        var pagesize = 9;
+        var q;
+        $(function () {
+            initPaging();
+            LoadMainList();
+        });
+
+        function initPaging() {
+            $("#div-restaurant-bookings").on("click", ".pagination-bx a", function (e) {
+                e.preventDefault();
+                var $a = $(this).attr("href");
+                try {
+                    var pageurl = $a.split(/=/);
+                    page = pageurl[1];
+                    if (page == null) {
+                        page = 1;
+                    }
+                }
+                catch (e) {
+                    page = 1;
+                }
+                LoadMainList();
+            });
+        }
+
+        function LoadMainList() {
+
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("GetList", "Booking")',
+                data: {
+                    userType: '@UserType.Restaurant', page: page, pageSize: pagesize, q: q
+                },
+                beforeSend: function () {
+                    $('#div-restaurant-bookings').empty().append('<div class="loading text-center"><div class= "spinner-border" role = "status"></div><div class= "text-muted" > loading...</div></div>');
+
+                },
+                success: function (data) {
+
+                    $('#div-restaurant-bookings').empty().append(data);
+                    $(".pagination li").addClass("page-item");
+                    $(".pagination span").addClass("page-link");
+                    $(".pagination a").addClass("page-link");
+
+
+                },
+                complete: function () {
+
+                }
+
+            });
+        }
+    </script>
+}

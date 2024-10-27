@@ -28,9 +28,9 @@ namespace Infra.Helpers
             return data;
         }
 
-        public static async Task<PagedListClient<BookingVM>> GetList(int cusId = 0, int page = 1, int pageSize = 10, string? q = "")
+        public static async Task<PagedListClient<BookingVM>> GetList(int cusId = 0,int resId = 0, int page = 1, int pageSize = 10, string? q = "")
         {
-            string url = string.Format("api/booking/get-list?cusId={0}&page={1}&pageSize={2}&q={3}", cusId, page, pageSize, WebUtility.UrlEncode(q));
+            string url = string.Format("api/booking/get-list?cusId={0}&resId={1}&page={2}&pageSize={3}&q={4}", cusId, resId, page, pageSize, WebUtility.UrlEncode(q));
             var data = await ApiRequestBase<PagedListServer<BookingVM>>.GetRequest(url.route(Request.BookingSystem));
             PagedListClient<BookingVM> model = PagingService<BookingVM>.ConvertFromPagedListServer(page, pageSize, data);
             return model;

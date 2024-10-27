@@ -32,5 +32,6 @@ namespace Data.Constants
         public const int Email = 2;
         public const int Phone = 3;
         public const int ProfilePhotoUrl = 4;
+        public const int UserType = 5;
     }
 }

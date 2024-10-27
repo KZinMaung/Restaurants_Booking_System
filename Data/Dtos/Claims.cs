@@ -14,5 +14,6 @@ namespace Data.Dtos
         public string Phone {  get; set; }
 
         public string ProfilePhotoUrl { get; set; }
+        public string UserType { get; set; }
     }
 }

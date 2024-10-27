@@ -23,17 +23,31 @@ namespace BookingSystem.Controllers
             return Json(result);
         }
 
-        public async Task<IActionResult> GetList(int page = 1, int pageSize = 10, string? q = "")
+        public async Task<IActionResult> GetList(string userType , int page = 1, int pageSize = 10, string? q = "")
         {
             var result = User.Identity.IsAuthenticated.ToString();
             int id = 0;
+            int resId = 0;
+            int cusId = 0;
 
             if (result == "True")
             {
                 id = int.Parse(User.Claims.ToArray()[AuthDataIndex.Id].Value);
             }
-            PagedListClient<BookingVM> bookings = await BookingApiRH.GetList(id, page, pageSize, q);
-            return PartialView("_CustomerBookings", bookings);
+            
+            if(userType == UserType.Restaurant) {
+                resId = id;
+                PagedListClient<BookingVM> bookings = await BookingApiRH.GetList(cusId, resId, page, pageSize, q);
+                return PartialView("_RestaurantBookings", bookings);
+            }
+            else
+            {
+                cusId = id;
+                PagedListClient<BookingVM> bookings = await BookingApiRH.GetList(cusId, resId, page, pageSize, q);
+                return PartialView("_CustomerBookings", bookings);
+            }
+
+            
         }
 
 

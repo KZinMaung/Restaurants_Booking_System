@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Data.Constants
+@{
     ViewData["Title"] = "My Bookings";
 }
 
@@ -42,7 +43,7 @@
                 cache: false,
                 url: '@Url.Action("GetList", "Booking")',
                 data: {
-                    page: page, pageSize: pagesize, q: q
+                    userType:'@UserType.Customer', page: page, pageSize: pagesize, q: q
                 },
                 beforeSend: function () {
                     $('#div-customer-bookings').empty().append('<div class="loading text-center"><div class= "spinner-border" role = "status"></div><div class= "text-muted" > loading...</div></div>');

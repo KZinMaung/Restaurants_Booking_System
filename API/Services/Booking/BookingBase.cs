@@ -83,9 +83,9 @@ namespace API.Services.Booking
         }
 
 
-        public async Task<Model<BookingVM>> GetList(int cusId, int page, int pageSize, string? q = "")
+        public async Task<Model<BookingVM>> GetList(int cusId,int resId,  int page, int pageSize, string? q = "")
         {
-            Expression<Func<BookingVM, bool>> basicFilter = null, customerFilter = null;
+            Expression<Func<BookingVM, bool>> basicFilter = null, customerFilter = null, restaurantFilter = null;
             var bookings = _uow.bookingRepo.GetAll().Where(b => b.IsDeleted != true).AsQueryable();
             var restaurants = _uow.restaurantRepo.GetAll().Where(r => r.IsDeleted != true).AsQueryable();
             var restaurantSchedules = _uow.restaurantScheduleRepo.GetAll().Where(rs => rs.IsDeleted != true).AsQueryable();
@@ -112,6 +112,12 @@ namespace API.Services.Booking
             {
                 customerFilter = vm => vm.Booking.CustomerId == cusId;
                 query = query.Where(customerFilter);
+            }
+
+            if (resId != 0)
+            {
+                restaurantFilter = vm => vm.Booking.RestaurantId == resId;
+                query = query.Where(restaurantFilter);
             }
 
             var sortVal = "Id";

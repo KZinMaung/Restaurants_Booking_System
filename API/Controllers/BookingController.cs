@@ -31,10 +31,10 @@ namespace API.Controllers
 
 
         [HttpGet("api/booking/get-list")]
-        public async Task<IActionResult> GetList(int cusId = 0, int page = 1, int pageSize = 10, string? q = "")
+        public async Task<IActionResult> GetList(int cusId = 0,int resId = 0, int page = 1, int pageSize = 10, string? q = "")
 
         {
-            var result = await this._ibooking.GetList(cusId, page, pageSize, q);
+            var result = await this._ibooking.GetList(cusId, resId, page, pageSize, q);
             return Ok(result);
         }
     }

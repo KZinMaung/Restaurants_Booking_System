@@ -1,0 +1,41 @@
+﻿@model Infra.Services.PagedListClient<Data.ViewModels.BookingVM>
+@using X.PagedList.Mvc.Core
+
+@if (Model.Results.TotalItemCount > 0)
+{
+    <div class="mt-3" style="height: 70vh;">
+        <!-- Table -->
+        <table id="example" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Time</th>
+                    <th>Date</th>
+                    <th>Table</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Results)
+                {
+                    var res = item.Restaurant;
+                    var booking = item.Booking;
+                    var schedule = item.Schedule;
+
+                    <tr>
+                        <td>@booking.CustomerName</td>
+                        <td>@booking.CustomerPhone</td>
+                        <td>@schedule.StartTime - @schedule.EndTime</td>
+                        <td>@booking.BookingDate</td>
+                        <td>@booking.NoOfTable</td>
+                        <td><button type="button" class="btn btn-xs btn-primary">Finish</button></td>
+                    </tr>
+                }
+                
+            </tbody>
+
+        </table>
+        <!-- End Table -->
+    </div>
+}
