@@ -2,6 +2,7 @@ using API.Services.Auth;
 using API.Services.Booking;
 using API.Services.Customer;
 using API.Services.Menu;
+using API.Services.RatingAndReview;
 using API.Services.Restaurant;
 using API.Services.RestaurantSchedule;
 using Data.Model;
@@ -89,6 +90,11 @@ builder.Services.AddScoped<ICustomer>(s => new CustomerBase(
            ));
 
 builder.Services.AddScoped<IRestaurantSchedule>(s => new RestaurantScheduleBase(
+           s.GetService<BookingSystemDbCotnext>()
+           ));
+
+
+builder.Services.AddScoped<IRatingAndReview>(s => new RatingAndReviewBase(
            s.GetService<BookingSystemDbCotnext>()
            ));
 

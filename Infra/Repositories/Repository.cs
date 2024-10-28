@@ -17,7 +17,7 @@ namespace Infra.Repositories
         public Repository(DbContext dbContext)
         {
             this._dbContext = dbContext;
-
+            
         }
 
         public IQueryable<T> GetAll()

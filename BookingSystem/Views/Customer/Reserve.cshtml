@@ -213,6 +213,35 @@
             });
         }
 
+
+        function LoadRatingNReviewList() {
+
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("GetList", "RatingAndReview")',
+                data: {
+                    resId: resId, page: page, pageSize: pagesize, q: q
+                },
+                beforeSend: function () {
+                    $('#div-ratingNreview-list').empty().append('<div class="loading text-center"><div class= "spinner-border" role = "status"></div><div class= "text-muted" > loading...</div></div>');
+
+                },
+                success: function (data) {
+                    $('#div-ratingNreview-list').empty().append(data);
+                    $(".pagination li").addClass("page-item");
+                    $(".pagination span").addClass("page-link");
+                    $(".pagination a").addClass("page-link");
+
+
+                },
+                complete: function () {
+                    $(".div-actions").attr("hidden", true);
+                }
+
+            });
+        }
+
+
         function LoadAbout() {
             $.ajax({
                 cache: false,

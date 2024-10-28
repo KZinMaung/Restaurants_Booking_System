@@ -29,9 +29,9 @@ namespace Data.Model
         public virtual DbSet<tbCustomer> tbCustomer { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-        
+
         }
 
-
+      
     }
 }
