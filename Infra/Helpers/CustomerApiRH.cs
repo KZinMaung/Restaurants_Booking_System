@@ -25,5 +25,13 @@ namespace Infra.Helpers
             return data;
         }
 
+
+        public static async Task<ResponseData> UpSert(tbCustomer customer)
+        {
+            string url = string.Format("api/customer/upsert");
+            ResponseData data = await ApiRequestBase<tbCustomer, ResponseData>.PostDiffRequest(url.route(Request.BookingSystem), customer);
+            return data;
+        }
+
     }
 }

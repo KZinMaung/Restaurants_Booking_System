@@ -32,10 +32,10 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("api/users/{id}")]
-        public async Task<IActionResult> UpdateCustomer([FromBody] UpdateCustomerRequest request)
+        [HttpPost("api/customer/upsert")]
+        public async Task<IActionResult> UpSert(tbCustomer customer)
         {
-            var result = await this._icustomer.UpdateCustomer(request);
+            var result = await this._icustomer.UpSert(customer);
             return Ok(result);
         }
     }

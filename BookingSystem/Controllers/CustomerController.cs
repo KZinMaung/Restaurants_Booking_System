@@ -1,4 +1,5 @@
 ﻿using Data.Constants;
+using Data.Dtos;
 using Data.Models;
 using Data.ViewModels;
 using Infra.Helpers;
@@ -72,8 +73,31 @@ namespace BookingSystem.Controllers
                 return ResponseStatus.Fail;
             }
 
-           
+        }
 
+        public async Task<IActionResult> CustomerForm(string FormType, int Id)
+        {
+
+            tbCustomer customer = new tbCustomer();
+            if (FormType == "Add")
+            {
+                return PartialView("_customerForm", customer);
+            }
+
+            else
+            {
+                tbCustomer result = await CustomerApiRH.GetById(Id);
+                return PartialView("_customerForm", result);
+
+            }
+        }
+
+
+        public async Task<IActionResult> UpSert(tbCustomer customer)
+        {
+            
+            ResponseData result = await CustomerApiRH.UpSert(customer);
+            return Json(result);
         }
 
     }

@@ -1,0 +1,71 @@
+﻿@model Data.Models.tbCustomer
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "customerForm" }))
+{
+    <div>
+        <form>
+            <div class="mb-3">
+                <label for="inputGroupMergeFullName" class="form-label">Full name</label>
+
+                <div class="input-group input-group-merge">
+                    <div class="input-group-prepend input-group-text">
+                        <i class="bi bi-person"></i>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Mark Williams" name="Name" value="@Model.Name" required>
+                </div>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="inputGroupMergeEmail" class="form-label">Email</label>
+
+                <div class="input-group input-group-merge">
+                    <div class="input-group-prepend input-group-text">
+                        <i class="bi-envelope-open"></i>
+                    </div>
+                    <input type="text" class="form-control" placeholder="mark@example.com" name="Email" value="@Model.Email" required>
+                </div>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="inputGroupMergeEmail" class="form-label">Phone</label>
+
+                <div class="input-group input-group-merge">
+                    <div class="input-group-prepend input-group-text">
+                        <i class="bi-phone"></i>
+                    </div>
+                    <input type="text" class="form-control" placeholder="09***" name="Phone" value="@Model.Phone" required>
+                </div>
+            </div>
+
+            @*
+        <div class="mb-3">
+        <label for="inputGroupMergeEmail" class="form-label">Password</label>
+
+        <div class="input-group input-group-merge">
+        <div class="input-group-prepend input-group-text">
+        <i class="bi-lock"></i>
+        </div>
+        <input type="password" class="form-control" placeholder="***" required>
+        </div>
+        </div> *@
+
+            <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+
+            <input type="hidden" name="Id" value="@Model.Id">
+            <input type="hidden" name="Photo" value="@Model.Photo">
+            <input type="hidden" name="PhotoString" value="@Model.PhotoString">
+            <input type="hidden" name="CreatedAt" value="@Model.CreatedAt">
+            <input type="hidden" name="Accesstime" value="@Model.Accesstime">
+            <input type="hidden" name="IsDeleted" value="@Model.IsDeleted">
+            <input type="hidden" name="Password" value="@Model.Password">
+
+        </form>
+    </div>
+
+}
+
+

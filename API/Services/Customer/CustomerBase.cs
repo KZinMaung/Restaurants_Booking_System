@@ -1,5 +1,6 @@
 ﻿
 using Core.Extension;
+using Data.Constants;
 using Data.Dtos;
 using Data.Model;
 using Data.Models;
@@ -72,27 +73,29 @@ namespace API.Services.Customer
                 .FirstOrDefaultAsync(a => a.Id == id && a.IsDeleted != true) ?? new tbCustomer();
         }
 
-        public async Task<tbCustomer> UpdateCustomer(UpdateCustomerRequest request)
+        public async Task<ResponseData> UpSert(tbCustomer customer)
         {
-            tbCustomer result = new tbCustomer();
-            if (request.PhotoString != null)
+            tbCustomer entity;
+            ResponseData response = new ResponseData();
+            //update
+            if (customer.Id != 0)
             {
-                request.Photo = await _azureBlobStorage.UploadFileToBlob(request.PhotoString, "jpeg");
 
-            }
-            if (request.CustomerId > 0)
-            {
-                tbCustomer customer = await GetCustomerById(request.CustomerId);
-                customer.Name = request.Name;
-                customer.Email = request.Email;
-                customer.Phone = request.Phone;
-                customer.Photo = request.Photo;
                 customer.Accesstime = MyExtension.GetLocalTime();
+                entity = await _uow.customerRepo.UpdateAsync(customer);
+            }
+            //insert
+            else
+            {
 
-                result = await _uow.customerRepo.UpdateAsync(customer);
+               entity =  await CreateCustomer(customer);
             }
 
-            return result;
+
+            response.Status = entity != null ? ResponseStatus.Success : ResponseStatus.Fail;
+            return response;
+
         }
+
     }
 }

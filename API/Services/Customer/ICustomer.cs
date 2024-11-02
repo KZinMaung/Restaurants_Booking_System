@@ -9,6 +9,8 @@ namespace API.Services.Customer
         Task<tbCustomer> CreateCustomer(tbCustomer customer);
 
         Task<tbCustomer> GetCustomerById(int id);
-        Task<tbCustomer> UpdateCustomer(UpdateCustomerRequest request);
+
+        Task<ResponseData> UpSert(tbCustomer customer);
+       
     }
 } 
