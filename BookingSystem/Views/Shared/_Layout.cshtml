@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Data.Constants
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -54,7 +55,7 @@
                             {
                                 // var name = User.Claims.ToArray()[Data.Constants.AuthDataIndex.Name].Value;
                                 // var email = User.Claims.ToArray()[Data.Constants.AuthDataIndex.Email].Value;
-                                // var profilePhotoUrl = User.Claims.ToArray()[Data.Constants.AuthDataIndex.ProfilePhotoUrl].Value;
+                                 var profilePhotoUrl = User.Claims.ToArray()[Data.Constants.AuthDataIndex.ProfilePhotoUrl].Value;
                                 var userType = User.Claims.ToArray()[Data.Constants.AuthDataIndex.UserType].Value;
                                 var id = User.Claims.ToArray()[Data.Constants.AuthDataIndex.Id].Value;
 
@@ -74,7 +75,7 @@
                                     <li class="nav-item">
                                         <a class="btn-transition" data-id="@id" onclick="EditRestaurantProfile(this)">
                                             <span class="avatar avatar-sm avatar-circle">
-                                                <img class="avatar-img" src="~/assets/img/100x60/img1.jpg" alt="Image Description">
+                                                <img class="avatar-img" src="@profilePhotoUrl" alt="Image Description">
                                             </span>
                                         </a>
                                     </li>
@@ -96,11 +97,6 @@
                                        
                                 }
                                 
-                                
-                              
-
-
-
                             }
                             else
                             {
@@ -121,6 +117,25 @@
         </div>
     </header>
 
+
+
+
+    <!-- Profile Offcanvas -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="customerFormOffcanvas" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <h3 id="offcanvasRightLabel mb-0">Profile</h3>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column justify-content-between">
+            <div id="div-customer-form">
+            </div>
+
+            <div class="d-flex border">
+                <a type="button" class="btn btn-outline-danger btn-sm w-100" href="~/Authentication/Logout">Logout</a>
+            </div>
+        </div>
+    </div>
+    <!-- Profile Offcanvas -->
    
     <!-- ========== END HEADER ========== -->
     <div class="container" style="min-height: 75vh;">
@@ -162,9 +177,9 @@
     <script src="~/assets/vendor/hs-file-attach/dist/hs-file-attach.min.js"></script>
 
 
-    
+ 
     <!-- JS Plugins Init. -->
-
+    @*
     <script>
           $(document).ready(function (){
               // INITIALIZATION OF FILE ATTACH
@@ -172,36 +187,110 @@
             new HSFileAttach('.js-file-attach')
           })
     </script>
-
+    *@
     @*
     <script>
     $(document).ready(function () {
     $('#example').DataTable();
     });
     </script>
-    *@
-     
-    
+
 
     <script>
-        (function () {
-            // INITIALIZATION OF MEGA MENU
-            // =======================================================
+    (function () {
+    // INITIALIZATION OF MEGA MENU
+    // =======================================================
+    new HSMegaMenu('.js-mega-menu', {
+    desktop: {
+    position: 'left'
+    }
+    })
+    })()
+    </script>
+    <script>
+    document.getElementById('btn-signup').addEventListener('click', function() {
+    location.href = '../Customer/Register';
+    });
+    </script>
+    *@
+
+    <script type="text/javascript">
+        $(function () {
             new HSMegaMenu('.js-mega-menu', {
                 desktop: {
                     position: 'left'
                 }
-            })
-        })()
+            });
+            document.getElementById('btn-signup').addEventListener('click', function () {
+                location.href = '../Customer/Register';
+            });
+        });
+
+
+
+
+
+        function EditCustomerProfile(e) {
+            var id = $(e).attr('data-id');
+            Form("Edit", id)
+        }
+
+        function Form(FormType, Id) {
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("CustomerForm", "Customer")',
+                data: { FormType: FormType, Id: Id },
+                beforeSend: function () {
+
+                },
+                success: function (data) {
+                    $('#div-customer-form').empty().append(data);
+                    $('#customerFormOffcanvas').offcanvas('show');
+
+                },
+                complete: function () {
+
+
+                    $('#customerForm').submit(function (e) {
+
+                        e.preventDefault();
+
+                        $.ajax({
+                            cache: false,
+                            url: '@Url.Action("UpSert", "Customer")',
+                            type: "Post",
+                            data: $(this).serialize(),
+                            beforeSend: function () {
+                                $('.btn').prop("disabled", true);
+                            },
+                            success: function (data) {
+                                console.log("data:", data);
+                                if (data?.Status == "@ResponseStatus.Success") {
+                                    $('#customerFormOffcanvas').offcanvas('hide');
+                                    alert("Success!!");
+
+                                }
+                                else {
+                                    alert("Failed!!")
+                                }
+
+                            },
+                            complete: function () {
+                                $('.btn').prop("disabled", false);
+
+
+                            }
+                        });
+                    });
+                }
+
+            });
+        }
+
+
     </script>
 
-    <script>
-        document.getElementById('btn-signup').addEventListener('click', function() {
-            location.href = '../Customer/Register';
-        });
-</script>
-    
-
     @await RenderSectionAsync("Scripts", required: false)
+    
 </body>
 </html>

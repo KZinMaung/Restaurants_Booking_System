@@ -61,22 +61,6 @@
 
 
 
-<!-- Profile Offcanvas -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="customerFormOffcanvas" aria-labelledby="offcanvasRightLabel">
-    <div class="offcanvas-header">
-        <h3 id="offcanvasRightLabel mb-0">Profile</h3>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body d-flex flex-column justify-content-between">
-        <div id="div-customer-form">
-        </div>
-
-        <div class="d-flex border">
-            <button type="button" class="btn btn-outline-danger btn-sm w-100">Logout</button>
-        </div>
-    </div>
-</div>
-<!-- Profile Offcanvas -->
 
 @section scripts{
    <script type="text/javascript">
@@ -213,64 +197,7 @@
             location.href = '../Customer/Reserve/' + id;
         }
 
-
-        function EditCustomerProfile(e) {
-            var id = $(e).attr('data-id');
-            Form("Edit", id)
-        }
-
-        function Form(FormType, Id) {
-            $.ajax({
-                cache: false,
-                url: '@Url.Action("CustomerForm", "Customer")',
-                data: { FormType: FormType, Id: Id },
-                beforeSend: function () {
-
-                },
-                success: function (data) {
-                    $('#div-customer-form').empty().append(data);
-                    $('#customerFormOffcanvas').offcanvas('show');
-
-                },
-                complete: function () {
-
-
-                    $('#customerForm').submit(function (e) {
-
-                        e.preventDefault();
-
-                        $.ajax({
-                            cache: false,
-                            url: '@Url.Action("UpSert", "Customer")',
-                            type: "Post",
-                            data: $(this).serialize(),
-                            beforeSend: function () {
-                                $('.btn').prop("disabled", true);
-                            },
-                            success: function (data) {
-                                console.log("data:", data);
-                                if (data?.Status == "@ResponseStatus.Success") {
-                                    $('#customerFormOffcanvas').offcanvas('hide');
-                                    alert("Success!!");
-
-                                }
-                                else {
-                                    alert("Failed!!")
-                                }
-
-                            },
-                            complete: function () {
-                                $('.btn').prop("disabled", false);
-
-
-                            }
-                        });
-                    });
-                }
-
-            });
-        }
-
+        
 
 
    </script>

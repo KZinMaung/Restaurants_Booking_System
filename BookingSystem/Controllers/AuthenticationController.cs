@@ -62,5 +62,12 @@ namespace BookingSystem.Controllers
 
            
         }
+
+
+        public IActionResult Logout()
+        {
+            _authService.Logout(HttpContext);
+            return RedirectToAction("index", "authentication");
+        }
     }
 }
