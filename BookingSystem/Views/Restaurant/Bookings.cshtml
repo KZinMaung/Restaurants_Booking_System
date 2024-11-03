@@ -19,6 +19,7 @@
         $(function () {
             initPaging();
             LoadMainList();
+           
         });
 
         function initPaging() {
@@ -54,6 +55,7 @@
                 success: function (data) {
 
                     $('#div-restaurant-bookings').empty().append(data);
+                    
                     $(".pagination li").addClass("page-item");
                     $(".pagination span").addClass("page-link");
                     $(".pagination a").addClass("page-link");
@@ -61,7 +63,9 @@
 
                 },
                 complete: function () {
-
+                    if ($('#booking-table').length) {
+                        $('#booking-table').DataTable();
+                    }
                 }
 
             });

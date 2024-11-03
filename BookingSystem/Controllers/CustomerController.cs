@@ -3,6 +3,7 @@ using Data.Dtos;
 using Data.Models;
 using Data.ViewModels;
 using Infra.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingSystem.Controllers
@@ -56,6 +57,7 @@ namespace BookingSystem.Controllers
             return PartialView("_Reviews");
         }
 
+        [Authorize]
         public IActionResult Bookings()
         {
             return View();

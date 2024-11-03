@@ -37,5 +37,14 @@ namespace API.Controllers
             var result = await this._ibooking.GetList(cusId, resId, page, pageSize, q);
             return Ok(result);
         }
+
+
+        [HttpGet("api/booking/cancel-booking")]
+        public async Task<IActionResult> CancelBooking(int bookingId)
+
+        {
+            var result = await this._ibooking.CancelBooking(bookingId);
+            return Ok(result);
+        }
     }
 }

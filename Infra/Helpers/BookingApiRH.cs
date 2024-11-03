@@ -35,7 +35,13 @@ namespace Infra.Helpers
             PagedListClient<BookingVM> model = PagingService<BookingVM>.ConvertFromPagedListServer(page, pageSize, data);
             return model;
 
+        }
 
+        public static async Task<ResponseData> CancelBooking(int bookingId)
+        {
+            var url = string.Format("api/booking/cancel-booking?bookingId={0}", bookingId);
+            var data = await ApiRequestBase<ResponseData>.GetRequest(url.route(Request.BookingSystem));
+            return data;
         }
 
     }

@@ -49,7 +49,8 @@ namespace API.Services.Booking
 
                 booking.Accesstime = MyExtension.GetLocalTime();
                 booking.CreatedAt = MyExtension.GetLocalTime();
-                booking.Status = BookingStatus.Pending;
+                //booking.Status = BookingStatus.Pending;
+                booking.Status = BookingStatus.Confirmed;
                 entity = await _uow.bookingRepo.InsertReturnAsync(booking);
 
                 entity.BookingCode = GenerateBookingCode(entity.Id);
@@ -85,6 +86,8 @@ namespace API.Services.Booking
 
         public async Task<Model<BookingVM>> GetList(int cusId,int resId,  int page, int pageSize, string? q = "")
         {
+            var currentDateTime = DateTime.Now;
+
             Expression<Func<BookingVM, bool>> basicFilter = null, customerFilter = null, restaurantFilter = null;
             var bookings = _uow.bookingRepo.GetAll().Where(b => b.IsDeleted != true).AsQueryable();
             var restaurants = _uow.restaurantRepo.GetAll().Where(r => r.IsDeleted != true).AsQueryable();
@@ -98,7 +101,10 @@ namespace API.Services.Booking
                                    Id = b.Id,
                                    Booking = b,
                                    Restaurant = r,
-                                   Schedule = rs
+                                   Schedule = rs,
+                                   CanCancel = b.Status == "Confirmed" &&
+                                            (b.BookingDate.Date + rs.StartTime) > currentDateTime &&
+                                            (b.BookingDate.Date + rs.StartTime - currentDateTime).TotalMinutes >= 30
                                }).AsQueryable();
 
 
@@ -127,5 +133,20 @@ namespace API.Services.Booking
             return result;
         }
 
+
+        public async Task<ResponseData> CancelBooking(int bookingId)
+        {
+            tbBooking booking = await _uow.bookingRepo.GetAll().Where(b => b.IsDeleted != true && b.Id == bookingId).FirstOrDefaultAsync() ?? new tbBooking();
+            tbBooking? entity = null;
+            ResponseData response = new ResponseData();
+            if(booking.Id != 0)
+            {
+                booking.Status = BookingStatus.Cancelled;
+                entity = await _uow.bookingRepo.UpdateAsync(booking);
+            }
+
+            response.Status = entity != null ? ResponseStatus.Success : ResponseStatus.Fail;
+            return response;
+        }
     }
 }

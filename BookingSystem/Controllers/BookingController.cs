@@ -5,6 +5,7 @@ using Data.ViewModels;
 using Infra.Helpers;
 using Infra.Services;
 using Microsoft.AspNetCore.Mvc;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BookingSystem.Controllers
 {
@@ -48,6 +49,12 @@ namespace BookingSystem.Controllers
             }
 
             
+        }
+
+        public async Task<IActionResult> CancelBooking(int bookingId)
+        {
+            ResponseData result = await BookingApiRH.CancelBooking(bookingId);
+            return Json(result);
         }
 
 

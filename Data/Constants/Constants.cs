@@ -14,9 +14,10 @@ namespace Data.Constants
 
     public static class BookingStatus
     {
-        public const string Pending = "pending";
+        
         public const string Confirmed = "confirmed";
         public const string Cancelled = "cancelled";
+        public const string Completed = "completed";
     }
 
     public static class ResponseStatus

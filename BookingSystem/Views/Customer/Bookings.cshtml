@@ -4,16 +4,37 @@
 }
 
 <div class="row mt-5">
+    <h2>My Bookings</h2>
     <div id="div-customer-bookings">
-
 
     </div>
 </div>
+
+<!-- Modal -->
+<div id="bookingCancelModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="bookingCancelModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Booking Cancellation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure to cancel this booking?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="ConfirmCancelBooking()">Yes, Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
 @section scripts{
    <script type="text/javascript">
         var page = 1;
         var pagesize = 9;
         var q;
+       var bookingId = 0;
         $(function () {
             initPaging();
             LoadMainList();
@@ -36,6 +57,8 @@
                 LoadMainList();
             });
         }
+
+        
 
         function LoadMainList() {
 
@@ -64,5 +87,41 @@
 
             });
         }
+
+        function CancelBooking(e){
+
+            bookingId = $(e).attr('data-id');
+            $('#bookingCancelModal').modal('show'); // Show the confirm modal
+        }
+
+       function ConfirmCancelBooking() {
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("CancelBooking", "Booking")',
+                data: {
+                    bookingId : bookingId
+                },
+                beforeSend: function () {
+                    $('.btn').prop("disabled", true);
+                },
+                success: function (data) {
+                    console.log("data:", data);
+                    if (data?.Status == "@ResponseStatus.Success") {
+                        $('#bookingCancelModal').modal('hide');
+                        alert("Success!!");
+                        LoadMainList();
+                    }
+                    else {
+                        alert("Adding menu failed!!")
+                    }
+
+                },
+                complete: function () {
+                    $('.btn').prop("disabled", false);
+                }
+
+            });
+       }
+
     </script>
 }

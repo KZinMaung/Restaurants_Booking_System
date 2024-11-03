@@ -13,5 +13,6 @@ namespace Data.ViewModels
         public tbBooking Booking { get; set; }
         public tbRestaurant Restaurant { get; set; }
         public tbRestaurantSchedule Schedule { get; set; }
+        public bool CanCancel { get; set; }
     }
 }

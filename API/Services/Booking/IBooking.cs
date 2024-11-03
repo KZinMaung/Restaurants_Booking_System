@@ -11,8 +11,10 @@ namespace API.Services.Booking
 
         Task<ResponseData> UpSert(tbBooking booking);
 
+
         Task<Model<BookingVM>> GetList(int cusId,int resId, int page, int pageSize, string? q = "");
 
+        Task<ResponseData> CancelBooking(int bookingId);
 
     }
 }
