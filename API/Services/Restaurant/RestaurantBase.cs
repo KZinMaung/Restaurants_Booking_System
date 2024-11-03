@@ -36,7 +36,7 @@ namespace API.Services.Restaurant
             return BCrypt.Net.BCrypt.HashPassword(password);
         }
 
-        private async void InsertSchedules(tbRestaurant restaurant)
+        private async Task InsertSchedules(tbRestaurant restaurant)
         {
             // Generate the restaurant schedule
             TimeSpan openTime = restaurant.OpenTime;
@@ -51,8 +51,11 @@ namespace API.Services.Restaurant
                 {
                     RestaurantId = restaurant.Id,
                     StartTime = current,
-                    EndTime = current.Add(TimeSpan.FromMinutes(durationInMinutes))
+                    EndTime = current.Add(TimeSpan.FromMinutes(durationInMinutes)),
+                    CreatedAt = DateTime.Now,
+                    Accesstime = DateTime.Now
                 };
+
 
                 // Ensure the schedule doesn't go beyond the closing time
                 if (schedule.EndTime > closedTime)
@@ -66,6 +69,21 @@ namespace API.Services.Restaurant
             // Insert schedules into the database
             await _uow.restaurantScheduleRepo.InsertListAsync(schedules);
         }
+
+        public int DeleteSchedules(int resId)
+        {
+            var schedules = _uow.restaurantScheduleRepo.GetAll().Where(rs => rs.IsDeleted != true && rs.RestaurantId == resId).ToList();
+            var result = _uow.restaurantScheduleRepo.DeleteList(schedules);
+            return result;
+
+        }
+
+        private async Task UpdateSchedules(tbRestaurant restaurant)
+        {
+            DeleteSchedules(restaurant.Id);
+            await InsertSchedules(restaurant);
+
+        }
         public async Task<ResponseData> UpSert(tbRestaurant restaurant)
         {
             tbRestaurant entity;
@@ -73,9 +91,20 @@ namespace API.Services.Restaurant
             //update
             if (restaurant.Id != 0)
             {
-               
+
                 restaurant.Accesstime = MyExtension.GetLocalTime();
-                entity = await _uow.restaurantRepo.UpdateAsync(restaurant);
+
+                var oldEntity = await _uow.restaurantRepo.GetAll().Where(r => r.IsDeleted != true && r.Id == restaurant.Id).AsNoTracking().FirstOrDefaultAsync() ?? new tbRestaurant();
+                if (oldEntity.OpenTime != restaurant.OpenTime || oldEntity.CloseTime != restaurant.CloseTime || oldEntity.Duration != restaurant.Duration)
+                {
+                    entity = await _uow.restaurantRepo.UpdateAsync(restaurant);
+                    await UpdateSchedules(entity);
+                }
+                else
+                {
+                    entity = await _uow.restaurantRepo.UpdateAsync(restaurant);
+                }
+
             }
             //insert
             else

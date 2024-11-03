@@ -1,0 +1,200 @@
+﻿@model Data.Models.tbRestaurant
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "RestaurantForm" }))
+{
+    <div>
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form>
+            <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+
+                <!-- input group -->
+                <div class="mb-3">
+                    <label for="inputgroupmergefullname" class="form-label">Restaurant Name</label>
+
+                    <div class="input-group input-group-merge">
+
+                        <input type="text" class="form-control" name="Name" value="@Model.Name" readonly>
+                    </div>
+                </div>
+                <!-- end input group -->
+                <!-- input group -->
+                <div class="mb-3">
+                    <label for="inputgroupmergeemail" class="form-label">Email</label>
+
+                    <div class="input-group input-group-merge">
+
+                        <input type="text" class="form-control" name="Email" value="@Model.Email" readonly>
+                    </div>
+                </div>
+                <!-- end input group -->
+                <!-- input group -->
+                <div class="mb-3">
+                    <label for="inputgroupmergeemail" class="form-label">Phone</label>
+
+                    <div class="input-group input-group-merge">
+                        <div class="input-group-prepend input-group-text" id="phone">
+                            <i class="bi-phone"></i>
+                        </div>
+                        <input type="text" class="form-control" placeholder="09***" name="Phone" value="@Model.Phone" required>
+                    </div>
+                </div>
+                <!-- end input group -->
+                <!-- input group -->
+               @*  <div class="mb-3">
+                    <label for="inputgroupmergeemail" class="form-label">Password</label>
+
+                    <div class="input-group input-group-merge">
+                        <div class="input-group-prepend input-group-text">
+                            <i class="bi-lock"></i>
+                        </div>
+                        <input type="password" class="form-control" name="Password" value="@Model.Password" disabled>
+                    </div>
+                </div> *@
+                <!-- end input group -->
+
+                
+                <!-- Media -->
+                <label class="form-label" for="exampleFormControlInput1">Cover Photo</label>
+                <div class="d-flex align-items-center mb-3">
+                    <!-- Avatar -->
+                    <label class="avatar avatar-xl avatar-circle" for="coverPhoto">
+                        <img id="coverImg" class="avatar-img w-100" src="@Model.CoverPhotoUrl" alt="Image Description">
+                    </label>
+
+                    <div class="d-flex gap-3 ms-4">
+                        <input type="hidden" name="CoverPhotoString" id="cover_photo_article" />
+                        <div class="form-attachment-btn btn btn-sm btn-primary">
+                            Upload photo
+                            <input type="file" class="js-file-attach form-attachment-btn-label" id="cover-file-data" onchange="ShowCoverPreview(this, document.getElementById('coverImg'))">
+                        </div>
+                        <!-- End Avatar -->
+
+                    </div>
+                </div>
+                <!-- End Media -->
+                <!-- Media -->
+                <label class="form-label" for="exampleFormControlInput1">Profile Photo</label>
+                <div class="d-flex align-items-center mb-3">
+                    <!-- Avatar -->
+                    <label class="avatar avatar-xl avatar-circle" for="profilePhoto">
+                        <img id="profileImg" class="avatar-img w-100" src="@Model.ProfilePhotoUrl" alt="Image Description">
+                    </label>
+
+                    <div class="d-flex gap-3 ms-4">
+                        <input type="hidden" name="ProfilePhotoString" id="profile_photo_article" />
+                        <div class="form-attachment-btn btn btn-sm btn-primary">
+                            Upload photo
+                            <input type="file" class="js-file-attach form-attachment-btn-label" id="profile-file-data" onchange="ShowProfilePreview(this, document.getElementById('profileImg'))">
+                        </div>
+                        <!-- End Avatar -->
+
+
+                    </div>
+                </div>
+                <!-- End Media -->
+                <!-- input group -->
+                <div class="mb-3">
+                    <label for="inputgroupmergeemail" class="form-label">Address</label>
+
+                    <div class="input-group input-group-merge">
+                        <div class="input-group-prepend input-group-text">
+                            <i class="bi-envelope-open"></i>
+                        </div>
+                        <input type="text" class="form-control" name="Location" value="@Model.Location" required>
+                    </div>
+                </div>
+                <!-- end input group -->
+                <!-- input group -->
+                <div class="mb-3">
+                    <label for="inputgroupmergeemail" class="form-label">Time</label>
+                    <div class="d-flex">
+                        <div class="input-group input-group-merge me-2 pointer">
+                            <div class="input-group-prepend input-group-text">
+                                <i class="bi-clock"></i>
+                            </div>
+                            <input type="time" class="form-control" placeholder="Open at" name="OpenTime" value="@Model.OpenTime" required>
+                        </div>
+                        <div class="input-group input-group-merge">
+                            <div class="input-group-prepend input-group-text">
+                                <i class="bi-clock"></i>
+                            </div>
+                            <input type="time" class="form-control" placeholder="Close at" name="CloseTime" value="@Model.CloseTime" required>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- end input group -->
+                <!-- input group -->
+                <div class="mb-3">
+                    <label for="inputgroupmergefullname" class="form-label">Duration</label>
+
+                    <div class="input-group input-group-merge">
+                        <div class="input-group-prepend input-group-text">
+                            <i class="bi-clock"></i>
+                        </div>
+                        <input type="number" class="form-control" placeholder="Time per Section" name="Duration" value="@Model.Duration" required>
+                    </div>
+                </div>
+                <!-- end input group -->
+                <!-- input group -->
+                <div class="mb-3">
+                    <label for="inputgroupmergefullname" class="form-label">Total Tables</label>
+
+                    <div class="input-group input-group-merge">
+                        <div class="input-group-prepend input-group-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m6.5 18.725l1-2.475q.225-.575.725-.913T9.35 15H11v-4.025Q7.175 10.85 4.587 9.85T2 7.5q0-1.45 2.925-2.475T12 4q4.175 0 7.088 1.025T22 7.5q0 1.35-2.588 2.35T13 10.975V15h1.65q.6 0 1.113.338t.737.912l1 2.475q.2.45-.088.863t-.787.412q-.275 0-.5-.15t-.35-.425L14.8 17H9.2l-.975 2.425q-.125.275-.35.425t-.5.15q-.5 0-.787-.413t-.088-.862M12 9q2.425 0 4.575-.425t3.15-1.075q-1-.65-3.15-1.075T12 6t-4.575.425T4.275 7.5q1 .65 3.15 1.075T12 9m0-1.5" /></svg>
+                        </div>
+                        <input type="number" class="form-control" placeholder="Table Count" name="NoOfTable" value="@Model.NoOfTable" required>
+                    </div>
+                </div>
+                <!-- end input group -->
+                <!-- input group -->
+                <div class="mb-3">
+                    <label for="inputgroupmergeemail" class="form-label">Number of people per table</label>
+
+                    <div class="input-group input-group-merge">
+                        <div class="input-group-prepend input-group-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.425 0-.712-.288T4 20v-3q0-.825.588-1.412T6 15h12q.825 0 1.413.588T20 17v3q0 .425-.288.713T19 21t-.712-.288T18 20v-3H6v3q0 .425-.288.713T5 21m-.5-7q-.625 0-1.062-.437T3 12.5t.438-1.062T4.5 11t1.063.438T6 12.5t-.437 1.063T4.5 14M7 14V5q0-.825.588-1.412T9 3h6q.825 0 1.413.588T17 5v9zm12.5 0q-.625 0-1.062-.437T18 12.5t.438-1.062T19.5 11t1.063.438T21 12.5t-.437 1.063T19.5 14M9 12h6V5H9zm0 0h6z" /></svg>
+                        </div>
+                        <input type="number" class="form-control" placeholder="Number of people per table" name="PeoplePerTable" value="@Model.PeoplePerTable" required>
+                    </div>
+                </div>
+                <!-- end input group -->
+                <!-- input group -->
+                <div class="mb-3">
+                    <label for="inputgroupmergeemail" class="form-label">Quote(Optional)</label>
+
+                    <div class="input-group input-group-merge">
+
+                        <input type="text" class="form-control" placeholder="Restaurant's Quote'" value="@Model.Quote" name="Quote" required>
+                    </div>
+                </div>
+                <!-- end input group -->
+                <div class="mb-3">
+                    <label class="form-label" for="about">About</label>
+                    <textarea id="about" class="form-control" placeholder="@Model.Description" rows="4" name="Description" value="@Model.Description"></textarea>
+                </div>
+            </div>
+            <input type="hidden" name="Id" value="@Model.Id">
+            <input type="hidden" name="Password" value="@Model.Password" >
+            <input type="hidden" name="CoverPhoto" value="@Model.CoverPhoto" >
+            <input type="hidden" name="ProfilePhoto" value="@Model.ProfilePhoto" >
+            <input type="hidden" name="CreatedAt" value="@Model.CreatedAt">
+            <input type="hidden" name="Accesstime" value="@Model.Accesstime">
+            <input type="hidden" name="IsDeleted" value="@Model.IsDeleted">
+            <input type="hidden" name="Division" value="@Model.Division">
+            <input type="hidden" name="Township" value="@Model.Township">
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+
+    </div>
+   
+}
+

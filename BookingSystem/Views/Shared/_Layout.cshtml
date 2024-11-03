@@ -136,7 +136,21 @@
         </div>
     </div>
     <!-- Profile Offcanvas -->
-   
+
+
+
+    <!-- Restaurant Profile Modal -->
+    <div class="modal fade" id="restaurantFormModal" tabindex="-1" role="dialog" >
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div id="div-restaurant-form"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+
     <!-- ========== END HEADER ========== -->
     <div class="container" style="min-height: 75vh;">
         <main role="main" class="pb-3">
@@ -227,9 +241,6 @@
         });
 
 
-
-
-
         function EditCustomerProfile(e) {
             var id = $(e).attr('data-id');
             Form("Edit", id)
@@ -287,6 +298,190 @@
             });
         }
 
+        function EditRestaurantProfile(e) {
+            var id = $(e).attr('data-id');
+            RestuarantForm("Edit", id)
+        }
+
+
+        function RestuarantForm(FormType, Id) {
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("RestaurantForm", "Restaurant")',
+                data: { FormType: FormType, Id: Id },
+                beforeSend: function () {
+
+                },
+                success: function (data) {
+                    $('#div-restaurant-form').empty().append(data);
+                    $('#restaurantFormModal').modal('show');
+
+                },
+                complete: function () {
+
+
+                    $('#RestaurantForm').submit(function (e) {
+
+                        e.preventDefault();
+
+                        $.ajax({
+                            cache: false,
+                            url: '@Url.Action("UpSert", "Restaurant")',
+                            type: "Post",
+                            data: $(this).serialize(),
+                            beforeSend: function () {
+                                $('.btn').prop("disabled", true);
+                            },
+                            success: function (data) {
+                                console.log("data:", data);
+                                if (data?.Status == "@ResponseStatus.Success") {
+                                    $('#restaurantFormModal').modal('hide');
+                                    alert("Success!!");
+
+                                }
+                                else {
+                                    alert("Failed!!")
+                                }
+
+                            },
+                            complete: function () {
+                                $('.btn').prop("disabled", false);
+
+
+                            }
+                        });
+                    });
+                }
+
+            });
+        }
+
+
+        function maxwidthheight(width, height) {
+            var MAX_WIDTH = 1200;  // to remove maximum width height
+            var MAX_HEIGHT = 1200;
+            var width = width;
+            var height = height;
+
+            if (width > height) {
+                if (width > MAX_WIDTH) {
+                    height *= MAX_WIDTH / width;
+                    width = MAX_WIDTH;
+                }
+            } else {
+                if (height > MAX_HEIGHT) {
+                    width *= MAX_HEIGHT / height;
+                    height = MAX_HEIGHT;
+                }
+            }
+            var a = { width: width, height: height };
+            return a
+        }
+
+        function dataURItoBlob(dataURI) {
+            var binary = atob(dataURI.split(',')[1]);
+            var array = [];
+            for (var i = 0; i < binary.length; i++) {
+                array.push(binary.charCodeAt(i));
+            }
+            return new Blob([new Uint8Array(array)], { type: 'image/png' });
+        }
+
+
+        function ShowCoverPreview(imageUploader, previewImage) {
+            if (imageUploader.files && imageUploader.files[0]) {
+                var files = $("#cover-file-data").get(0).files;
+                var file = files[0];
+
+                var img = document.createElement("img");
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $(previewImage).attr('src', e.target.result);
+                    img.src = e.target.result;
+                    var mime_type = "image/jpeg";
+                    if (typeof output_format !== "undefined" && output_format == "png") {
+                        mime_type = "image/png";
+                    }
+                    var canvas = document.createElement("canvas");
+                    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+                        alert('Photo is uploading...');
+                    }
+                    //set max height width
+                    var gg = maxwidthheight(img.width, img.height);
+                    width = gg.width;
+                    height = gg.height;
+                    canvas.width = width;
+                    canvas.height = height;
+                    var ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    var dataurl = canvas.toDataURL(mime_type, 60 / 100);
+                    //document.getElementById('image').src = dataurl;
+                    var blob = dataURItoBlob(dataurl);
+                    console.log("blob" + dataurl);
+
+                    reader.onloadend = function () {
+                        console.log("reader result " + reader.result);
+                        var base64data = reader.result;
+                        // console.log(base64data);
+                        $('#cover_photo_article').val(base64data.split(",")[1]);
+
+                    }
+
+                }
+                reader.readAsDataURL(file);
+            }
+
+
+
+        }
+
+
+
+        function ShowProfilePreview(imageUploader, previewImage) {
+            if (imageUploader.files && imageUploader.files[0]) {
+                var files = $("#profile-file-data").get(0).files;
+                var file = files[0];
+
+                var img = document.createElement("img");
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $(previewImage).attr('src', e.target.result);
+                    img.src = e.target.result;
+                    var mime_type = "image/jpeg";
+                    if (typeof output_format !== "undefined" && output_format == "png") {
+                        mime_type = "image/png";
+                    }
+                    var canvas = document.createElement("canvas");
+                    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+                        alert('Photo is uploading...');
+                    }
+                    //set max height width
+                    var gg = maxwidthheight(img.width, img.height);
+                    width = gg.width;
+                    height = gg.height;
+                    canvas.width = width;
+                    canvas.height = height;
+                    var ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    var dataurl = canvas.toDataURL(mime_type, 60 / 100);
+                    //document.getElementById('image').src = dataurl;
+                    var blob = dataURItoBlob(dataurl);
+                    console.log("blob" + dataurl);
+
+                    reader.onloadend = function () {
+                        console.log("reader result " + reader.result);
+                        var base64data = reader.result;
+                        console.log(base64data);
+                        $('#profile_photo_article').val(base64data.split(",")[1]);
+                    }
+
+                }
+                reader.readAsDataURL(file);
+            }
+
+
+
+        }
 
     </script>
 

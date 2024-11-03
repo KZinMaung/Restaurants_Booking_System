@@ -170,5 +170,26 @@ namespace BookingSystem.Controllers
         }
 
 
+        public async Task<IActionResult> RestaurantForm(string FormType, int Id)
+        {
+
+            tbRestaurant res = new tbRestaurant();
+            if (FormType == "Add")
+            {
+                return PartialView("_restaurantForm", res);
+            }
+
+            else
+            {
+                tbRestaurant result = await RestaurantApiRH.GetById(Id);
+                return PartialView("_restaurantForm", result);
+
+            }
+        }
+
+
+       
+
+
     }
 }
