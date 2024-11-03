@@ -16,6 +16,9 @@
         var page = 1;
         var pagesize = 9;
         var q;
+        var bookingId = 0;
+        var table; 
+
         $(function () {
             initPaging();
             LoadMainList();
@@ -40,6 +43,7 @@
             });
         }
 
+
         function LoadMainList() {
 
             $.ajax({
@@ -60,12 +64,39 @@
                     $(".pagination span").addClass("page-link");
                     $(".pagination a").addClass("page-link");
 
+                },
+                complete: function () {
+                    
+                }
+
+            });
+        }
+
+
+        function CompleteBooking(e) {
+            bookingId = $(e).attr('data-id');
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("CompleteBooking", "Booking")',
+                data: {
+                    bookingId: bookingId
+                },
+                beforeSend: function () {
+                    $('.btn').prop("disabled", true);
+                },
+                success: function (data) {
+                    console.log("data:", data);
+                    if (data?.Status == "@ResponseStatus.Success") {
+                        alert("Success!!");
+                        LoadMainList();
+                    }
+                    else {
+                        alert("Failed!!")
+                    }
 
                 },
                 complete: function () {
-                    if ($('#booking-table').length) {
-                        $('#booking-table').DataTable();
-                    }
+                    $('.btn').prop("disabled", false);
                 }
 
             });

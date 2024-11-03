@@ -148,5 +148,20 @@ namespace API.Services.Booking
             response.Status = entity != null ? ResponseStatus.Success : ResponseStatus.Fail;
             return response;
         }
+
+        public async Task<ResponseData> CompleteBooking(int bookingId)
+        {
+            tbBooking booking = await _uow.bookingRepo.GetAll().Where(b => b.IsDeleted != true && b.Id == bookingId).FirstOrDefaultAsync() ?? new tbBooking();
+            tbBooking? entity = null;
+            ResponseData response = new ResponseData();
+            if (booking.Id != 0)
+            {
+                booking.Status = BookingStatus.Completed;
+                entity = await _uow.bookingRepo.UpdateAsync(booking);
+            }
+
+            response.Status = entity != null ? ResponseStatus.Success : ResponseStatus.Fail;
+            return response;
+        }
     }
 }

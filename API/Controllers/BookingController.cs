@@ -46,5 +46,14 @@ namespace API.Controllers
             var result = await this._ibooking.CancelBooking(bookingId);
             return Ok(result);
         }
+
+
+        [HttpGet("api/booking/complete-booking")]
+        public async Task<IActionResult> CompleteBooking(int bookingId)
+
+        {
+            var result = await this._ibooking.CompleteBooking(bookingId);
+            return Ok(result);
+        }
     }
 }

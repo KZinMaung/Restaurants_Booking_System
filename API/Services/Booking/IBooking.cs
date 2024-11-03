@@ -16,5 +16,7 @@ namespace API.Services.Booking
 
         Task<ResponseData> CancelBooking(int bookingId);
 
+        Task<ResponseData> CompleteBooking(int bookingId);
+
     }
 }

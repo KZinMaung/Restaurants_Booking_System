@@ -58,5 +58,11 @@ namespace BookingSystem.Controllers
         }
 
 
+        public async Task<IActionResult> CompleteBooking(int bookingId)
+        {
+            ResponseData result = await BookingApiRH.CompleteBooking(bookingId);
+            return Json(result);
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿@model Infra.Services.PagedListClient<Data.ViewModels.BookingVM>
+@using Data.Constants
 @using X.PagedList.Mvc.Core
 
 @if (Model.Results.TotalItemCount > 0)
@@ -13,6 +14,7 @@
                     <th>Time</th>
                     <th>Date</th>
                     <th>Table</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -29,9 +31,17 @@
                         <td>@schedule.StartTime - @schedule.EndTime</td>
                         <td>@booking.BookingDate</td>
                         <td>@booking.NoOfTable</td>
-                        <td><button type="button" class="btn btn-xs btn-primary">Finish</button></td>
+                        <td>@booking.Status</td>
+                        <td>
+                            @if(booking.Status == BookingStatus.Confirmed)
+                            {
+                                <button type="button" class="btn btn-xs btn-primary" data-id="@item.Id" onclick="CompleteBooking(this)">Finish</button>
+
+                            }
+                        </td>
                     </tr>
                 }
+                
                 
             </tbody>
 

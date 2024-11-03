@@ -44,5 +44,12 @@ namespace Infra.Helpers
             return data;
         }
 
+        public static async Task<ResponseData> CompleteBooking(int bookingId)
+        {
+            var url = string.Format("api/booking/complete-booking?bookingId={0}", bookingId);
+            var data = await ApiRequestBase<ResponseData>.GetRequest(url.route(Request.BookingSystem));
+            return data;
+        }
+
     }
 }
