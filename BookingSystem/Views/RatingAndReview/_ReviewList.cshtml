@@ -1,4 +1,4 @@
-﻿@model Infra.Services.PagedListClient<Data.Models.tbRatingAndReview>
+﻿@model Infra.Services.PagedListClient<Data.ViewModels.RatingAndReviewVM>
 @using X.PagedList.Mvc.Core
 
 @if (Model.Results.TotalItemCount > 0)
@@ -15,33 +15,35 @@
     <ul class="list-comment list-comment-divider mb-7">
         @foreach (var item in Model.Results)
         {
+            var ratingNreview = item.RatingAndReview;
+            
             <!-- Item -->
             <li class="list-comment-item">
                 <div class="d-flex gap-1 mb-3">
-                    <img src="~/assets/svg/illustrations/star.svg" alt="Review rating" width="16">
-                    <img src="~/assets/svg/illustrations/star.svg" alt="Review rating" width="16">
-                    <img src="~/assets/svg/illustrations/star.svg" alt="Review rating" width="16">
-                    <img src="~/assets/svg/illustrations/star.svg" alt="Review rating" width="16">
-                    <img src="~/assets/svg/illustrations/star.svg" alt="Review rating" width="16">
+                    @for(int i = 0; i < ratingNreview.Rating; i++)
+                    {
+                        <img src="~/assets/svg/illustrations/star.svg" alt="Review rating" width="16">
+                    }
+                    
                 </div>
 
                 <!-- Media -->
                 <div class="d-flex align-items-center mb-3">
                     <div class="flex-shrink-0">
-                        <img class="avatar avatar-sm avatar-circle" src="~/assets/img/160x160/img3.jpg" alt="Image Description">
+                        <img class="avatar avatar-sm avatar-circle" src="@item.CustomerPhotoUrl" alt="Image Description">
                     </div>
 
                     <div class="flex-grow-1 ms-3">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">Dave Austin</h5>
-                            <span class="d-block small text-muted">April 3, 2019</span>
+                            <h5 class="mb-0">@item.CustomerName</h5>
+                            <span class="d-block small text-muted">@ratingNreview.CreatedAt</span>
                         </div>
                     </div>
                 </div>
                 <!-- End Media -->
 
                 <div class="mb-5">
-                    <p>This course helped me in learning python in a very simple and effective way & boosts up my confidence. Concepts have been explained in a crystal clear way.</p>
+                    <p>@ratingNreview.Review</p>
                 </div>
 
             </li>

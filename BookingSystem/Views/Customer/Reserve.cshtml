@@ -133,11 +133,16 @@
         var page = 1;
         var pagesize = 5;
         var q;
+
+        var reviewPage = 1;
+        var reviewPageSize = 5;
         var availableCount ;
         var reservationData;
 
         $(function () {
             initPaging();
+            ReviewPaging();
+
             LoadMenuList();
             BindTodayDate();
             ShowSchedules();
@@ -168,6 +173,26 @@
                     page = 1;
                 }
                 LoadMenuList();
+            });
+        }
+        
+        function ReviewPaging() {
+           
+            $("#div-ratingNreview-list").on("click", ".pagination-bx a", function (e) {
+
+                e.preventDefault();
+                var $a = $(this).attr("href");
+                try {
+                    var pageurl = $a.split(/=/);
+                    reviewPage = pageurl[1];
+                    if (reviewPage == null) {
+                        reviewPage = 1;
+                    }
+                }
+                catch (e) {
+                    reviewPage = 1;
+                }
+                LoadRatingNReviewList();
             });
         }
 
@@ -206,7 +231,7 @@
                 cache: false,
                 url: '@Url.Action("GetList", "RatingAndReview")',
                 data: {
-                    resId: resId, page: page, pageSize: pagesize, q: q
+                    resId: resId, page: reviewPage, pageSize: reviewPageSize
                 },
                 beforeSend: function () {
                     $('#div-ratingNreview-list').empty().append('<div class="loading text-center"><div class= "spinner-border" role = "status"></div><div class= "text-muted" > loading...</div></div>');
@@ -257,6 +282,9 @@
                 success: function (data) {
                     $('#div_tab_content').empty().append(data);
 
+                },
+                complete: function(){
+                    LoadRatingNReviewList();
                 }
             });
         }

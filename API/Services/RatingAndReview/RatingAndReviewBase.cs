@@ -36,7 +36,8 @@ namespace API.Services.RatingAndReview
                       {
                           RatingAndReviewId = rt.Id,
                           RatingAndReview = rt,
-                          Customer = c
+                          CustomerName = c.Name,
+                          CustomerPhotoUrl = c.PhotoUrl
                       }).AsQueryable();
 
 

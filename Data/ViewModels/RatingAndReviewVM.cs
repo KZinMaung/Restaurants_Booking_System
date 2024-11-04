@@ -11,6 +11,8 @@ namespace Data.ViewModels
     {
         public int RatingAndReviewId { get; set; }
         public tbRatingAndReview RatingAndReview { get; set; }
-        public tbCustomer Customer { get; set; }
+        public string? CustomerName { get; set; }
+        public string? CustomerPhotoUrl { get; set; }
+
     }
 }
