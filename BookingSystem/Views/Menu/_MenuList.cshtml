@@ -13,7 +13,11 @@
                 <span class="avatar avatar-lg avatar-4x3 me-3">
                     <img class="avatar-img" src="@item.PhotoUrl" alt="Image Description">
                 </span>
-                <h5>@item.Name</h5>
+                <div class="d-flex flex-column">
+                    <h5>@item.Name</h5>
+                    <span class="fs-6">Description</span>
+                </div>
+                
             </div>
             <div class="d-flex align-items-center">
                 <p class="m-0">@item.Price MMK</p>
@@ -47,7 +51,7 @@ else
         <div class="d-flex align-items-center">
             <div style="width: 50%">
                 <div class="text-not-found">No Menu found.</div>
-                <div>While no menu exits yet, you can create a new one by using the provided button.</div>
+                <div>There's no menu available right now, but you can add a new one by pressing add new menu button!</div>
             </div>
             <img src="~/assets/svg images/not_found.svg" />
         </div>
