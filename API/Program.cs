@@ -1,6 +1,7 @@
 using API.Services.Auth;
 using API.Services.Booking;
 using API.Services.Customer;
+using API.Services.EmailService;
 using API.Services.Menu;
 using API.Services.RatingAndReview;
 using API.Services.Restaurant;
@@ -108,11 +109,13 @@ builder.Services.AddScoped<IRestaurant>(s =>
     return new RestaurantBase(dbContext, azureBlobStorage, configuration);
 });
 
+builder.Services.AddTransient<IEmailService, EmailService>();
 
 builder.Services.AddScoped<IBooking>(s =>
 {
     var dbContext = s.GetService<BookingSystemDbCotnext>();
-    return new BookingBase(dbContext);
+    var emailService = s.GetService<IEmailService>();
+    return new BookingBase(dbContext, emailService);
 });
 
 
@@ -121,6 +124,7 @@ builder.Services.AddScoped<IMenu>(s =>
     var dbContext = s.GetService<BookingSystemDbCotnext>();
     return new MenuBase(dbContext, configuration);
 });
+
 
 var app = builder.Build();
 

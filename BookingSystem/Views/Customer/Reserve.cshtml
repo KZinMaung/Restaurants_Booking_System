@@ -3,10 +3,8 @@
 @{
     ViewData["Title"] = "Reserve Page";
     var res = Model.Restaurant;
-    var schedules = Model.Schedules;
     var cus = Model.Customer;
-    int index = 0;
-
+   
 }
 
 <div>
@@ -48,28 +46,15 @@
             <form id="reservation_form" method="post">
                 <div class="mb-3 pointer">
                     <label class="form-label" for="BookingDate">Date</label>
-                    <input type="date" id="BookingDate" class="form-control" required onchange="ShowAvailableCount()">
+                    <input type="date" id="BookingDate" class="form-control" required onchange="ShowSchedules()">
                 </div>
 
                 <div class="row mb-3">
                     <label class="form-label" for="time">Time</label>
-                    <div class="d-flex flex-row flex-wrap gap-3">
-                        @foreach(var schedule in schedules)
-                        {
-                            index++;
-                            <div class="">
-                                <!-- Form Radio -->
-                                <label class="form-control" for="time1">
-                                    <span class="form-check">
-                                        <input type="radio" class="form-check-input" name="time" data-id="@schedule.Id" onclick="ShowAvailableCount()" @(index == 1 ? "checked" : "")>
-                                        <span class="form-check-label" id="schedule_@schedule.Id">@schedule.StartTime - @schedule.EndTime</span>
-                                    </span>
-                                </label>
-                                <!-- End Form Radio -->
-                            </div>
-                        }
-                        
+                    <div id="div_schedule_list">
+
                     </div>
+                    
 
                 </div>
                 <div class="form-label" id="div-available-count"> </div>
@@ -155,7 +140,8 @@
             initPaging();
             LoadMenuList();
             BindTodayDate();
-            ShowAvailableCount();
+            ShowSchedules();
+           
         });
 
 
@@ -278,28 +264,61 @@
 
         function ShowAvailableCount() {
             selectedDate = $('#BookingDate').val();
-            resScheId = $('input[name="time"]:checked').data('id');
+            resScheId = $('input[name="time"]:checked').data('id') ?? 0;
 
+            if(resScheId != 0 ){ //if resScheduleId == 0 : no schedule => no need to calcualte availableCount
+                $.ajax({
+                    cache: false,
+                    url: '@Url.Action("GetAvailableCount", "Booking")',
+                    data: {
+                        resId: resId,
+                        resScheId: resScheId,
+                        BookingDate: selectedDate
+                    },
+                    beforeSend: function () {
+
+                    },
+                    success: function (count) {
+                        availableCount = count;
+                        var text = count + ' table(s) availabe at this time.'
+                        $('#div-available-count').empty().append(text);
+
+                    }
+                });
+            }
+            else{
+                 $('#div-available-count').empty();
+            }
+            
+        }
+
+       
+
+        function ShowSchedules() {
+            selectedDate = $('#BookingDate').val();
             $.ajax({
                 cache: false,
-                url: '@Url.Action("GetAvailableCount", "Booking")',
+                url: '@Url.Action("GetList", "RestaurantSchedule")',
                 data: {
-                    resId : resId,
-                    resScheId : resScheId,
-                    BookingDate : selectedDate
+                    resId: resId,
+                    selectedDate: selectedDate
                 },
                 beforeSend: function () {
-                    
-                },
-                success: function (count) {
-                    availableCount = count;
-                    var text = count + ' table(s) availabe at this time.'
-                    $('#div-available-count').empty().append(text);
 
+                },
+                success: function (data) {
+                    $('#div_schedule_list').empty().append(data);
+
+                },
+                complete: function () {
+                    ShowAvailableCount();
                 }
             });
         }
 
+
+
+        
         
         function ReviewReservation(){
             //get input data
