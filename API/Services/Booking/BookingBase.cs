@@ -1,4 +1,5 @@
-﻿using Core.Extension;
+﻿using API.Services.EmailService;
+using Core.Extension;
 using Data.Constants;
 using Data.Dtos;
 using Data.Model;
@@ -14,19 +15,21 @@ namespace API.Services.Booking
     public class BookingBase : IBooking
     {
         private readonly BookingSystemDbCotnext _context;
+        private readonly IEmailService _emailService;
         UnitOfWork _uow;
 
 
-        public BookingBase(BookingSystemDbCotnext context)
+        public BookingBase(BookingSystemDbCotnext context, IEmailService _emailService)
         {
             this._context = context;
             this._uow = new UnitOfWork(_context);
+            this._emailService = _emailService;
            
         }
 
         public async Task<int> GetAvailableCount(int resId, int resScheId, DateTime bookingDate)
         {
-            int noOfbookingTable =  await _uow.bookingRepo.GetAll().Where(b => b.RestaurantId == resId && b.RestaurantScheduleId == resScheId && b.BookingDate.Date == bookingDate.Date && b.IsDeleted != true).SumAsync(b => b.NoOfTable);
+            int noOfbookingTable =  await _uow.bookingRepo.GetAll().Where(b => b.RestaurantId == resId && b.RestaurantScheduleId == resScheId && b.BookingDate.Date == bookingDate.Date && b.IsDeleted != true && b.Status == BookingStatus.Confirmed).SumAsync(b => b.NoOfTable);
             tbRestaurant res = await _uow.restaurantRepo.GetAll().Where(r => r.Id == resId && r.IsDeleted != true).FirstOrDefaultAsync() ?? new tbRestaurant();
             int availableCount = res.NoOfTable - noOfbookingTable;
             return availableCount;
@@ -49,7 +52,6 @@ namespace API.Services.Booking
 
                 booking.Accesstime = MyExtension.GetLocalTime();
                 booking.CreatedAt = MyExtension.GetLocalTime();
-                //booking.Status = BookingStatus.Pending;
                 booking.Status = BookingStatus.Confirmed;
                 entity = await _uow.bookingRepo.InsertReturnAsync(booking);
 
@@ -57,14 +59,60 @@ namespace API.Services.Booking
 
                 // Update the booking with the generated code
                 entity = await _uow.bookingRepo.UpdateAsync(entity);
-            }
 
+
+                //Send confirm mail
+                BookingVM data = new BookingVM();   
+                data = await GetBookingInfo(entity);
+                await SendConfirmEmail(data);
+                
+            }
+           
 
             response.Status = entity != null ? ResponseStatus.Success : ResponseStatus.Fail;
             return response;
 
         }
 
+
+        private async Task<BookingVM> GetBookingInfo(tbBooking booking)
+        {
+            BookingVM data = new BookingVM();
+            data.Id = booking.Id;
+            data.Booking = booking;
+            data.Restaurant =await _uow.restaurantRepo.GetAll().Where(r => r.Id == booking.RestaurantId).FirstOrDefaultAsync() ?? new tbRestaurant(); 
+            data.Schedule = await _uow.restaurantScheduleRepo.GetAll().Where(s => s.Id == booking.RestaurantScheduleId).FirstOrDefaultAsync() ?? new tbRestaurantSchedule();
+            return data;
+            
+        }
+
+        private async Task SendConfirmEmail(BookingVM data)
+        {
+            string receptor = data.Booking.CustomerEmail;
+            string subject = "Your Reservation is Confirmed!";
+            string body = $@"Dear {data.Booking.CustomerName},
+
+                        Thank you for choosing {data.Restaurant.Name}!
+                        We're excited to confirm your reservation on {data.Booking.BookingDate} at {data.Schedule.StartTime} - {data.Schedule.EndTime}.
+
+                        Reservation Details:
+
+                        Booking Code: {data.Booking.BookingCode}
+                        Name: {data.Booking.CustomerName}
+                        Time: {data.Schedule.StartTime} - {data.Schedule.EndTime}
+                        Date: {data.Booking.BookingDate}
+                        Table Count: {data.Booking.NoOfTable}
+
+                        If you need to modify or cancel your reservation, please contact us at {data.Restaurant.Phone} or {data.Restaurant.Email}.
+
+                        We look forward to serving you!
+
+                        Sincerely,
+                        {data.Restaurant.Name}";
+
+            await _emailService.SendEmail(receptor, subject, body);
+
+        }
 
         private static string GenerateBookingCode(int bookingId)
         {

@@ -24,7 +24,7 @@ namespace API.Services.RestaurantSchedule
 
         public async Task<List<tbRestaurantSchedule>> GetList(int resId)
         {
-
+            
             IQueryable<tbRestaurantSchedule> query = _uow.restaurantScheduleRepo.GetAll().Where(a => a.IsDeleted != true && a.RestaurantId == resId).AsQueryable();
             return await query.ToListAsync();
         }

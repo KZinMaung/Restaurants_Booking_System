@@ -24,8 +24,7 @@ namespace BookingSystem.Controllers
         public async Task<IActionResult> Reserve(int resId)
         {
             tbRestaurant res = await RestaurantApiRH.GetById(resId);
-            List<tbRestaurantSchedule> schedules = await RestaurantScheduleApiRH.GetList(resId);
-
+            
             var result = User.Identity.IsAuthenticated.ToString();
             int cusId = 0;
 
@@ -37,7 +36,6 @@ namespace BookingSystem.Controllers
 
             ReserveViewModel viewModel = new ReserveViewModel();
             viewModel.Restaurant = res;
-            viewModel.Schedules = schedules;
             viewModel.Customer = cus;
 
             return View(viewModel);
