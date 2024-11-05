@@ -26,7 +26,7 @@
             <a class="nav-link" id="nav-about" data-bs-toggle="pill" aria-selected="false" onclick="LoadAbout()">ABOUT</a>
         </li>
          <li class="nav-item">
-            <a class="nav-link" id="nav-reviews" data-bs-toggle="pill" aria-selected="false" onclick="LoadReviews()">REVIEWS</a>
+            <a class="nav-link" id="nav-reviews" data-bs-toggle="pill" aria-selected="false" onclick="LoadReviewList()">REVIEWS</a>
         </li>
     </ul>
 </div>
@@ -46,10 +46,14 @@
 
 
         var page = 1;
-        var pagesize = 10;
+        var pagesize = 3;
         var q;
+
+        var reviewPage = 1;
+        var reviewPageSize = 3;
+        
         $(function () {
-            initPaging();
+            
             $('.nav-link').removeClass('active');
             // $('#li_seafarer').addClass('active');
             LoadMenu();
@@ -73,6 +77,25 @@
                     page = 1;
                 }
                 LoadMenuList();
+            });
+        }
+
+        function reviewPaging() {
+            $("#review-list").on("click", ".pagination-bx a", function (e) {
+
+                e.preventDefault();
+                var $a = $(this).attr("href");
+                try {
+                    var pageurl = $a.split(/=/);
+                    reviewPage = pageurl[1];
+                    if (reviewPage == null) {
+                        reviewPage = 1;
+                    }
+                }
+                catch (e) {
+                    reviewPage = 1;
+                }
+                LoadReviewList();
             });
         }
 
@@ -112,23 +135,25 @@
                 }
             });
         }
-        function LoadReviews() {
-            $.ajax({
-                cache: false,
-                url: '@Url.Action("LoadReviews", "Restaurant")',
-                data: {
-                   
-                },
-                beforeSend: function () {
-                    $('#div_tab_content').empty().append('<div class="loading text-center"><div class= "spinner-border" role = "status"></div><div class= "text-muted" > loading...</div></div>');
 
-                },
-                success: function (data) {
-                    $('#div_tab_content').empty().append(data);
+
+        // function LoadReviews() {
+        //     $.ajax({
+        //         cache: false,
+        //         url: '@Url.Action("LoadReviews", "Restaurant")',
+        //         data: {
                    
-                }
-            });
-        }
+        //         },
+        //         beforeSend: function () {
+        //             $('#div_tab_content').empty().append('<div class="loading text-center"><div class= "spinner-border" role = "status"></div><div class= "text-muted" > loading...</div></div>');
+
+        //         },
+        //         success: function (data) {
+        //             $('#div_tab_content').empty().append(data);
+                   
+        //         }
+        //     });
+        // }
 
 
 
@@ -313,7 +338,35 @@
 
                 },
                 complete: function () {
+                    initPaging();
+                }
 
+            });
+        }
+
+
+        function LoadReviewList() {
+
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("GetList", "RatingAndReview")',
+                data: {
+                    resId: resId, page: reviewPage, pageSize: reviewPageSize
+                },
+                beforeSend: function () {
+                    $('#div_tab_content').empty().append('<div class="loading text-center"><div class= "spinner-border" role = "status"></div><div class= "text-muted" > loading...</div></div>');
+
+                },
+                success: function (data) {
+                    $('#div_tab_content').empty().append(data);
+                    $(".pagination li").addClass("page-item");
+                    $(".pagination span").addClass("page-link");
+                    $(".pagination a").addClass("page-link");
+
+
+                },
+                complete: function () {
+                    reviewPaging();
                 }
 
             });
