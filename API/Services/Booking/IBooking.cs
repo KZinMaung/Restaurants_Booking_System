@@ -18,5 +18,7 @@ namespace API.Services.Booking
 
         Task<ResponseData> CompleteBooking(int bookingId);
 
+        bool HasBooked(int cusId, int resId);
+
     }
 }

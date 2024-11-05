@@ -173,7 +173,7 @@ namespace API.Services.Restaurant
                         select new RestaurantWithRating
                         {
                             Restaurant = r,
-                            AverageRating = ratingsGroup.Any() ? ratingsGroup.Average(rr => rr.Rating) : 0
+                            AverageRating = ratingsGroup.Any() ? Math.Round(ratingsGroup.Average(rr => rr.Rating), 1) : 0
                         };
 
             // Apply search filter

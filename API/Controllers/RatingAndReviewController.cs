@@ -1,5 +1,6 @@
-﻿using API.Services.Menu;
+﻿
 using API.Services.RatingAndReview;
+using Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,13 @@ namespace API.Controllers
 
         {
             var result = await this._iratingNreview.GetList(resId, page, pageSize);
+            return Ok(result);
+        }
+
+        [HttpPost("api/rating-and-review/upsert")]
+        public async Task<IActionResult> UpSert(tbRatingAndReview ratingNreview)
+        {
+            var result = await this._iratingNreview.UpSert(ratingNreview);
             return Ok(result);
         }
 

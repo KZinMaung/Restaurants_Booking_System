@@ -1,4 +1,7 @@
-﻿using Data.Model;
+﻿using Core.Extension;
+using Data.Constants;
+using Data.Dtos;
+using Data.Model;
 using Data.Models;
 using Data.ViewModels;
 using Infra.Services;
@@ -52,6 +55,33 @@ namespace API.Services.RatingAndReview
             query = SORTLIT<RatingAndReviewVM>.Sort(query, sortVal, sortDir);
             var result = await PagingService<RatingAndReviewVM>.getPaging(page, pageSize, query);
             return result;
+        }
+
+
+        public async Task<ResponseData> UpSert(tbRatingAndReview ratingNreview)
+        {
+            tbRatingAndReview entity;
+            ResponseData response = new ResponseData();
+            //update
+            if (ratingNreview.Id != 0)
+            {
+
+                ratingNreview.Accesstime = MyExtension.GetLocalTime();
+                entity = await _uow.ratingNReviewRepo.UpdateAsync(ratingNreview);
+            }
+            //insert
+            else
+            {
+
+                ratingNreview.Accesstime = MyExtension.GetLocalTime();
+                ratingNreview.CreatedAt = MyExtension.GetLocalTime();
+                entity = await _uow.ratingNReviewRepo.InsertReturnAsync(ratingNreview);
+            }
+
+
+            response.Status = entity != null ? ResponseStatus.Success : ResponseStatus.Fail;
+            return response;
+
         }
     }
 }

@@ -211,5 +211,12 @@ namespace API.Services.Booking
             response.Status = entity != null ? ResponseStatus.Success : ResponseStatus.Fail;
             return response;
         }
+
+
+        public bool HasBooked(int cusId, int resId)
+        {
+            bool hasBookings = _uow.bookingRepo.GetAll().Any(b => b.CustomerId == cusId && b.RestaurantId == resId && b.Status != BookingStatus.Cancelled && b.IsDeleted != true);
+            return hasBookings;
+        }
     }
 }

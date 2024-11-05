@@ -55,5 +55,15 @@ namespace API.Controllers
             var result = await this._ibooking.CompleteBooking(bookingId);
             return Ok(result);
         }
+
+        [HttpGet("api/booking/has-booked")]
+        public IActionResult HasBooked(int cusId, int resId)
+
+        {
+            var result =  this._ibooking.HasBooked(cusId, resId);
+            return Ok(result);
+        }
+
+
     }
 }

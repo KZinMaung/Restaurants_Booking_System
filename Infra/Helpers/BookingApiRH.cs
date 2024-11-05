@@ -51,5 +51,12 @@ namespace Infra.Helpers
             return data;
         }
 
+        public static async Task<bool> HasBooked(int cusId, int resId)
+        {
+            var url = string.Format("api/booking/has-booked?cusId={0}&resId={1}", cusId, resId);
+            var data = await ApiRequestBase<bool>.GetRequest(url.route(Request.BookingSystem));
+            return data;
+        }
+
     }
 }

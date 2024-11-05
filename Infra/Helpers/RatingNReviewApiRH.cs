@@ -1,4 +1,5 @@
-﻿using Data.Models;
+﻿using Data.Dtos;
+using Data.Models;
 using Data.ViewModels;
 using Infra.Services;
 using System;
@@ -19,7 +20,14 @@ namespace Infra.Helpers
             PagedListClient<RatingAndReviewVM> model = PagingService<RatingAndReviewVM>.ConvertFromPagedListServer(page, pageSize, data);
             return model;
 
+        }
 
+        public static async Task<ResponseData> UpSert(tbRatingAndReview ratingNreview)
+        {
+
+            string url = string.Format("api/rating-and-review/upsert");
+            ResponseData data = await ApiRequestBase<tbRatingAndReview, ResponseData>.PostDiffRequest(url.route(Request.BookingSystem), ratingNreview);
+            return data;
         }
     }
 }
