@@ -30,7 +30,7 @@
         <div class="container">
             <nav class="js-mega-menu navbar-nav-wrap">
                 <!-- Default Logo -->
-                <a class="navbar-brand" href="/home" aria-label="Front">
+                <a class="navbar-brand"  aria-label="Front">
                     <img class="avatar-img" src="~/img/TableTalk Logo.svg" style="width:50px; height: 50px;" alt="Logo">
                 </a>
                 <!-- End Default Logo -->
@@ -52,24 +52,20 @@
                             var result = User.Identity.IsAuthenticated.ToString();
                             if (result == "True")
                             {
-                                // var name = User.Claims.ToArray()[Data.Constants.AuthDataIndex.Name].Value;
-                                // var email = User.Claims.ToArray()[Data.Constants.AuthDataIndex.Email].Value;
+                                
                                  var profilePhotoUrl = User.Claims.ToArray()[Data.Constants.AuthDataIndex.ProfilePhotoUrl].Value;
                                 var userType = User.Claims.ToArray()[Data.Constants.AuthDataIndex.UserType].Value;
                                 var id = User.Claims.ToArray()[Data.Constants.AuthDataIndex.Id].Value;
 
 
-                                <!-- Landings -->
-                                <li class=" nav-item">
-                                    <a id="home" class="nav-link active" href="#" role="button">Home</a>
-                                </li>
-                                <!-- End Landings -->
-                          
                                 
                                 @if(userType == Data.Constants.UserType.Restaurant)
                                 {
                                     <li class=" nav-item">
-                                        <a id="mybookings" class="nav-link" href="../Restaurant/Bookings">My Bookings</a>
+                                        <a class="nav-link active" href="~/Restaurant/Index" role="button" id="li_res_home">Home</a>
+                                    </li>
+                                    <li class=" nav-item">
+                                        <a  class="nav-link" href="~/Restaurant/Bookings" id="li_res_bookings">My Bookings</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="btn-transition" data-id="@id" onclick="EditRestaurantProfile(this)">
@@ -83,7 +79,10 @@
                                 else
                                 {
                                     <li class=" nav-item">
-                                        <a id="mybookings" class="nav-link" href="../Customer/Bookings">My Bookings</a>
+                                        <a id="li_cus_home" class="nav-link active" href="~/Customer/Index" role="button">Home</a>
+                                    </li>
+                                    <li class=" nav-item">
+                                        <a id="li_cus_bookings" class="nav-link" href="~/Customer/Bookings">My Bookings</a>
                                     </li>
 
                                     <li class="nav-item">
@@ -100,7 +99,7 @@
                             else
                             {
                                 <li class="nav-item">
-                                    <button type="button" class="btn btn-primary btn-sm" id="btn-signup">Sign Up</button>
+                                    <a type="button" class="btn btn-primary btn-sm" id="btn-signup" href="~/Customer/Register">Sign Up</a>
                                 </li>
                             }
 
@@ -229,16 +228,20 @@
 
     <script type="text/javascript">
         $(function () {
+
             new HSMegaMenu('.js-mega-menu', {
                 desktop: {
                     position: 'left'
                 }
             });
-            document.getElementById('btn-signup').addEventListener('click', function () {
-                location.href = '../Customer/Register';
-            });
+            // document.getElementById('btn-signup').addEventListener('click', function () {
+            //     location.href = '../Customer/Register';
+            // });
+
+            
         });
 
+        
 
         function EditCustomerProfile(e) {
             var id = $(e).attr('data-id');

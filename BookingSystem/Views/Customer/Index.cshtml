@@ -70,9 +70,11 @@
         var q;
 
         $(function () {
+            $('.nav-link').removeClass('active');
+            $('#li_cus_home').addClass('active');
+
             LoadMostPopularRestaurants();
             LoadNewestRestaurants();
-
             initPaging();
         });
 

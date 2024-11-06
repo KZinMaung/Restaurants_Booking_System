@@ -15,7 +15,7 @@
                 <label class="form-control" for="schedule_@schedule.Id">
                     <span class="form-check">
                         <input type="radio" class="form-check-input" id="schedule_@schedule.Id" name="time" data-id="@schedule.Id" onclick="ShowAvailableCount()" @(index == 1 ? "checked" : "")>
-                        <span class="form-check-label" id="schedule_@schedule.Id">@schedule.StartTime - @schedule.EndTime</span>
+                        <span class="form-check-label" id="span_schedule_@schedule.Id">@schedule.StartTime - @schedule.EndTime</span>
                     </span>
                 </label>
                 <!-- End Form Radio -->
@@ -23,8 +23,4 @@
         }
 
     </div>
-}
-else
-{
-    <div class="text-danger">No available time slots for today</div>
 }
