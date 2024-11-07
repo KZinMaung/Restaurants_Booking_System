@@ -1,4 +1,5 @@
 using BookingSystem.Services;
+using Data.Constants;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,6 +49,36 @@ app.UseSession();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Middleware for conditional routing
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path == "/")
+    {
+        if (context.User.Identity != null && context.User.Identity.IsAuthenticated)
+        {
+            var userType = context.User.Claims.ToArray()[AuthDataIndex.UserType].Value;
+            if (userType == UserType.Restaurant)
+            {
+                context.Response.Redirect("/Restaurant/Index");
+
+            }
+            else
+            {
+                context.Response.Redirect("/Customer/Index");
+            }
+
+        }
+        else
+        {
+            context.Response.Redirect("/Customer/Index");
+        }
+    }
+    else
+    {
+        await next();
+    }
+});
 
 app.MapControllerRoute(
     name: "default",

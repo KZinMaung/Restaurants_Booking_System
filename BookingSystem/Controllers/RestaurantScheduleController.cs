@@ -23,8 +23,17 @@ namespace BookingSystem.Controllers
                     .Where(schedule => schedule.StartTime > currentTime)
                     .ToList();
             }
-       
-            return PartialView("_ScheduleList", schedules);
+
+
+            if(schedules.Count > 0)
+            {
+                return PartialView("_ScheduleList", schedules);
+
+            }
+            else
+            {
+                return new EmptyResult();
+            }
         }
 
     }

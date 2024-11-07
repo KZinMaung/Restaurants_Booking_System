@@ -56,7 +56,7 @@ namespace API.Services.Menu
 
 
 
-        public async Task<Model<tbMenu>> GetList(int resId, int page, int pageSize, string? sortVal = "Id", string? sortDir = "asc",
+        public async Task<Model<tbMenu>> GetList(int resId, int page, int pageSize, string? sortVal = "Id", string? sortDir = "desc",
                         string? q = "")
         {
             Expression<Func<tbMenu, bool>> basicFilter = null, restaurantFilter = null;

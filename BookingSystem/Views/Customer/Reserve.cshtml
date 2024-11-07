@@ -79,7 +79,7 @@
                 </div>
 
                 <div class="d-flex flex-fill" >
-                    <button type="button" class="btn btn-primary btn-sm w-100" onclick="ReviewReservation()">Review Reservation</button>
+                    <button type="button" class="btn btn-primary btn-sm w-100" onclick="ReviewReservation()" id="btn-review">Review Reservation</button>
                 </div>
             </form>
         </div>
@@ -139,6 +139,7 @@
         var page = 1;
         var pagesize = 5;
         var q;
+        
 
         var reviewPage = 1;
         var reviewPageSize = 5;
@@ -216,6 +217,8 @@
                 },
                 success: function (data) {
                     $('#div_tab_content').empty().append(data);
+                    $(".div-actions").hide();
+
                     $(".pagination li").addClass("page-item");
                     $(".pagination span").addClass("page-link");
                     $(".pagination a").addClass("page-link");
@@ -402,14 +405,25 @@
 
                 },
                 success: function (data) {
-                    $('#div_schedule_list').empty().append(data);
+                    if(data){
+                        $('#btn-review').prop('disabled', false);
+                        $('#div_schedule_list').empty().append(data);
+                        ShowAvailableCount();
+                    }
+                    else{
+                        var temp = '<div class="text-danger">No available time slots for today</div>';
+                        $('#div_schedule_list').empty().append(temp);
+                        $('#btn-review').prop('disabled', true);
+                    }
+
 
                 },
                 complete: function () {
-                    ShowAvailableCount();
+                  
                 }
             });
         }
+
 
 
 
@@ -419,7 +433,7 @@
             //get input data
             var date = $('#BookingDate').val();
             var scheduleId = $('input[name="time"]:checked').data('id');
-            var scheduleText = $('#schedule_'+scheduleId).text();
+            var scheduleText = $('#span_schedule_' + scheduleId).text();
             var noOfTable = $('#txt-noOfTable').val().toString();
             var cusName = $('#txt-name').val();
             var cusEmail = $('#txt-email').val();
@@ -437,7 +451,7 @@
                 }
 
 
-             if (!date || !scheduleId || !scheduleText || !noOfTable || !cusName || !cusEmail || !cusPhone) {
+             if (!date || !scheduleId  || !noOfTable || !cusName || !cusEmail || !cusPhone) {
                 alert("Please fill in all the required fields.");
                 return; // Exit the function if validation fails
             }

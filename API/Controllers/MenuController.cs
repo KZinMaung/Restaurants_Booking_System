@@ -24,7 +24,7 @@ namespace API.Controllers
         }
 
         [HttpGet("api/menu/get-list")]
-        public async Task<IActionResult> GetList(int resId = 0, int page = 1, int pageSize = 10, string? sortVal = "Id", string? sortDir = "asc",
+        public async Task<IActionResult> GetList(int resId = 0, int page = 1, int pageSize = 10, string? sortVal = "Id", string? sortDir = "desc",
                                 string? q = "")
 
         {
