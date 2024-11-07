@@ -85,7 +85,7 @@
         </div>
 
         
-<div class="modal fade" id="reviewReservationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="reviewReservationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -126,8 +126,26 @@
         </div>
     </div>
 </div>
-       
         
+        
+        <div class="modal fade" id="bookingSuccessModal" aria-hidden="true" aria-labelledby="confirm_modal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Booking Success</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                       You've made the booking successfully and booking confirmation will send to your mail.
+                    </div>
+                    <div class="modal-footer">
+                        <a type="button" class="btn btn-secondary btn-sm" href="~/Customer/Index">Back to home</a>
+                        <a type="button" class="btn btn-primary btn-sm" href="~/Customer/Bookings">Go to booking list</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -488,7 +506,9 @@
                     console.log("data:", data);
                     if (data?.Status == "@ResponseStatus.Success") {
                         $('#reviewReservationModal').modal('hide');
-                        alert("Success!!");
+                        
+                        $('#bookingSuccessModal').modal('show');
+
                         
                     }
                     else {
