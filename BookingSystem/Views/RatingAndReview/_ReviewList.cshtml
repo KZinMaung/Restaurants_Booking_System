@@ -3,7 +3,7 @@
 
 @if (Model.Results.TotalItemCount > 0)
 {   <div id="review-list">
-        <div class="border-bottom pb-4 mb-4">
+        <div class="border-bottom pb-2 mb-2">
             <div class="row align-items-center">
                 <div class="col-sm-6 mb-2 mb-sm-0">
                     <h3 class="mb-0">Reviews</h3>
@@ -19,7 +19,7 @@
 
                 <!-- Item -->
                 <li class="list-comment-item">
-                    <div class="d-flex gap-1 mb-3">
+                    <div class="d-flex gap-1 mb-2">
                         @for (int i = 0; i < ratingNreview.Rating; i++)
                         {
                             <img src="~/assets/svg/illustrations/star.svg" alt="Review rating" width="16">
@@ -28,7 +28,7 @@
                     </div>
 
                     <!-- Media -->
-                    <div class="d-flex align-items-center mb-3">
+                    <div class="d-flex align-items-center mb-2">
                         <div class="flex-shrink-0">
                             <img class="avatar avatar-sm avatar-circle" src="@item.CustomerPhotoUrl" alt="Image Description">
                         </div>
@@ -42,7 +42,7 @@
                     </div>
                     <!-- End Media -->
 
-                    <div class="mb-5">
+                    <div class="mb-3">
                         <p>@ratingNreview.Review</p>
                     </div>
 
