@@ -147,7 +147,10 @@
         var reservationData;
 
         $(function () {
-           
+
+        //to disable past dates in date picker
+        let today = new Date().toISOString().split("T")[0];
+        $("#BookingDate").attr("min", today);
 
             LoadMenuList();
             BindTodayDate();
@@ -165,7 +168,6 @@
         function initPaging() {
            
             $("#menu-list").on("click", ".pagination-bx a", function (e) {
-
                 e.preventDefault();
                 var $a = $(this).attr("href");
                 try {
