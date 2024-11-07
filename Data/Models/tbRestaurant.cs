@@ -53,7 +53,7 @@ namespace Data.Models
                 }
                 else
                 {
-                    return $"https://localhost:7156/assets/img/160x160/img6.jpg";
+                    return $"https://localhost:7156/img/default-restaurant.png";
 
                 }
             }
@@ -71,14 +71,14 @@ namespace Data.Models
         {
             get
             {
-                if (this.CoverPhoto != null)
+                if (this.ProfilePhoto != null)
                 {
 
                     return $"https://localhost:7156/Storage/{ProfilePhoto}";
                 }
                 else
                 {
-                    return $"https://localhost:7156/assets/img/160x160/img6.jpg";
+                    return $"https://localhost:7156/img/default-restaurant.png";
 
                 }
             }

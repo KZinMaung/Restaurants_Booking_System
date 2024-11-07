@@ -1,5 +1,6 @@
 ﻿
 using API.Services.Customer;
+using API.Services.Restaurant;
 using Core.Extension;
 using Data.Constants;
 using Data.Dtos;
@@ -83,6 +84,7 @@ namespace API.Services.Auth
                 claims.Name = customer.Name;
                 claims.Email = customer.Email;
                 claims.Phone = customer.Phone;
+                claims.ProfilePhotoUrl = customer.PhotoUrl;
                 claims.UserType = UserType.Customer;
                 var token = GenerateJwtToken(claims);
 

@@ -42,7 +42,7 @@ namespace Data.Models
                 }
                 else
                 {
-                    return $"https://localhost:7156/assets/img/160x160/img1.jpg";
+                    return $"https://localhost:7156/img/user-profile.png";
 
                 }
             }
