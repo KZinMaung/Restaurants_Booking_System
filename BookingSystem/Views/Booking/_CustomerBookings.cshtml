@@ -9,7 +9,16 @@
             var res = item.Restaurant;
             var booking = item.Booking;
             var schedule = item.Schedule;
-           
+
+            var formattedDate = (booking.BookingDate).ToString("dd MMM yy");
+
+            DateTime startTime = DateTime.Today.Add(schedule.StartTime);
+            string formattedStartTime = startTime.ToString("hh:mm tt");
+
+            DateTime endTime = DateTime.Today.Add(schedule.EndTime);
+            string formattedEndTime = endTime.ToString("hh:mm tt");
+
+
             <div class="row border rounded mt-3 py-3 px-1">
                 <div class="col-12 col-md-3">
                     <div class="mb-3 mb-md-0">
@@ -26,8 +35,8 @@
                             <span class="badge text-success text-capitalize">@booking.Status</span>
                         </div>
                         <div class="d-flex gap-3">
-                            <span class="badge bg-soft-primary text-primary">@booking.BookingDate</span>
-                            <span class="badge bg-soft-primary text-primary">@schedule.StartTime - @schedule.EndTime</span>
+                            <span class="badge bg-soft-primary text-primary">@formattedDate</span>
+                            <span class="badge bg-soft-primary text-primary">@formattedStartTime - @formattedEndTime</span>
                             <span class="badge bg-soft-primary text-primary">@booking.NoOfTable table(s)</span>
                         </div>
                         <div class="d-flex justify-content-between">

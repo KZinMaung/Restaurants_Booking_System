@@ -88,19 +88,27 @@ namespace API.Services.Booking
 
         private async Task SendConfirmEmail(BookingVM data)
         {
+            var formattedDate = (data.Booking.BookingDate).ToString("dd MMM yy");
+
+            DateTime startTime = DateTime.Today.Add(data.Schedule.StartTime);
+            string formattedStartTime = startTime.ToString("hh:mm tt");
+
+            DateTime endTime = DateTime.Today.Add(data.Schedule.EndTime);
+            string formattedEndTime = endTime.ToString("hh:mm tt");
+
             string receptor = data.Booking.CustomerEmail;
             string subject = "Your Reservation is Confirmed!";
             string body = $@"Dear {data.Booking.CustomerName},
 
                         Thank you for choosing {data.Restaurant.Name}!
-                        We're excited to confirm your reservation on {data.Booking.BookingDate} at {data.Schedule.StartTime} - {data.Schedule.EndTime}.
+                        We're excited to confirm your reservation on {formattedDate} at {formattedStartTime} - {formattedEndTime}.
 
                         Reservation Details:
 
                         Booking Code: {data.Booking.BookingCode}
                         Name: {data.Booking.CustomerName}
-                        Time: {data.Schedule.StartTime} - {data.Schedule.EndTime}
-                        Date: {data.Booking.BookingDate}
+                        Time: {formattedStartTime} - {formattedEndTime}
+                        Date: {formattedDate}
                         Table Count: {data.Booking.NoOfTable}
 
                         If you need to modify or cancel your reservation, please contact us at {data.Restaurant.Phone} or {data.Restaurant.Email}.

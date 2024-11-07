@@ -432,6 +432,8 @@
         function ReviewReservation(){
             //get input data
             var date = $('#BookingDate').val();
+            let formattedDate = moment(date).format("DD MMM YY");
+
             var scheduleId = $('input[name="time"]:checked').data('id');
             var scheduleText = $('#span_schedule_' + scheduleId).text();
             var noOfTable = $('#txt-noOfTable').val().toString();
@@ -461,7 +463,7 @@
             }
 
             //bind data to modal
-            $('#modal-date').text(date);
+            $('#modal-date').text(formattedDate);
             $('#modal-schedule').text(scheduleText);
             $('#modal-noOfTable').text(noOfTable);
             $('#modal-cusName').text(cusName);

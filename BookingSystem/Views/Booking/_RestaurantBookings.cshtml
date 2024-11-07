@@ -26,11 +26,19 @@
                         var booking = item.Booking;
                         var schedule = item.Schedule;
 
+                        var formattedDate = (booking.BookingDate).ToString("dd MMM yy");
+
+                        DateTime startTime = DateTime.Today.Add(schedule.StartTime);
+                        string formattedStartTime = startTime.ToString("hh:mm tt");
+
+                        DateTime endTime = DateTime.Today.Add(schedule.EndTime);
+                        string formattedEndTime = endTime.ToString("hh:mm tt");
+
                         <tr>
                             <td>@booking.CustomerName</td>
                             <td>@booking.CustomerPhone</td>
-                            <td>@schedule.StartTime - @schedule.EndTime</td>
-                            <td>@booking.BookingDate</td>
+                            <td>@formattedStartTime - @formattedEndTime</td>
+                            <td>@formattedDate</td>
                             <td>@booking.NoOfTable</td>
                             <td class="text-capitalize">@booking.Status</td>
                             <td>
