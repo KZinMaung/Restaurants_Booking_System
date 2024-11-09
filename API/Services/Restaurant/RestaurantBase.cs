@@ -116,7 +116,7 @@ namespace API.Services.Restaurant
 
                 if (entity != null)
                 {
-                     InsertSchedules(entity);
+                     await InsertSchedules(entity);
                 }
 
 
