@@ -13,10 +13,10 @@
         </div>
         <div class="d-flex flex-column flex-fill">
             <h3>1</h3>
-            <span>Finished Bookings</span>
+            <span>Completed Bookings</span>
         </div>
         <div class="d-flex flex-column flex-fill">
-            <h3>0</h3>
+            <h3>1</h3>
             <span>Cancelled Bookings</span>
         </div>
     </div>
@@ -24,6 +24,7 @@
 </div>
 @if (Model.Results.TotalItemCount > 0)
 {
+    Console.WriteLine(Model.Results.TotalItemCount);
     <div>
         
 
