@@ -8,6 +8,8 @@ using Data.ViewModels;
 using Infra.Services;
 using Infra.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Diagnostics.Metrics;
 using System.Linq.Expressions;
 
 namespace API.Services.Booking
@@ -158,18 +160,13 @@ namespace API.Services.Booking
                                    Booking = b,
                                    Restaurant = r,
                                    Schedule = rs,
-                                   CanCancel = b.Status == "Confirmed" &&
+                                   CanCancel = b.Status == BookingStatus.Confirmed &&
                                             (b.BookingDate.Date + rs.StartTime) > currentDateTime &&
                                             (b.BookingDate.Date + rs.StartTime - currentDateTime).TotalMinutes >= 30
                                }).AsQueryable();
 
 
-            if (!string.IsNullOrEmpty(q))
-            {
-                basicFilter = vm => vm.Booking.BookingCode.Contains(q);
-                query = query.Where(basicFilter);
-            }
-
+           
             if (cusId != 0)
             {
                 customerFilter = vm => vm.Booking.CustomerId == cusId;
@@ -182,10 +179,40 @@ namespace API.Services.Booking
                 query = query.Where(restaurantFilter);
             }
 
+
+            BookingCounts bookingCounts = new BookingCounts();
+            bookingCounts.AllCount = query.Count();
+            foreach (var item in query)
+            {
+                var booking = item.Booking;
+                if (booking.Status == BookingStatus.Completed)
+                {
+                    bookingCounts.CompletedCount++;
+                }
+                else if (booking.Status == BookingStatus.Cancelled)
+                {
+                    bookingCounts.CancelledCount++;
+                }
+                else if (booking.Status == BookingStatus.Confirmed)
+                {
+                    bookingCounts.ConfirmedCount++;
+                }
+            }
+            
+            string additionalData = JsonConvert.SerializeObject(bookingCounts);
+
+            if (!string.IsNullOrEmpty(q))
+            {
+                basicFilter = vm => vm.Booking.BookingCode.Contains(q);
+                query = query.Where(basicFilter);
+            }
+
             var sortVal = "Id";
             var sortDir = "desc";
             query = SORTLIT<BookingVM>.Sort(query, sortVal, sortDir);
-            var result = await PagingService<BookingVM>.getPaging(page, pageSize, query);
+
+           
+            var result = await PagingService<BookingVM>.getPaging(page, pageSize, query, additionalData);
             return result;
         }
 

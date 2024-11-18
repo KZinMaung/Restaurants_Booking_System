@@ -5,15 +5,13 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{486826E3-5CD2-4050-9D24-5D01A1985A3F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{AE9255E8-0A62-49B8-9F84-8ACDF6927D9F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{E5E1BC89-492A-48F5-868A-2C86BE186EE8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{9224291E-E2DB-4210-B514-8E6980331BE2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra", "Infra\Infra.csproj", "{7FF72426-3E6B-4D68-9AD6-5277A79FBD56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingSystem", "BookingSystem\BookingSystem.csproj", "{52D5FC45-4C7E-4C5D-A099-0C53BC90B74E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingSystem", "BookingSystem\BookingSystem.csproj", "{52D5FC45-4C7E-4C5D-A099-0C53BC90B74E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		{486826E3-5CD2-4050-9D24-5D01A1985A3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{486826E3-5CD2-4050-9D24-5D01A1985A3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{486826E3-5CD2-4050-9D24-5D01A1985A3F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AE9255E8-0A62-49B8-9F84-8ACDF6927D9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AE9255E8-0A62-49B8-9F84-8ACDF6927D9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AE9255E8-0A62-49B8-9F84-8ACDF6927D9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AE9255E8-0A62-49B8-9F84-8ACDF6927D9F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E5E1BC89-492A-48F5-868A-2C86BE186EE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E5E1BC89-492A-48F5-868A-2C86BE186EE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5E1BC89-492A-48F5-868A-2C86BE186EE8}.Release|Any CPU.ActiveCfg = Release|Any CPU

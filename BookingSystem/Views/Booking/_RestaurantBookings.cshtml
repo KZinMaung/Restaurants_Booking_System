@@ -1,22 +1,27 @@
 ﻿@model Infra.Services.PagedListClient<Data.ViewModels.BookingVM>
 @using Data.Constants
+@using Data.Dtos
+@using Newtonsoft.Json
 @using X.PagedList.Mvc.Core
 
-
+@{
+    string countsJson = Model.AdditionalData;
+    BookingCounts counts = JsonConvert.DeserializeObject<BookingCounts>(countsJson);
+}
 
 <div class="d-flex flex-column gap-3 my-3 shadow-sm p-3 mb-5 bg-white rounded">
-    <h4>Monthly Report (NOV 2024)</h4>
+    <h4>Report </h4>
     <div class="d-flex gap-3">
         <div class="d-flex flex-column flex-fill">
-            <h3 class="text-primary">3</h3>
+            <h3 class="text-primary">@counts.AllCount</h3>
             <span>Total Bookings</span>
         </div>
         <div class="d-flex flex-column flex-fill">
-            <h3>1</h3>
+            <h3>@counts.CompletedCount</h3>
             <span>Completed Bookings</span>
         </div>
         <div class="d-flex flex-column flex-fill">
-            <h3>1</h3>
+            <h3>@counts.CancelledCount</h3>
             <span>Cancelled Bookings</span>
         </div>
     </div>
@@ -24,16 +29,18 @@
 </div>
 @if (Model.Results.TotalItemCount > 0)
 {
-    Console.WriteLine(Model.Results.TotalItemCount);
+    
     <div>
         
 
-        <div class="mb-3" style="width: 30%;">
-            <label class="form-label" for="search">Search</label>
-            <input type="text" id="search" class="form-control" placeholder="Search">
-        </div>
+       @*  <div class="mb-3" style="width: 30%;">
+            <div id="searchForm">
+                <input type="text" class="search-with-icon admin-search" placeholder="Search" aria-label="Search" id="txt_title">
+                <button id="btn_clear">&times;</button>
+            </div>
+        </div> *@
         <div class="my-3">
-            <span>Total Bookings: 123</span>
+          
             <!-- Table -->
             <table class="table table-striped display" id="booking-table" style="width:100%">
                 <thead>

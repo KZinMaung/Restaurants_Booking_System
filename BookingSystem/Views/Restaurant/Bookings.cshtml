@@ -29,6 +29,41 @@
            
         });
 
+        function querySearch(){
+            let input = document.getElementById('txt_title');
+            let timeout = null;
+
+            input.addEventListener('keyup', function (e) {
+                clearTimeout(timeout);
+
+                timeout = setTimeout(function () {
+                    Search();
+                }, 1000);
+            });
+
+            function Search() {
+
+                q = $('#txt_title').val().trim();
+                page = 1;
+                LoadMainList();
+            }
+
+        }
+
+
+        function clearSearch() {
+            let input = document.getElementById('btn_clear');
+
+            input.addEventListener('click', function (e) {
+                $('#txt_title').val('');
+                q = '';
+                page = 1;
+                LoadMainList();
+
+            });
+
+        }
+
         function initPaging() {
             $("#div-restaurant-bookings").on("click", ".pagination-bx a", function (e) {
                 e.preventDefault();
@@ -70,7 +105,8 @@
 
                 },
                 complete: function () {
-                    
+                    querySearch();
+                    clearSearch();
                 }
 
             });
