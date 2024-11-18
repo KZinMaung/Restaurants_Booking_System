@@ -11,7 +11,7 @@
                 @foreach (var item in Model.Results)
                 {
                     var res = item.Restaurant;
-                    <div class="col-md-4 mb-4 mb-md-5 px-2">
+                    <div class="col-12 col-md-4 mb-4 mb-md-5 px-2 pointer">
                         <!-- Card -->
                         <a class="card card-transition" onclick="Reserve(@res.Id)" data-aos="fade-up" data-aos-delay="150">
                             <div class="card-pinned">
